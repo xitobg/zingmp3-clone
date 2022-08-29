@@ -7,20 +7,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import NextArrow from "./buttonMove/NextArrow";
+import PrevArrow from "./buttonMove/PrevArrow";
 const StyledBanner = styled.div`
   & .slick-slider {
-    & .slick-slide__btn {
-      display: inline-block;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: ${(props) => props.theme.alphaBg};
-      border-radius: 100rem;
-      cursor: pointer;
-      z-index: 50;
-      opacity: 0;
-      visibility: hidden;
-    }
     &:hover .slick-slide__btn {
       opacity: 1;
       visibility: visible;
@@ -37,24 +27,7 @@ const StyledBanner = styled.div`
     }
   }
 `;
-function NextArrow(props) {
-  const { onClick } = props;
-  return (
-    <div className="next-btn slick-slide__btn" onClick={onClick}>
-      <BiChevronRight />
-    </div>
-  );
-}
 
-function PrevArrow(props) {
-  const { onClick } = props;
-
-  return (
-    <div className="prev-btn slick-slide__btn" onClick={onClick}>
-      <BiChevronLeft />
-    </div>
-  );
-}
 const Banner = ({ data }) => {
   const { items } = data;
   let slickProperty = {
@@ -100,7 +73,7 @@ const Banner = ({ data }) => {
       <div className="relative w-full overflow-hidden ">
         <Slider {...slickProperty}>
           {items
-            .filter((item) => item.type !== 8)
+            .filter((item) => item.type === 1 || item.type === 4)
             .map((item, index) => (
               <BannerItem key={item.encodeId} item={item} />
             ))}

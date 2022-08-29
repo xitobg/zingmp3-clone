@@ -47,6 +47,7 @@ const ZingChart = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
   const [dataZingChart, setDataZingChart] = useState([]);
+
   useEffect(() => {
     dispatch(setLoading(true));
     request

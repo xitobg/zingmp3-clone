@@ -189,6 +189,7 @@ const PlaylistDetail = () => {
         icon: "error",
         text: "Playlist chưa được hỗ trợ",
       });
+      dispatch(changeIconPlaying(false));
     } else {
       dispatch(setRandomSong(true));
       dispatch(setPlaylistId(idPlaylist));
@@ -200,6 +201,11 @@ const PlaylistDetail = () => {
       dispatch(setPlaylistSong(songCanPlay));
       dispatch(setCurrentIndexSong(randomIndex));
     }
+  };
+  const handleClickPlay = () => {
+    isPlay
+      ? dispatch(changeIconPlaying(false))
+      : dispatch(changeIconPlaying(true));
   };
   useEffect(() => {
     dispatch(setLoading(true));
@@ -237,6 +243,7 @@ const PlaylistDetail = () => {
             <div className="album-content">
               <div className="relative flex-shrink-0 w-[300px]">
                 <div
+                  onClick={handleClickPlay}
                   className={`relative overflow-hidden rounded-lg  album-card-image ${
                     isPlay && dataAlbum.encodeId === playlistId ? "playing" : ""
                   }`}
@@ -343,6 +350,7 @@ const PlaylistDetail = () => {
                         song?.items?.map((item, index) => {
                           return (
                             <SongItem
+                              section="playlist"
                               onClick={() =>
                                 handlGetCurrentPlaylist(
                                   item,

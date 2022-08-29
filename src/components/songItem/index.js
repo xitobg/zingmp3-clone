@@ -9,6 +9,10 @@ import Icon from "~/components/Icon";
 import { setSongId } from "~/redux-toolkit/audio/audioSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
+import { IoIosMusicalNotes } from "react-icons/io";
+import viplabel from "~/assets/image/vipLabel.svg";
+import { toast } from "react-toastify";
+
 const StyledSong = styled.div`
   &:hover .icon-play {
     display: initial;
@@ -167,11 +171,22 @@ const StyledSong = styled.div`
   .sort-ranking {
     color: ${(props) => props.theme.textPrimary};
   }
+  .song-icon-note {
+    color: ${(props) => props.theme.textSecondary};
+  }
 `;
 const SongItem = ({ item, index, onClick, section = "" }) => {
   const { currentSongId, isPlay } = useSelector((state) => state.audio);
-  const { encodeId, thumbnail, artists, title, rakingStatus, album, duration } =
-    item;
+  const {
+    encodeId,
+    thumbnail,
+    artists,
+    title,
+    rakingStatus,
+    album,
+    duration,
+    streamingStatus,
+  } = item;
   return (
     <StyledSong
       className={`song-item ${encodeId === currentSongId ? "active" : ""}`}
@@ -214,6 +229,11 @@ const SongItem = ({ item, index, onClick, section = "" }) => {
               )}
             </div>
           )}
+          {section === "playlist" && (
+            <div className="flex justify-center song-icon-note mr-[10px] items-center text-xs">
+              <IoIosMusicalNotes className="text-base text-inherit " />
+            </div>
+          )}
           <div className="song-thumb after:invisible  after:absolute after:content-[''] after:inset-0 after:w-full after:h-full after:bg-black after:bg-opacity-50  w-10 h-10 relative cursor-pointer rounded-[4px] flex-shrink-0 mr-[10px] overflow-hidden">
             <img
               className="object-cover w-full rounded-[4px] "
@@ -221,7 +241,7 @@ const SongItem = ({ item, index, onClick, section = "" }) => {
               alt=""
             />
             <div className="absolute  media-action  top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 text-[22px] text-white cursor-pointer z-10 ">
-              {isPlay && currentSongId === encodeId ? (
+              {isPlay && currentSongId === encodeId && streamingStatus === 1 ? (
                 <div className="w-[18px]  icon-playing  h-[18px] absolute top-2/4 -translate-x-2/4 -translate-y-2/4 z-50">
                   <img src={iconPlaying} alt="" />
                 </div>
@@ -235,7 +255,21 @@ const SongItem = ({ item, index, onClick, section = "" }) => {
           </div>
           <div className="song__info">
             {section !== "search" ? (
-              <div className="song__info-name">{title}</div>
+              <div className="song__info-name">
+                <span className="text-sm font-medium text-inherit whitespace-nowrap">
+                  {title}
+                </span>
+                {streamingStatus === 2 ? (
+                  <span
+                    style={{
+                      backgroundImage: `url(${viplabel})`,
+                    }}
+                    className="bg-cover inline-block ml-2 w-[26px] h-[12px] vip-label"
+                  ></span>
+                ) : (
+                  <></>
+                )}
+              </div>
             ) : (
               <Link
                 to={item.link}

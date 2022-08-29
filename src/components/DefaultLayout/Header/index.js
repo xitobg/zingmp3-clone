@@ -7,6 +7,7 @@ import Search from "./Search";
 import ModalTheme from "~/themes/modalTheme";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowModalTheme } from "~/redux-toolkit/global/globalSlice";
+import avatar from "~/assets/image/avatar.jpg";
 
 const StyledHeader = styled.div`
   z-index: 300;
@@ -44,11 +45,11 @@ const Header = () => {
         }`}
       >
         <Search></Search>
-        <div className="flex">
+        <div className="flex gap-x-3">
           <Tippy content="Chủ đề">
             <button
               onClick={() => dispatch(setShowModalTheme(true))}
-              className="flex items-center justify-center w-10 h-10 mr-3 rounded-full cursor-pointer btn-theme "
+              className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-theme "
             >
               <svg width="20" height="20" viewBox="0 0 20 20">
                 <defs>
@@ -213,7 +214,7 @@ const Header = () => {
             </button>
           </Tippy>
           <Tippy content="Tải lên ">
-            <button className="flex items-center justify-center w-10 h-10 mr-3 rounded-full cursor-pointer btn-theme ">
+            <button className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-theme ">
               <input id="upload-song" className="hidden" type="file" />
               <label htmlFor="upload-song">
                 <i className="cursor-pointer upload-btn bi text-inherit bi-upload"></i>
@@ -225,6 +226,9 @@ const Header = () => {
               <IoSettingsOutline className="cursor-pointer btn-seting"></IoSettingsOutline>
             </button>
           </Tippy>
+          <button className="flex items-center justify-center w-10 h-10 overflow-hidden rounded-full cursor-pointer">
+            <img className="rounded-full" src={avatar} alt="" />
+          </button>
         </div>
       </StyledHeader>
       <ModalTheme

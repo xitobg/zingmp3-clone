@@ -112,7 +112,7 @@ const Sidebar = () => {
           icon={<BsMusicNoteList className="menu-item__icon" />}
         />
         <MenuItem
-          title="/Radio"
+          title="Radio"
           to="radio"
           icon={<IoIosRadio className="menu-item__icon" />}
         />

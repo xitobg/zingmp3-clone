@@ -44,7 +44,13 @@ const MvArtist = ({ data = {} }) => {
               artists,
             } = item;
             return (
-              <div key={encodeId} className="relative flex flex-col">
+              <div
+                onClick={() =>
+                  toast.error("Tính năng xem MV chưa được cập nhật!")
+                }
+                key={encodeId}
+                className="relative flex flex-col"
+              >
                 <div className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay">
                   <img
                     className="object-cover w-full transition-all duration-700 rounded-md"

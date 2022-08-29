@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "~/components/Icon";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import {
   changeIconPlaying,
   setRandomSong,
@@ -29,11 +31,13 @@ const Control = ({ audioElm, audioRef }) => {
     <div className="player-control w-[40%] flex flex-col">
       <div className="flex items-center justify-center">
         <div className="inline-flex items-center ">
-          <Icon onClick={handleRandomSong} control>
-            <i
-              className={`p-1 bi bi-shuffle ${isRandom ? "is-random" : ""}`}
-            ></i>
-          </Icon>
+          <Tippy content="Phát ngẫu nhiên">
+            <Icon onClick={handleRandomSong} control>
+              <i
+                className={`p-1 bi bi-shuffle ${isRandom ? "is-random" : ""}`}
+              ></i>
+            </Icon>
+          </Tippy>
           <Icon control>
             <i className="p-1 bi bi-skip-start-fill"></i>
           </Icon>
@@ -288,13 +292,15 @@ const Control = ({ audioElm, audioRef }) => {
           <Icon control>
             <i className="p-1 bi bi-skip-end-fill"></i>
           </Icon>
-          <Icon onClick={handleRepeatSong} control>
-            <i
-              className={`p-1 bi bi-arrow-repeat ${
-                isRepeat ? "is-repeat" : ""
-              }`}
-            ></i>
-          </Icon>
+          <Tippy content="Phát lại một bài">
+            <Icon onClick={handleRepeatSong} control>
+              <i
+                className={`p-1 bi bi-arrow-repeat ${
+                  isRepeat ? "is-repeat" : ""
+                }`}
+              ></i>
+            </Icon>
+          </Tippy>
         </div>
       </div>
       <div className="w-full mt-[10px] flex items-center justify-center ">

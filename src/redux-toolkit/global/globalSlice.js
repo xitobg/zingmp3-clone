@@ -5,7 +5,7 @@ export const globalSlice = createSlice({
   name: "global",
   initialState: {
     isSticky: false,
-    theme: roseTheme,
+    theme: JSON.parse(localStorage.getItem("THEME_BG")) || roseTheme,
     showModalTheme: false,
     loading: false,
   },
@@ -15,6 +15,7 @@ export const globalSlice = createSlice({
     },
     setThemeBg: (state, action) => {
       state.theme = action.payload;
+      localStorage.setItem("THEME_BG", JSON.stringify(action.payload));
     },
     setShowModalTheme: (state, action) => {
       state.showModalTheme = action.payload;

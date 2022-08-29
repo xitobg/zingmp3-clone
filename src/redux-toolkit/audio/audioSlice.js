@@ -3,7 +3,7 @@ import logozingmp3 from "~/assets/image/logo.jpeg";
 export const audioSlice = createSlice({
   name: "audio",
   initialState: {
-    infoSongPlayer: localStorage.getItem("infoSongPlayer") || {
+    infoSongPlayer: JSON.parse(localStorage.getItem("infoSongPlayer")) || {
       title: "Tên bài hát",
       thumbnail: logozingmp3,
       artistsNames: "Tên ca sĩ",
@@ -17,7 +17,7 @@ export const audioSlice = createSlice({
     currenTime: 0,
     duraTion: 0,
     playlistId: "",
-    playlistSong: [],
+    playlistSong: JSON.parse(localStorage.getItem("PLAYLIST_SONG")) || [],
     playlistRandom: [],
     currentIdexSong: 0,
     currentIndexSongRandom: 0,
@@ -63,6 +63,10 @@ export const audioSlice = createSlice({
     },
     setPlaylistSong: (state, action) => {
       state.playlistSong = [...action.payload];
+      localStorage.setItem(
+        "PLAYLIST_SONG",
+        JSON.stringify([...action.payload])
+      );
     },
     setPlaylistRandom: (state, action) => {
       state.playlistRandom = [...action.payload];
