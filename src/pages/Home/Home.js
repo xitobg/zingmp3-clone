@@ -25,7 +25,7 @@ const Home = () => {
       .get(`/home`)
       .then((res) => {
         if (res.data && res.data.data) {
-          console.log(res.data.data);
+          console.log(res);
           const { items } = res.data.data;
           setDataHome(items);
           dispatch(setLoading(false));
@@ -35,6 +35,9 @@ const Home = () => {
         dispatch(setLoading(false));
         console.log(err);
       });
+    document.title =
+      "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile ";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

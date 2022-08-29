@@ -61,6 +61,8 @@ const ZingChart = () => {
         dispatch(setLoading(false));
         console.log(err);
       });
+    document.title =
+      "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile ";
   }, []);
 
   return (

@@ -1,30 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "~/components/Icon";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import {
   changeIconPlaying,
+  setAudioSrc,
+  setCurrentIndexSong,
+  setCurrentTime,
+  setInfoSongPlayer,
   setRandomSong,
   setRepeatSong,
+  setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 
-const Control = ({ audioElm, audioRef }) => {
+const Control = ({ audioRef }) => {
   const dispatch = useDispatch();
-  const { isPlay, isRepeat, isRandom } = useSelector((state) => state.audio);
+  const {
+    isPlay,
+    isRepeat,
+    isRandom,
+    srcAudio,
+    currentIndexSong,
+    playlistSong,
+  } = useSelector((state) => state.audio);
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
       if (audioRef) {
-        audioElm.pause();
+        audioRef.current.pause();
       }
     } else {
       dispatch(changeIconPlaying(true));
       if (audioRef) {
-        audioElm.play();
+        audioRef.current.play();
       }
     }
   };
+  const handleNextSong = () => {
+    if (
+      currentIndexSong === playlistSong.length - 1 ||
+      currentIndexSong >= playlistSong.length - 1
+    ) {
+      return;
+    } else {
+      dispatch(setAudioSrc(""));
+      dispatch(setCurrentTime(0));
+      audioRef.current.currentTime = 0;
+      dispatch(setCurrentIndexSong(currentIndexSong + 1));
+      dispatch(setInfoSongPlayer(playlistSong[currentIndexSong]));
+      dispatch(setSongId(playlistSong[currentIndexSong].encodeId));
+    }
+  };
+  const handlePrevSong = () => {};
+  useEffect(() => {
+    if (srcAudio !== "") {
+      isPlay ? audioRef.current.play() : audioRef.current.pause();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPlay, srcAudio]);
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   return (
@@ -38,7 +72,7 @@ const Control = ({ audioElm, audioRef }) => {
               ></i>
             </Icon>
           </Tippy>
-          <Icon control>
+          <Icon onClick={handlePrevSong} control>
             <i className="p-1 bi bi-skip-start-fill"></i>
           </Icon>
           <button
@@ -289,7 +323,7 @@ const Control = ({ audioElm, audioRef }) => {
                 </g>
               </svg> */}
           </button>
-          <Icon control>
+          <Icon onClick={handleNextSong} control>
             <i className="p-1 bi bi-skip-end-fill"></i>
           </Icon>
           <Tippy content="Phát lại một bài">

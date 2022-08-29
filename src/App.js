@@ -16,7 +16,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <ToastContainer></ToastContainer>
         <GlobalStyles></GlobalStyles>
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<></>}>
           <Routes>
             {publicRoutes.map((route, index) => {
               const Page = route.component;

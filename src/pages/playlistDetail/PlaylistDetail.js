@@ -20,9 +20,11 @@ import {
   changeIconPlaying,
   setAudioSrc,
   setCurrentIndexSong,
+  setCurrentIndexSongRandom,
   setCurrentTime,
   setInfoSongPlayer,
   setPlaylistId,
+  setPlaylistRandom,
   setPlaylistSong,
   setRandomSong,
   setSongId,
@@ -145,35 +147,51 @@ const StyledAlbum = styled.div`
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isPlay, isRandom, playlistId } = useSelector((state) => state.audio);
+  const { isPlay, isRandom, playlistId, currentIndexSong } = useSelector(
+    (state) => state.audio
+  );
   const { loading } = useSelector((state) => state.global);
   const [dataAlbum, setDataAlbum] = useState([]);
   const { id } = location.state;
   const getCurrentIdexSong = (currentPlaylist, song) => {
     return currentPlaylist.indexOf(song);
   };
-  const handlGetCurrentPlaylist = (song, currentPlayList, idPlaylist) => {
+  const handleGetCurrentPlaylist = (song, currentPlayList, idPlaylist) => {
     const playlistCanPlay = [];
-    dispatch(setAudioSrc(""));
-    dispatch(setCurrentTime(0));
-    dispatch(setPlaylistId(idPlaylist));
-    for (let songItem of currentPlayList) {
-      if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
-        playlistCanPlay.push(songItem);
+    if (song.streamingStatus === 1 && song.isWorldWide) {
+      dispatch(setAudioSrc(""));
+      dispatch(setCurrentTime(0));
+      dispatch(setPlaylistId(idPlaylist));
+      for (let songItem of currentPlayList) {
+        if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+          playlistCanPlay.push(songItem);
+        }
       }
-    }
-    if (isRandom) {
-      dispatch(setSongId(song.encodeId));
-      dispatch(setInfoSongPlayer(song));
-      dispatch(setPlaylistSong(playlistCanPlay));
-      dispatch(setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song)));
-      dispatch(changeIconPlaying(true));
+      if (isRandom) {
+        dispatch(setSongId(song.encodeId));
+        dispatch(setInfoSongPlayer(song));
+        dispatch(setPlaylistSong(playlistCanPlay));
+        dispatch(
+          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
+        );
+        dispatch(setCurrentIndexSongRandom(-1));
+        dispatch(changeIconPlaying(true));
+      } else {
+        dispatch(setPlaylistRandom(playlistCanPlay));
+        dispatch(setCurrentIndexSongRandom(-1));
+        dispatch(setInfoSongPlayer(song));
+        dispatch(setSongId(song.encodeId));
+        dispatch(setPlaylistSong(playlistCanPlay));
+        dispatch(
+          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
+        );
+        dispatch(changeIconPlaying(true));
+      }
     } else {
-      dispatch(setSongId(song.encodeId));
-      dispatch(setInfoSongPlayer(song));
-      dispatch(setPlaylistSong(playlistCanPlay));
-      dispatch(setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song)));
-      dispatch(changeIconPlaying(true));
+      Swal.fire({
+        icon: "error",
+        text: "Playlist chưa được hỗ trợ!",
+      });
     }
   };
   const handlePlayRandomSong = (playlist, idPlaylist) => {
@@ -189,9 +207,7 @@ const PlaylistDetail = () => {
         icon: "error",
         text: "Playlist chưa được hỗ trợ",
       });
-      dispatch(changeIconPlaying(false));
     } else {
-      dispatch(setRandomSong(true));
       dispatch(setPlaylistId(idPlaylist));
       dispatch(setAudioSrc(""));
       dispatch(setCurrentTime(0));
@@ -200,13 +216,11 @@ const PlaylistDetail = () => {
       dispatch(setInfoSongPlayer(songCanPlay[randomIndex]));
       dispatch(setPlaylistSong(songCanPlay));
       dispatch(setCurrentIndexSong(randomIndex));
+      dispatch(setRandomSong(true));
+      dispatch(changeIconPlaying(true));
     }
   };
-  const handleClickPlay = () => {
-    isPlay
-      ? dispatch(changeIconPlaying(false))
-      : dispatch(changeIconPlaying(true));
-  };
+
   useEffect(() => {
     dispatch(setLoading(true));
     request
@@ -215,8 +229,8 @@ const PlaylistDetail = () => {
         if (res.data) {
           const { data } = res.data;
           setDataAlbum(data);
-          console.log("data playlist:", data);
-          handlePlayRandomSong(data.song.items, id);
+          document.title = data.title;
+          isPlay === false && handlePlayRandomSong(data.song.items, id);
           dispatch(setLoading(false));
         }
       })
@@ -243,7 +257,6 @@ const PlaylistDetail = () => {
             <div className="album-content">
               <div className="relative flex-shrink-0 w-[300px]">
                 <div
-                  onClick={handleClickPlay}
                   className={`relative overflow-hidden rounded-lg  album-card-image ${
                     isPlay && dataAlbum.encodeId === playlistId ? "playing" : ""
                   }`}
@@ -352,7 +365,7 @@ const PlaylistDetail = () => {
                             <SongItem
                               section="playlist"
                               onClick={() =>
-                                handlGetCurrentPlaylist(
+                                handleGetCurrentPlaylist(
                                   item,
                                   song.items,
                                   dataAlbum.encodeId

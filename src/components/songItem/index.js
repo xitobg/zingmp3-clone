@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Icon from "~/components/Icon";
-import { setSongId } from "~/redux-toolkit/audio/audioSlice";
+import { changeIconPlaying, setSongId } from "~/redux-toolkit/audio/audioSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
@@ -176,6 +176,7 @@ const StyledSong = styled.div`
   }
 `;
 const SongItem = ({ item, index, onClick, section = "" }) => {
+  const dispatch = useDispatch();
   const { currentSongId, isPlay } = useSelector((state) => state.audio);
   const {
     encodeId,
@@ -241,18 +242,35 @@ const SongItem = ({ item, index, onClick, section = "" }) => {
               alt=""
             />
             <div className="absolute  media-action  top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 text-[22px] text-white cursor-pointer z-10 ">
-              {isPlay && currentSongId === encodeId && streamingStatus === 1 ? (
-                <div className="w-[18px]  icon-playing  h-[18px] absolute top-2/4 -translate-x-2/4 -translate-y-2/4 z-50">
+              {isPlay && currentSongId === encodeId ? (
+                <div
+                  onClick={() => dispatch(changeIconPlaying(false))}
+                  className="w-[18px]   h-[18px] absolute top-2/4 -translate-x-2/4 -translate-y-2/4 z-50"
+                >
                   <img src={iconPlaying} alt="" />
                 </div>
               ) : (
+                <></>
+              )}
+              {currentSongId !== encodeId ? (
                 <i
                   onClick={onClick}
-                  className="hidden p-1 icon-play bi bi-play-fill text-inherit"
+                  className="p-1 bi bi-play-fill text-inherit"
                 ></i>
+              ) : (
+                <></>
+              )}
+              {isPlay === false && currentSongId === encodeId ? (
+                <i
+                  onClick={() => dispatch(changeIconPlaying(true))}
+                  className="p-1 bi bi-play-fill text-inherit"
+                ></i>
+              ) : (
+                <></>
               )}
             </div>
           </div>
+
           <div className="song__info">
             {section !== "search" ? (
               <div className="song__info-name">

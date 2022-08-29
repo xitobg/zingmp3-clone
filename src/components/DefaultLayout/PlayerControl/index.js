@@ -156,10 +156,9 @@ const StyledPlayer = styled.div`
 `;
 const PlayerControl = () => {
   const dispatch = useDispatch();
+  const audioRef = useRef(null);
   const { isRepeat, currentSongId, srcAudio, isPlay, infoSongPlayer } =
     useSelector((state) => state.audio);
-  const audioRef = useRef(null);
-  const audioElm = audioRef.current;
   useEffect(() => {
     if (currentSongId !== null && currentSongId !== "") {
       request.get(`song/${currentSongId}`).then((res) => {
@@ -169,8 +168,7 @@ const PlayerControl = () => {
         }
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSongId, dispatch]);
+  }, [currentSongId]);
   return (
     <StyledPlayer>
       <div className="player-container">
@@ -207,7 +205,7 @@ const PlayerControl = () => {
             </div>
           </div>
         </div>
-        <Control audioRef={audioRef} audioElm={audioElm} />
+        <Control audioRef={audioRef} />
         <div className="w-[30%] flex justify-end">
           <div className="flex items-center justify-center">
             <Tippy content="Xem lời bài hát">
