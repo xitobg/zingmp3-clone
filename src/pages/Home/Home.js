@@ -25,7 +25,6 @@ const Home = () => {
       .get(`/home`)
       .then((res) => {
         if (res.data && res.data.data) {
-          console.log(res);
           const { items } = res.data.data;
           setDataHome(items);
           dispatch(setLoading(false));

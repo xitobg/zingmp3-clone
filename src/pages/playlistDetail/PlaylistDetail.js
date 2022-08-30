@@ -196,7 +196,7 @@ const PlaylistDetail = () => {
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(playlistCanPlay));
+        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
         dispatch(setInfoSongPlayer(song));
         dispatch(setPlaylistSong(playlistCanPlay));
         dispatch(setCurrentIndexSongRandom(-1));

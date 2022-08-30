@@ -61,23 +61,18 @@ const Control = ({ audioRef }) => {
         dispatch(setCurrentIndexSongRandom((currentIndexRandom += 1)));
         dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
         dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
-        //lấy  vị trí song hiện tại trong mảng random
-        // dispatch(
-        //   setCurrentIndexSong(
-        //     playlistSong.findIndex((song) => song.encodeId === currentSongId)
-        //   )
-        // );
         dispatch(
           setCurrentIndexSong(
             playlistSong.indexOf(playlistRandom[currentIndexRandom])
           )
         );
+        dispatch(changeIconPlaying(true));
       } else {
         dispatch(setCurrentIndexSong((currentIndex += 1)));
         dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
         dispatch(setSongId(playlistSong[currentIndex].encodeId));
+        dispatch(changeIconPlaying(true));
       }
-      dispatch(changeIconPlaying(true));
     }
   };
 
@@ -85,33 +80,35 @@ const Control = ({ audioRef }) => {
     dispatch(setAudioSrc(""));
     dispatch(setCurrentTime(0));
     audioRef.current.currentTime = 0;
-    if (isRandom) {
-      if (
-        currentIndexRandom <= 0 ||
-        currentIndexRandom >= playlistRandom.length - 1
-      ) {
-        dispatch(setCurrentTime(0));
-        audioRef.current.currentTime = 0;
-      } else {
+    if (currentIndex === 0) {
+      dispatch(setCurrentIndexSong((currentIndex = playlistSong.length - 1)));
+      dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
+      dispatch(setSongId(playlistSong[currentIndex].encodeId));
+      dispatch(changeIconPlaying(true));
+    } else {
+      if (isRandom) {
         dispatch(setCurrentIndexSongRandom((currentIndexRandom -= 1)));
         dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
         dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
         dispatch(
           setCurrentIndexSong(
-            playlistRandom.findIndex((song) => song.encodeId === currentSongId)
+            playlistSong.indexOf(playlistRandom[currentIndexRandom])
           )
         );
+        dispatch(changeIconPlaying(true));
+      } else {
+        dispatch(setCurrentIndexSong((currentIndex -= 1)));
+        dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
+        dispatch(setSongId(playlistSong[currentIndex].encodeId));
+        dispatch(changeIconPlaying(true));
       }
-    } else {
-      dispatch();
     }
-    dispatch(changeIconPlaying(true));
   };
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   useEffect(() => {
     if (srcAudio !== "" || srcAudio !== undefined) {
-      isPlay ? audioRef.current.play() : audioRef.current.pause();
+      isPlay ? audioRef.current?.play() : audioRef.current?.pause();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [srcAudio, isPlay]);
