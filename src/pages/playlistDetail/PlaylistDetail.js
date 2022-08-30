@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BsFillPlayFill, BsThreeDots } from "react-icons/bs";
+import { BsFillPauseFill, BsFillPlayFill, BsThreeDots } from "react-icons/bs";
 import styled from "styled-components";
 import Button from "~/components/button";
 import Icon from "~/components/Icon";
@@ -11,7 +11,7 @@ import ConvertDates from "~/utils/ConvertDates";
 import ArtistBanner from "~/components/artistBanner";
 import WrapperLayout from "~/components/wrapperLayout";
 import request from "~/services/request";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ConvertTotalDuration from "~/utils/ConvertTotalDuration";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { BiSortAlt2 } from "react-icons/bi";
@@ -143,6 +143,12 @@ const StyledAlbum = styled.div`
   .bottom-info {
     color: ${(props) => props.theme.textSecondary};
   }
+  .artist-name {
+    &:hover {
+      text-decoration: underline;
+      color: ${(props) => props.theme.linkTextHover};
+    }
+  }
 `;
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
@@ -156,7 +162,18 @@ const PlaylistDetail = () => {
   const getCurrentIdexSong = (currentPlaylist, song) => {
     return currentPlaylist.indexOf(song);
   };
-  const handleGetCurrentPlaylist = (song, currentPlayList, idPlaylist) => {
+  //Tạo ra array mới đã random từ array playlist
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * i); // no +1 here!
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+
+  const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
     const playlistCanPlay = [];
     if (song.streamingStatus === 1 && song.isWorldWide) {
       dispatch(setAudioSrc(""));
@@ -169,6 +186,7 @@ const PlaylistDetail = () => {
       }
       if (isRandom) {
         dispatch(setSongId(song.encodeId));
+        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
         dispatch(setInfoSongPlayer(song));
         dispatch(setPlaylistSong(playlistCanPlay));
         dispatch(
@@ -177,11 +195,11 @@ const PlaylistDetail = () => {
         dispatch(setCurrentIndexSongRandom(-1));
         dispatch(changeIconPlaying(true));
       } else {
-        dispatch(setPlaylistRandom(playlistCanPlay));
-        dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(setInfoSongPlayer(song));
         dispatch(setSongId(song.encodeId));
+        dispatch(setPlaylistRandom(playlistCanPlay));
+        dispatch(setInfoSongPlayer(song));
         dispatch(setPlaylistSong(playlistCanPlay));
+        dispatch(setCurrentIndexSongRandom(-1));
         dispatch(
           setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
         );
@@ -194,6 +212,7 @@ const PlaylistDetail = () => {
       });
     }
   };
+  //play random moi khi vao useEffect
   const handlePlayRandomSong = (playlist, idPlaylist) => {
     let songCanPlay = [];
     let randomIndex;
@@ -257,6 +276,7 @@ const PlaylistDetail = () => {
             <div className="album-content">
               <div className="relative flex-shrink-0 w-[300px]">
                 <div
+                  onClick={() => dispatch(changeIconPlaying(!isPlay))}
                   className={`relative overflow-hidden rounded-lg  album-card-image ${
                     isPlay && dataAlbum.encodeId === playlistId ? "playing" : ""
                   }`}
@@ -297,8 +317,17 @@ const PlaylistDetail = () => {
                     <div className="artists">
                       {artists
                         ?.map((item) => {
-                          const { name, id } = item;
-                          return <span key={id}>{name}</span>;
+                          const { name, id, link, alias } = item;
+                          return (
+                            <Link
+                              className="artist-name text-inherit"
+                              to={link}
+                              state={{ artistName: alias }}
+                              key={id}
+                            >
+                              {name}
+                            </Link>
+                          );
                         })
                         .reduce((prev, curr) => [prev, ", ", curr])}
                     </div>
@@ -308,9 +337,23 @@ const PlaylistDetail = () => {
                   </div>
                   <div className="flex flex-col justify-center mt-4 actions">
                     <div className="flex justify-center">
-                      <Button large leftIcon={<BsFillPlayFill />}>
-                        TIẾP TỤC PHÁT
-                      </Button>
+                      {isPlay ? (
+                        <Button
+                          onClick={() => dispatch(changeIconPlaying(false))}
+                          large
+                          leftIcon={<BsFillPauseFill />}
+                        >
+                          TẠM DỪNG
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => dispatch(changeIconPlaying(true))}
+                          large
+                          leftIcon={<BsFillPlayFill />}
+                        >
+                          TIẾP TỤC PHÁT
+                        </Button>
+                      )}
                     </div>
                     <div className="mt-4 ">
                       <div className="flex justify-center">
@@ -365,7 +408,7 @@ const PlaylistDetail = () => {
                             <SongItem
                               section="playlist"
                               onClick={() =>
-                                handleGetCurrentPlaylist(
+                                handleGetSongPlaylist(
                                   item,
                                   song.items,
                                   dataAlbum.encodeId

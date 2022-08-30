@@ -161,14 +161,15 @@ const PlayerControl = () => {
     useSelector((state) => state.audio);
   useEffect(() => {
     if (currentSongId !== null && currentSongId !== "") {
-      request.get(`song/${currentSongId}`).then((res) => {
+      request.get(`song/${currentSongId}`).then(async (res) => {
         if (res.data && res.data.data) {
           dispatch(setAudioSrc(res.data.data[128]));
           console.log(srcAudio);
         }
       });
     }
-  }, [currentSongId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSongId, dispatch]);
   return (
     <StyledPlayer>
       <div className="player-container">

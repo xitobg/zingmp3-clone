@@ -12,14 +12,14 @@ export const audioSlice = createSlice({
     isRepeat: false,
     isRandom: false,
     isMute: false,
-    currentSongId: localStorage.getItem("songId") || "",
+    currentSongId: JSON.parse(localStorage.getItem("songId")) || "",
     srcAudio: "",
     currenTime: 0,
     duraTion: 0,
     playlistId: "",
     playlistSong: JSON.parse(localStorage.getItem("PLAYLIST_SONG")) || [],
-    playlistRandom: [],
-    currentIdexSong: 0,
+    playlistRandom: JSON.parse(localStorage.getItem("PLAYLIST_RANDOM")) || [],
+    currentIndexSong: 0,
     currentIndexSongRandom: 0,
   },
   reducers: {
@@ -70,9 +70,13 @@ export const audioSlice = createSlice({
     },
     setPlaylistRandom: (state, action) => {
       state.playlistRandom = [...action.payload];
+      localStorage.setItem(
+        "PLAYLIST_RANDOM",
+        JSON.stringify([...action.payload])
+      );
     },
     setCurrentIndexSong: (state, action) => {
-      state.currentIdexSong = action.payload;
+      state.currentIndexSong = action.payload;
     },
   },
 });

@@ -7,8 +7,11 @@ import {
   changeIconPlaying,
   setAudioSrc,
   setCurrentIndexSong,
+  setCurrentIndexSongRandom,
   setCurrentTime,
   setInfoSongPlayer,
+  setPlaylistRandom,
+  setPlaylistSong,
   setRandomSong,
   setRepeatSong,
   setSongId,
@@ -21,9 +24,14 @@ const Control = ({ audioRef }) => {
     isRepeat,
     isRandom,
     srcAudio,
-    currentIndexSong,
     playlistSong,
+    playlistRandom,
+    currentSongId,
   } = useSelector((state) => state.audio);
+  let currentIndex = useSelector((state) => state.audio.currentIndexSong);
+  let currentIndexRandom = useSelector(
+    (state) => state.audio.currentIndexSongRandom
+  );
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
@@ -39,28 +47,75 @@ const Control = ({ audioRef }) => {
   };
   const handleNextSong = () => {
     if (
-      currentIndexSong === playlistSong.length - 1 ||
-      currentIndexSong >= playlistSong.length - 1
+      currentIndex === playlistSong.length - 1 ||
+      currentIndex >= playlistSong.length - 1 ||
+      currentIndexRandom === playlistRandom.length - 1 ||
+      currentIndexRandom >= playlistRandom.length - 1
     ) {
       return;
     } else {
       dispatch(setAudioSrc(""));
       dispatch(setCurrentTime(0));
       audioRef.current.currentTime = 0;
-      dispatch(setCurrentIndexSong(currentIndexSong + 1));
-      dispatch(setInfoSongPlayer(playlistSong[currentIndexSong]));
-      dispatch(setSongId(playlistSong[currentIndexSong].encodeId));
+      if (isRandom) {
+        dispatch(setCurrentIndexSongRandom((currentIndexRandom += 1)));
+        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
+        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+        //lấy  vị trí song hiện tại trong mảng random
+        // dispatch(
+        //   setCurrentIndexSong(
+        //     playlistSong.findIndex((song) => song.encodeId === currentSongId)
+        //   )
+        // );
+        dispatch(
+          setCurrentIndexSong(
+            playlistSong.indexOf(playlistRandom[currentIndexRandom])
+          )
+        );
+      } else {
+        dispatch(setCurrentIndexSong((currentIndex += 1)));
+        dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
+        dispatch(setSongId(playlistSong[currentIndex].encodeId));
+      }
+      dispatch(changeIconPlaying(true));
     }
   };
-  const handlePrevSong = () => {};
+
+  const handlePrevSong = () => {
+    dispatch(setAudioSrc(""));
+    dispatch(setCurrentTime(0));
+    audioRef.current.currentTime = 0;
+    if (isRandom) {
+      if (
+        currentIndexRandom <= 0 ||
+        currentIndexRandom >= playlistRandom.length - 1
+      ) {
+        dispatch(setCurrentTime(0));
+        audioRef.current.currentTime = 0;
+      } else {
+        dispatch(setCurrentIndexSongRandom((currentIndexRandom -= 1)));
+        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
+        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+        dispatch(
+          setCurrentIndexSong(
+            playlistRandom.findIndex((song) => song.encodeId === currentSongId)
+          )
+        );
+      }
+    } else {
+      dispatch();
+    }
+    dispatch(changeIconPlaying(true));
+  };
+  const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
+  const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   useEffect(() => {
-    if (srcAudio !== "") {
+    if (srcAudio !== "" || srcAudio !== undefined) {
       isPlay ? audioRef.current.play() : audioRef.current.pause();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlay, srcAudio]);
-  const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
-  const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
+  }, [srcAudio, isPlay]);
+
   return (
     <div className="player-control w-[40%] flex flex-col">
       <div className="flex items-center justify-center">

@@ -24,7 +24,7 @@ const ChartRanking = ({ data = [], onClick }) => {
   useEffect(() => {
     if (data && data.RTChart) {
       const { items } = data.RTChart;
-      setSongList(items.slice(0, 20));
+      setSongList(items.slice(0, 5));
     }
   }, [data]);
 

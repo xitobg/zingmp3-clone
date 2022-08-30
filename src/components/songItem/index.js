@@ -20,7 +20,9 @@ const StyledSong = styled.div`
   &.active {
     background-color: ${(props) => props.theme.alphaBg};
   }
-
+  &:hover .play-btn {
+    visibility: visible;
+  }
   border-bottom: 1px solid ${(props) => props.theme.borderSecondary};
   border-radius: 5px;
   width: 100%;
@@ -255,7 +257,7 @@ const SongItem = ({ item, index, onClick, section = "" }) => {
               {currentSongId !== encodeId ? (
                 <i
                   onClick={onClick}
-                  className="p-1 bi bi-play-fill text-inherit"
+                  className="invisible p-1 bi play-btn bi-play-fill text-inherit"
                 ></i>
               ) : (
                 <></>
