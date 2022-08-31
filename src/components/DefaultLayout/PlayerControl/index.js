@@ -13,6 +13,7 @@ import {
   setAudioSrc,
 } from "~/redux-toolkit/audio/audioSlice";
 import { toast } from "react-toastify";
+import ConvertDuration from "~/utils/ConvertTime";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
@@ -156,9 +157,9 @@ const StyledPlayer = styled.div`
 `;
 const PlayerControl = () => {
   const dispatch = useDispatch();
-  const audioRef = useRef(null);
-  const { isRepeat, currentSongId, srcAudio, isPlay, infoSongPlayer } =
-    useSelector((state) => state.audio);
+  const { currentSongId, srcAudio, infoSongPlayer } = useSelector(
+    (state) => state.audio
+  );
   useEffect(() => {
     if (currentSongId !== null && currentSongId !== "") {
       request.get(`song/${currentSongId}`).then(async (res) => {
@@ -206,7 +207,7 @@ const PlayerControl = () => {
             </div>
           </div>
         </div>
-        <Control audioRef={audioRef} />
+        <Control />
         <div className="w-[30%] flex justify-end">
           <div className="flex items-center justify-center">
             <Tippy content="Xem lời bài hát">
@@ -232,14 +233,6 @@ const PlayerControl = () => {
           </div>
         </div>
       </div>
-      <audio
-        className="hidden"
-        loop={isRepeat}
-        autoPlay={isPlay}
-        hidden
-        ref={audioRef}
-        src={srcAudio}
-      ></audio>
     </StyledPlayer>
   );
 };

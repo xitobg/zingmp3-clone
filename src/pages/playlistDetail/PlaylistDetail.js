@@ -192,14 +192,14 @@ const PlaylistDetail = () => {
         dispatch(
           setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
         );
-        dispatch(setCurrentIndexSongRandom(-1));
+        // dispatch(setCurrentIndexSongRandom(-1));
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setSongId(song.encodeId));
         dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
         dispatch(setInfoSongPlayer(song));
         dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(setCurrentIndexSongRandom(-1));
+        // dispatch(setCurrentIndexSongRandom(-1));
         dispatch(
           setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
         );

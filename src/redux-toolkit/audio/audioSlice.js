@@ -7,6 +7,7 @@ export const audioSlice = createSlice({
       title: "Tên bài hát",
       thumbnail: logozingmp3,
       artistsNames: "Tên ca sĩ",
+      duration: 0,
     },
     isPlay: false,
     isRepeat: false,
@@ -14,11 +15,10 @@ export const audioSlice = createSlice({
     isMute: false,
     currentSongId: JSON.parse(localStorage.getItem("songId")) || "",
     srcAudio: "",
-    currenTime: 0,
-    duraTion: 0,
+    currentTime: 0,
     playlistId: "",
-    playlistSong: JSON.parse(localStorage.getItem("PLAYLIST_SONG")) || [],
-    playlistRandom: JSON.parse(localStorage.getItem("PLAYLIST_RANDOM")) || [],
+    playlistSong: [],
+    playlistRandom: [],
     currentIndexSong: 0,
     currentIndexSongRandom: 0,
   },
@@ -53,27 +53,17 @@ export const audioSlice = createSlice({
       state.srcAudio = action.payload;
     },
     setCurrentTime: (state, action) => {
-      state.currenTime = action.payload;
+      state.currentTime = action.payload;
     },
-    setDuration: (state, action) => {
-      state.duraTion = action.payload;
-    },
+
     setPlaylistId: (state, action) => {
       state.playlistId = action.payload;
     },
     setPlaylistSong: (state, action) => {
       state.playlistSong = [...action.payload];
-      localStorage.setItem(
-        "PLAYLIST_SONG",
-        JSON.stringify([...action.payload])
-      );
     },
     setPlaylistRandom: (state, action) => {
       state.playlistRandom = [...action.payload];
-      localStorage.setItem(
-        "PLAYLIST_RANDOM",
-        JSON.stringify([...action.payload])
-      );
     },
     setCurrentIndexSong: (state, action) => {
       state.currentIndexSong = action.payload;
@@ -89,7 +79,6 @@ export const {
   setInfoSongPlayer,
   setAudioSrc,
   setCurrentTime,
-  setDuration,
   setPlaylistId,
   setPlaylistSong,
   setPlaylistRandom,

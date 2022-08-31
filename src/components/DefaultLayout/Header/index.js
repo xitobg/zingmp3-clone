@@ -37,6 +37,7 @@ const StyledHeader = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
   const { isSticky } = useSelector((state) => state.global);
+
   return (
     <Fragment>
       <StyledHeader
