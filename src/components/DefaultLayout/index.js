@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import PlayerControl from "./PlayerControl";
+import PlayingBar from "./rightSidebar";
 import Sidebar from "./Sidebar";
 
 const StyledWrapper = styled.div`
@@ -21,7 +22,8 @@ const DefaultLayout = ({ children }) => {
         <Sidebar></Sidebar>
         <>{children}</>
       </StyledWrapper>
-      <PlayerControl></PlayerControl>
+      <PlayingBar />
+      <PlayerControl />
     </>
   );
 };

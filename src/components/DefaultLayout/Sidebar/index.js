@@ -13,7 +13,6 @@ import { LibraryData } from "~/components/DefaultLayout/Sidebar/library/LibraryD
 import Button from "~/components/button";
 import logo from "~/assets/image/logo.svg";
 import MenuItem from "./menu/MenuItem";
-import routesConfig from "~/config/routes";
 const StyledSidebar = styled.div`
   background-color: ${(props) => props.theme.sidebarBg};
   height: calc(100vh - 90px);

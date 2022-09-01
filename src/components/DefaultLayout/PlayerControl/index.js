@@ -14,6 +14,7 @@ import {
 } from "~/redux-toolkit/audio/audioSlice";
 import { toast } from "react-toastify";
 import ConvertDuration from "~/utils/ConvertTime";
+import { setShowPlayingbar } from "~/redux-toolkit/global/globalSlice";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
@@ -101,39 +102,16 @@ const StyledPlayer = styled.div`
   .duration-time {
     color: ${(props) => props.theme.textPrimary};
   }
-  .progress-area {
-    width: 100%;
-    height: 3px;
-    outline: none;
-    background-color: ${(props) => props.theme.alphaBg};
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 20px;
-    &:hover {
-      height: 6px;
-    }
-    .progress-bar {
-      background-color: ${(props) => props.theme.purplePrimary};
-      height: inherit;
-      position: relative;
-      width: 50%;
-      border-radius: 4px;
-      &::after {
-        position: absolute;
-        opacity: 0;
-        right: -6px;
-      }
-    }
-    &:hover .progress-bar::after {
-      opacity: 1;
-      border-radius: 100rem;
-    }
-  }
+
   .note-list-icon {
     position: relative;
-    background-color: hsla(0, 0%, 100%, 0.1);
     border: 1px solid transparent;
     color: ${(props) => props.theme.textPrimary};
+    background-color: hsla(0, 0%, 100%, 0.1);
+    &.active {
+      background-color: ${(props) => props.theme.purplePrimary};
+      color: #fff;
+    }
   }
   .toggle-play {
     margin: 0 7px;
@@ -157,6 +135,7 @@ const StyledPlayer = styled.div`
 `;
 const PlayerControl = () => {
   const dispatch = useDispatch();
+  const { showPlayingbar } = useSelector((state) => state.global);
   const { currentSongId, srcAudio, infoSongPlayer } = useSelector(
     (state) => state.audio
   );
@@ -226,8 +205,13 @@ const PlayerControl = () => {
 
             <div className="progress-volume relative w-[100px] h-[3px] mr-2 ml-1"></div>
             <Tippy content="Danh sách phát">
-              <button className="note-list-icon rounded-[4px] h-[30px] px-[5px] leading-[30px] text-xs font-medium">
-                <i className="text-lg   bi bi-music-note-list leading-[0px]"></i>
+              <button
+                onClick={() => dispatch(setShowPlayingbar(!showPlayingbar))}
+                className={`note-list-icon rounded-[4px] h-[30px] px-[5px] leading-[30px] text-xs font-medium ${
+                  showPlayingbar ? "active" : ""
+                }`}
+              >
+                <i className="text-lg bi bi-music-note-list leading-[0px]"></i>
               </button>
             </Tippy>
           </div>

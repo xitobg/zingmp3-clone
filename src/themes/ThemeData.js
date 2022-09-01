@@ -11,6 +11,9 @@ import jisoo from "~/assets/bgTheme/jisoo.jpg";
 import rose from "~/assets/bgTheme/rose.jpg";
 export const themes = {
   lonDonTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#223c75",
     bgImage: LonDon,
     layoutBg: "#061d50",
     sidebarBg: "hsla(0,0%,100%,0.05)",
@@ -105,6 +108,9 @@ export const themes = {
   },
 
   xoneTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#2d2f32",
     bgImage: xoneThumbn,
     layoutBg: "#1e1e1e",
     sidebarBg: "hsla(0,0%,100%,0.05);",
@@ -129,6 +135,9 @@ export const themes = {
   },
 
   zmaTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#5d218c",
     bgImage: zma,
     bgPlayer: zmaPlayer,
     layoutBg: "#1e1e1e",
@@ -154,6 +163,9 @@ export const themes = {
   },
 
   eiffelTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#2d2f32",
     bgImage: eiffel,
     layoutBg: "#1e1e1e",
     sidebarBg: "hsla(0,0%,100%,0.05)",
@@ -177,6 +189,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   iuTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
+    bgPlayingBar: "#e5e3df",
     bgImage: IU,
     layoutBg: "#e7dfdd",
     sidebarBg: "rgba(0,0,0,0.05)",
@@ -200,6 +215,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   jiChangWookTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
+    bgPlayingBar: "#ced9d9",
     bgImage: jiChangWook,
     layoutBg: "#b2d8db",
     sidebarBg: "hsla(0,0%,100%,0.3)",
@@ -223,6 +241,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   lisaTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
+    bgPlayingBar: "#f9dbdb",
     bgImage: lisa,
     layoutBg: "#f9dbdb",
     sidebarBg: "hsla(0,0%,100%,0.3)",
@@ -246,6 +267,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   jennieTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
+    bgPlayingBar: "#e5e3df",
     bgImage: jennie,
     layoutBg: "#bab8c3",
     sidebarBg: "rgba(0,0,0,0.05)",
@@ -269,6 +293,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   jisooTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
+    bgPlayingBar: "#fff",
     bgImage: jisoo,
     layoutBg: "#fff",
     sidebarBg: "rgba(0,0,0,0.05)",
@@ -293,6 +320,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   roseTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#223c75",
     bgImage: rose,
     layoutBg: "#061d50",
     sidebarBg: "hsla(0,0%,100%,0.05)",
@@ -317,6 +347,9 @@ export const themes = {
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
   darkTheme: {
+    boxshadowPlayingBar:
+      " 0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#2d2f32",
     bgImage: "",
     layoutBg: "#1e1e1e",
     sidebarBg: "hsla(0,0%,100%,0.05)",
@@ -342,6 +375,9 @@ export const themes = {
   },
   // Tím
   purpleTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#120822",
     layoutBg: "#170f23",
     sidebarBg: "hsla(0,0%,100%,0.05)",
     textPrimary: "#fff",
@@ -366,6 +402,9 @@ export const themes = {
   },
   // Xanh đậm
   blueTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#223c75",
     layoutBg: "#101f3f",
     sidebarBg: "hsla(0,0%,100%,0.05)",
     textPrimary: "#fff",
@@ -390,6 +429,9 @@ export const themes = {
   },
   // xanh biển
   blueLightTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#0b274c",
     layoutBg: "#1d375a",
     sidebarBg: "hsla(0,0%,100%,0.05)",
     textPrimary: "#fff",

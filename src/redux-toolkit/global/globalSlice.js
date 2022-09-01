@@ -8,6 +8,7 @@ export const globalSlice = createSlice({
     theme: JSON.parse(localStorage.getItem("THEME_BG")) || roseTheme,
     showModalTheme: false,
     loading: false,
+    showPlayingbar: false,
   },
   reducers: {
     setBgHeader: (state, action) => {
@@ -23,8 +24,16 @@ export const globalSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setShowPlayingbar: (state, action) => {
+      state.showPlayingbar = action.payload;
+    },
   },
 });
-export const { setBgHeader, setThemeBg, setShowModalTheme, setLoading } =
-  globalSlice.actions;
+export const {
+  setBgHeader,
+  setThemeBg,
+  setShowModalTheme,
+  setLoading,
+  setShowPlayingbar,
+} = globalSlice.actions;
 export default globalSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import { BsFillPauseFill, BsFillPlayFill, BsThreeDots } from "react-icons/bs";
 import styled from "styled-components";
 import Button from "~/components/button";
@@ -440,4 +440,4 @@ const PlaylistDetail = () => {
   );
 };
 
-export default PlaylistDetail;
+export default memo(PlaylistDetail);
