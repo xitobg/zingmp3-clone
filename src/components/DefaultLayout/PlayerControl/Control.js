@@ -1,4 +1,11 @@
-import React, { Fragment, useEffect, useRef, memo, useState } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useRef,
+  memo,
+  useState,
+  useTransition,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "~/components/Icon";
 import Tippy from "@tippyjs/react";
@@ -21,6 +28,7 @@ import Progress from "./Progress";
 const Control = () => {
   const dispatch = useDispatch();
   const [progressValue, setProgressValue] = useState(0);
+  const [isPending, startTransition] = useTransition();
   const audioRef = useRef(null);
   const progressRef = useRef(null);
   const {
@@ -188,8 +196,11 @@ const Control = () => {
   };
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
-  const handleOntimeUpdate = async () => {
-    await dispatch(setCurrentTime(audioRef.current.currentTime));
+  const handleOntimeUpdate = () => {
+    if (audioRef.current.currentTime !== undefined) {
+      dispatch(setCurrentTime(audioRef.current.currentTime));
+    }
+
     let progressWidth =
       (audioRef.current.currentTime / audioRef.current.duration) * 100;
     setProgressValue(progressWidth);

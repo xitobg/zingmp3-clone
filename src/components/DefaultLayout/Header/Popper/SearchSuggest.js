@@ -43,13 +43,7 @@ const SearchSuggest = ({ data = [] }) => {
   const handlePlaySong = (song) => {
     console.log(song);
     dispatch(setSongId(song.encodeId));
-    dispatch(
-      setInfoSongPlayer({
-        title: song.title,
-        artistsNames: song.artistsNames,
-        thumbnail: song.thumbnail,
-      })
-    );
+    dispatch(setInfoSongPlayer(song));
     dispatch(changeIconPlaying(true));
     dispatch(setRepeatSong(true));
   };

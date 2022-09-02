@@ -14,13 +14,7 @@ import {
 const ChartRanking = ({ data = [], onClick }) => {
   const dispatch = useDispatch();
   const [songList, setSongList] = useState([]);
-  const handlePlaySongChart = (song, playlist, idPlaylist) => {
-    dispatch(setSongId(song.encodeId));
-    dispatch(setInfoSongPlayer(song));
-    dispatch(setPlaylistId(idPlaylist));
-    dispatch(setPlaylistSong(playlist));
-    dispatch(changeIconPlaying(true));
-  };
+
   useEffect(() => {
     if (data && data.RTChart) {
       const { items } = data.RTChart;
@@ -37,9 +31,7 @@ const ChartRanking = ({ data = [], onClick }) => {
             index={index}
             item={item}
             section="zingchart"
-            onClick={() =>
-              handlePlaySongChart(item, songList, data.RTChart.sectionId)
-            }
+            onClick={() => onClick(item, songList, data.RTChart.sectionId)}
           />
         ))}
 

@@ -10,6 +10,18 @@ import SongItem from "~/components/songItem";
 import ChartRanking from "./chartRank";
 import Loading from "~/components/loading/Loading";
 import WeekChart from "./weekChart";
+import {
+  changeIconPlaying,
+  setAudioSrc,
+  setCurrentIndexSong,
+  setCurrentIndexSongRandom,
+  setCurrentTime,
+  setInfoSongPlayer,
+  setPlaylistId,
+  setPlaylistRandom,
+  setPlaylistSong,
+  setSongId,
+} from "~/redux-toolkit/audio/audioSlice";
 const StyledZingChart = styled.div`
   margin-top: 30px;
   display: flex;
@@ -46,14 +58,65 @@ const StyledZingChart = styled.div`
 const ZingChart = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
+  const { isRandom } = useSelector((state) => state.audio);
   const [dataZingChart, setDataZingChart] = useState([]);
+  function shuffle(sourceArray) {
+    for (var i = 0; i < sourceArray.length - 1; i++) {
+      var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+
+      var temp = sourceArray[j];
+      sourceArray[j] = sourceArray[i];
+      sourceArray[i] = temp;
+    }
+    return sourceArray;
+  }
+
+  const handlePlaySong = (song, playlist, idPlaylist) => {
+    let playlistCanPlay = [];
+    if (song.streamingStatus === 1 && song.isWorldWide) {
+      dispatch(setPlaylistId(idPlaylist));
+      dispatch(setCurrentTime(0));
+      dispatch(setAudioSrc(""));
+      for (let songItem of playlist) {
+        if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+          playlistCanPlay.push(songItem);
+        }
+      }
+      if (isRandom) {
+        dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
+        dispatch(setSongId(song.encodeId));
+        dispatch(setInfoSongPlayer(song));
+        dispatch(setPlaylistSong(playlistCanPlay));
+        dispatch(
+          setCurrentIndexSong(
+            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
+          )
+        );
+        // dispatch(setCurrentIndexSongRandom(-1));
+        dispatch(changeIconPlaying(true));
+      } else {
+        // dispatch(setCurrentIndexSongRandom(-1));
+        dispatch(setInfoSongPlayer(song));
+        dispatch(setSongId(song.encodeId));
+        dispatch(setPlaylistSong(playlistCanPlay));
+        dispatch(
+          setCurrentIndexSong(
+            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
+          )
+        );
+        dispatch(changeIconPlaying(true));
+      }
+    } else {
+      alert("This is vip song");
+    }
+  };
 
   useEffect(() => {
     dispatch(setLoading(true));
     request
       .get("/chart/home")
       .then((res) => {
-        console.log(res.data);
+        console.log("data zingchart:", res.data);
         setDataZingChart(res.data);
         dispatch(setLoading(false));
       })
@@ -82,7 +145,7 @@ const ZingChart = () => {
             <div className="chart-line"></div>
             <div className="chart-line"></div>
           </div>
-          <ChartRanking data={dataZingChart} />
+          <ChartRanking onClick={handlePlaySong} data={dataZingChart} />
           <WeekChart data={dataZingChart} />
         </StyledZingChart>
       )}
