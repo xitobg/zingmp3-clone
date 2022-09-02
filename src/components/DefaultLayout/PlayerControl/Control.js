@@ -17,6 +17,7 @@ import {
   setCurrentIndexSongRandom,
   setCurrentTime,
   setInfoSongPlayer,
+  setLoadingPlay,
   setRandomSong,
   setRepeatSong,
   setSongId,
@@ -24,6 +25,7 @@ import {
 import ConvertTotalDuration from "~/utils/ConvertTotalDuration";
 import ConvertDuration from "~/utils/ConvertTime";
 import Progress from "./Progress";
+import IconLoading from "~/components/Icon/IconLoading";
 
 const Control = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,7 @@ const Control = () => {
   const progressRef = useRef(null);
   const {
     isPlay,
+    loadingPlay,
     isRepeat,
     isRandom,
     srcAudio,
@@ -63,6 +66,7 @@ const Control = () => {
     dispatch(setAudioSrc(""));
     dispatch(setCurrentTime(0));
     audioRef.current.currentTime = 0;
+    dispatch(setLoadingPlay(true));
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi next
     if (
       currentIndex === playlistSong.length - 1 ||
@@ -97,6 +101,8 @@ const Control = () => {
     dispatch(setAudioSrc(""));
     dispatch(setCurrentTime(0));
     audioRef.current.currentTime = 0;
+    dispatch(setLoadingPlay(true));
+
     if (isRandom) {
       if (currentIndexRandom <= 0) {
         dispatch(setCurrentIndexSongRandom(playlistRandom.length));
@@ -197,9 +203,10 @@ const Control = () => {
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   const handleOntimeUpdate = () => {
-    if (audioRef.current.currentTime !== undefined) {
-      dispatch(setCurrentTime(audioRef.current.currentTime));
+    if (audioRef.current.duration) {
+      dispatch(setLoadingPlay(false));
     }
+    dispatch(setCurrentTime(audioRef.current.currentTime));
 
     let progressWidth =
       (audioRef.current.currentTime / audioRef.current.duration) * 100;
@@ -231,11 +238,12 @@ const Control = () => {
             onClick={handlePlaySong}
             className="relative overflow-hidden toggle-play"
           >
-            {isPlay ? (
+            {isPlay && !loadingPlay ? (
               <i className="p-1 bi bi-pause-fill"></i>
             ) : (
-              <i className="p-1 bi bi-play-fill "></i>
+              !loadingPlay && <i className="p-1 bi bi-play-fill "></i>
             )}
+            {loadingPlay && <IconLoading />}
           </button>
           <Icon onClick={handleNextSong} control>
             <i className="p-1 bi bi-skip-end-fill"></i>

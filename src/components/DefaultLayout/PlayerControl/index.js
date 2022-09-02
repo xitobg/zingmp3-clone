@@ -114,6 +114,11 @@ const StyledPlayer = styled.div`
     }
   }
   .toggle-play {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0 7px;
     font-size: 24px;
     border-radius: 999px;

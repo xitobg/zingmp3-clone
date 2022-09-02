@@ -22,6 +22,7 @@ export const audioSlice = createSlice({
       JSON.parse(localStorage.getItem("PLAYLIST_SONG_RANDOM")) || [],
     currentIndexSong: 0,
     currentIndexSongRandom: 0,
+    loadingPlay: false,
   },
   reducers: {
     changeIconPlaying: (state, action) => {
@@ -79,6 +80,9 @@ export const audioSlice = createSlice({
     setCurrentIndexSong: (state, action) => {
       state.currentIndexSong = action.payload;
     },
+    setLoadingPlay: (state, action) => {
+      state.loadingPlay = action.payload;
+    },
   },
 });
 export const {
@@ -95,5 +99,6 @@ export const {
   setPlaylistRandom,
   setCurrentIndexSong,
   setCurrentIndexSongRandom,
+  setLoadingPlay,
 } = audioSlice.actions;
 export default audioSlice.reducer;
