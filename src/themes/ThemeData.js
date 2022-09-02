@@ -36,8 +36,11 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.1)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
-
+  //sáng tối
   lightDarkTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#2d2f32",
     bgImage: "",
     layoutBg: "#fff",
     sidebarBg: "rgba(0,0,0,0.05)",
@@ -60,7 +63,11 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.1)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //xanh da troi
   dynamicBlueTheme: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#223c75",
     bgImage: "",
     layoutBg: "#101f3f",
     sidebarBg: "hsla(0,0%,100%,0.05)",
@@ -83,7 +90,11 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.1)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Hong
   dynamicPink: {
+    boxshadowPlayingBar:
+      "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
+    bgPlayingBar: "#800064",
     bgImage: "",
     layoutBg: "#f9dbdb",
     sidebarBg: "hsla(0,0%,100%,0.3)",
@@ -133,7 +144,7 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.1)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
-
+  //Zing Music Award
   zmaTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
@@ -161,7 +172,7 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.1)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
-
+  //Eiffel
   eiffelTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
@@ -188,6 +199,7 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.1)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //IU
   iuTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
@@ -214,6 +226,7 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.3)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Jichang Wook
   jiChangWookTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
@@ -240,6 +253,7 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.3)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Lisa
   lisaTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
@@ -266,6 +280,7 @@ export const themes = {
     boxItemBg: "hsla(0,0%,100%,0.3)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Jennie
   jennieTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
@@ -292,6 +307,7 @@ export const themes = {
     mainBoxShadow: "rgba(66,66,66,0.4)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Jisoo
   jisooTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px hsla(0,0%,100%,0.3)",
@@ -319,6 +335,7 @@ export const themes = {
     mainBoxShadow: "rgba(66,66,66,0.4)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Rose
   roseTheme: {
     boxshadowPlayingBar:
       "0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",
@@ -346,6 +363,7 @@ export const themes = {
     mainBoxShadow: "rgba(66,66,66,0.4)",
     borderPrimary: "hsla(0,0%,100%,0.1)",
   },
+  //Dark
   darkTheme: {
     boxshadowPlayingBar:
       " 0 1px 0 rgba(0,0,0,0.3),0 1px 6px rgba(0,0,0,0.3),inset 0 1px 1px rgba(25,255,255,0.05)",

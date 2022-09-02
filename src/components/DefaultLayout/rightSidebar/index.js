@@ -23,10 +23,10 @@ const StyledPlaying = styled.div`
   & .playing-bar-tab {
     background-color: ${(props) => props.theme.alphaBg};
     & .tab-bar {
-      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 7%);
       color: ${(props) => props.theme.navigationText};
       border-radius: 15px;
       &.is-active {
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 7%);
         background-color: ${(props) => props.theme.tabActiveBg};
       }
     }
@@ -70,7 +70,12 @@ const PlayingBar = () => {
         <div className="flex pb-[200px] flex-col max-h-screen has-scroll-bar play-bar-list">
           {playlistSong?.map((item, index) => {
             return (
-              <SongItem key={item.encodeId} item={item} section="search" />
+              <SongItem
+                playingBar
+                key={item.encodeId}
+                item={item}
+                section="search"
+              />
             );
           })}
         </div>

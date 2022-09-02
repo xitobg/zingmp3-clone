@@ -4,7 +4,7 @@ import { GiMicrophone } from "react-icons/gi";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Icon from "~/components/Icon";
 import { changeIconPlaying, setSongId } from "~/redux-toolkit/audio/audioSlice";
 import ConvertDuration from "~/utils/ConvertTime";
@@ -20,6 +20,7 @@ const StyledSong = styled.div`
   &.active {
     background-color: ${(props) => props.theme.alphaBg};
   }
+
   &:hover .play-btn {
     visibility: visible;
   }
@@ -176,8 +177,33 @@ const StyledSong = styled.div`
   .song-icon-note {
     color: ${(props) => props.theme.textSecondary};
   }
+  ${(props) =>
+    props.playingBar &&
+    css`
+      &.active {
+        background-color: ${(props) => props.theme.purplePrimary};
+      }
+      &.active .song__search-name {
+        color: #fff !important;
+      }
+      .artist-name,
+      .song__info-author {
+        color: ${(props) => props.theme.textSecondary} !important;
+      }
+      &.active .artist-name,
+      &.active .song__info-author {
+        color: hsla(0, 0%, 100%, 0.6) !important;
+      }
+    `};
 `;
-const SongItem = ({ item, index, onClick, idArtistPage, section = "" }) => {
+const SongItem = ({
+  item,
+  index,
+  onClick,
+  idArtistPage,
+  section = "",
+  playingBar,
+}) => {
   const dispatch = useDispatch();
   const { currentSongId, isPlay } = useSelector((state) => state.audio);
   const {
@@ -192,6 +218,7 @@ const SongItem = ({ item, index, onClick, idArtistPage, section = "" }) => {
   } = item;
   return (
     <StyledSong
+      playingBar={playingBar}
       className={`song-item ${encodeId === currentSongId ? "active" : ""}`}
       onDoubleClick={onClick}
       key={encodeId}
@@ -247,7 +274,7 @@ const SongItem = ({ item, index, onClick, idArtistPage, section = "" }) => {
               {isPlay && currentSongId === encodeId ? (
                 <div
                   onClick={() => dispatch(changeIconPlaying(false))}
-                  className="w-[18px]   h-[18px] absolute top-2/4 -translate-x-2/4 -translate-y-2/4 z-50"
+                  className="w-[18px] h-[18px] absolute top-2/4 -translate-x-2/4 -translate-y-2/4 z-50"
                 >
                   <img src={iconPlaying} alt="" />
                 </div>
@@ -306,7 +333,7 @@ const SongItem = ({ item, index, onClick, idArtistPage, section = "" }) => {
                     const { name, id, link, alias } = artist;
                     return (
                       <Link
-                        className="hover:underline artist-name"
+                        className="hover:underline text-inherit artist-name"
                         to={link}
                         state={{ artistName: alias }}
                         key={id}
