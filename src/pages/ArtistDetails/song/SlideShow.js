@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-const SlideShow = ({ data = [] }) => {
+const SlideShow = ({ data = [], onClick }) => {
   // eslint-disable-next-line no-unused-vars
   const [slideData, setSlideData] = useState(data);
   // console.log("slideshow:", slideData);
@@ -28,6 +28,7 @@ const SlideShow = ({ data = [] }) => {
         slideData?.map((slide, index) => {
           return (
             <div
+              onClick={onClick}
               key={slide.encodeId}
               className={`song-animated-item ${
                 index === slideFirst

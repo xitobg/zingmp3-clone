@@ -177,7 +177,7 @@ const StyledSong = styled.div`
     color: ${(props) => props.theme.textSecondary};
   }
 `;
-const SongItem = ({ item, index, onClick, section = "" }) => {
+const SongItem = ({ item, index, onClick, idArtistPage, section = "" }) => {
   const dispatch = useDispatch();
   const { currentSongId, isPlay } = useSelector((state) => state.audio);
   const {

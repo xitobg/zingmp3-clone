@@ -374,7 +374,9 @@ const PlaylistDetail = () => {
               </div>
               <div className="flex flex-col flex-1 album-right">
                 <div className="description text-sm pb-[10px]">
-                  <span className="mr-2">Lời tựa</span>
+                  {sortDescription !== "" && (
+                    <span className="mr-2">Lời tựa</span>
+                  )}
                   {sortDescription}
                 </div>
                 <div className="flex flex-col flex-1 album-right">

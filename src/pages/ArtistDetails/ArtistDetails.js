@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import ArtistBanner from "~/components/artistBanner";
 import ArtistBiography from "~/components/artistBiography";
 import Loading from "~/components/loading/Loading";
@@ -9,6 +10,18 @@ import MvArtist from "~/components/mv";
 import Playlist from "~/components/playlist/Playlist";
 import SongItem from "~/components/songItem";
 import WrapperLayout from "~/components/wrapperLayout";
+import {
+  changeIconPlaying,
+  setAudioSrc,
+  setCurrentIndexSong,
+  setCurrentTime,
+  setInfoSongPlayer,
+  setPlaylistId,
+  setPlaylistRandom,
+  setPlaylistSong,
+  setRandomSong,
+  setSongId,
+} from "~/redux-toolkit/audio/audioSlice";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import request from "~/services/request";
 import SongSection from "./song";
@@ -40,16 +53,19 @@ const ArtistDetails = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { loading } = useSelector((state) => state.global);
+  const { isRandom } = useSelector((state) => state.audio);
   const [singerData, setSingerData] = useState([]);
   const { artistName } = location.state;
+
   useEffect(() => {
     dispatch(setLoading(true));
     request
       .get(`/artist/${artistName}`)
       .then((res) => {
-        console.log("ca si:", res.data.data);
         if (res.data && res.data.data) {
           setSingerData(res.data.data);
+          // console.log("data artist:", res.data);
+          document.title = `${res.data.data.name} - Zing MP3 Official Account`;
           dispatch(setLoading(false));
         }
       })
@@ -73,6 +89,7 @@ const ArtistDetails = () => {
               if (sectionType === "song") {
                 return (
                   <SongSection
+                    id={singerData.playlistId}
                     key={`${title}${index}`}
                     data={{ ...item }}
                   ></SongSection>
