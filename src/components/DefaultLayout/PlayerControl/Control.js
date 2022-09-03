@@ -15,7 +15,6 @@ import {
   setAudioSrc,
   setCurrentIndexSong,
   setCurrentIndexSongRandom,
-  setCurrentTime,
   setInfoSongPlayer,
   setLoadingPlay,
   setRandomSong,
@@ -29,10 +28,9 @@ import IconLoading from "~/components/Icon/IconLoading";
 
 const Control = () => {
   const dispatch = useDispatch();
-  const [progressValue, setProgressValue] = useState(0);
-  const [isPending, startTransition] = useTransition();
   const audioRef = useRef(null);
-  const progressRef = useRef(null);
+  const [currentTime, setCurrentTime] = useState(0);
+
   const {
     isPlay,
     loadingPlay,
@@ -42,7 +40,6 @@ const Control = () => {
     playlistSong,
     playlistRandom,
     infoSongPlayer,
-    currentTime,
   } = useSelector((state) => state.audio);
   let currentIndex = useSelector((state) => state.audio.currentIndexSong);
   let currentIndexRandom = useSelector(
@@ -64,8 +61,6 @@ const Control = () => {
   //
   const handleNextSong = () => {
     dispatch(setAudioSrc(""));
-    dispatch(setCurrentTime(0));
-    audioRef.current.currentTime = 0;
     dispatch(setLoadingPlay(true));
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi next
     if (
@@ -99,10 +94,8 @@ const Control = () => {
   const handlePrevSong = () => {
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi prev
     dispatch(setAudioSrc(""));
-    dispatch(setCurrentTime(0));
-    audioRef.current.currentTime = 0;
     dispatch(setLoadingPlay(true));
-
+    dispatch(setCurrentTime(0));
     if (isRandom) {
       if (currentIndexRandom <= 0) {
         dispatch(setCurrentIndexSongRandom(playlistRandom.length));
@@ -154,7 +147,6 @@ const Control = () => {
   };
   const handleOnEnded = () => {
     if (!isRepeat) {
-      dispatch(setCurrentTime(0));
       dispatch(setAudioSrc(""));
       dispatch(changeIconPlaying(false));
       if (isRandom) {
@@ -200,19 +192,19 @@ const Control = () => {
       }
     }
   };
+
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   const handleOntimeUpdate = () => {
     if (audioRef.current.duration) {
       dispatch(setLoadingPlay(false));
     }
-    dispatch(setCurrentTime(audioRef.current.currentTime));
-
-    let progressWidth =
-      (audioRef.current.currentTime / audioRef.current.duration) * 100;
-    setProgressValue(progressWidth);
+    setCurrentTime(audioRef.current.currentTime);
   };
-
+  const handleUpdateTime = (currentime) => {
+    audioRef.current.currentTime = currentime;
+    return currentime;
+  };
   useEffect(() => {
     if (srcAudio !== "" || srcAudio !== undefined) {
       isPlay ? audioRef.current?.play() : audioRef.current?.pause();
@@ -260,22 +252,11 @@ const Control = () => {
         </div>
       </div>
       <div className="w-full mt-[10px] flex items-center justify-center ">
-        <span className="current-time">{ConvertDuration(currentTime)}</span>
         <Progress
-          setWidth={"100%"}
-          setHeight={"2px"}
-          percentSlider={progressValue}
-          toogleTooltip={true}
-          currentTimeSongTooltip={currentTime}
-          getPercentSlider={(value) => {
-            if (audioRef) {
-              audioRef.currentTime = (value / 100) * audioRef.duration;
-            }
-          }}
+          songDuration={audioRef.current?.duration}
+          currentTime={currentTime}
+          onChangeTime={handleUpdateTime}
         />
-        <div className="duration-time ml-[10px] text-xs min-w-[45px]">
-          {ConvertDuration(infoSongPlayer.duration)}
-        </div>
       </div>
       <audio
         className="hidden"

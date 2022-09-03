@@ -3,7 +3,7 @@ import React from "react";
 const IconLoading = () => {
   return (
     <svg
-      classname="leading-[0px]"
+      className="leading-[0px]"
       width="34px"
       height="34px"
       fill="#f1f1f1"

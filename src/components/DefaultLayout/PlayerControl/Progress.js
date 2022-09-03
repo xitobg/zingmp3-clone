@@ -1,132 +1,167 @@
-import React, { useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import ConvertDuration from "~/utils/ConvertTime";
+import ConvertTotalDuration from "~/utils/ConvertTotalDuration";
 const StyledProgress = styled.div`
-  & .progress-dot,
-  & .progress-bar {
-    background-color: ${(props) => props.theme.purplePrimary};
+  height: 18px;
+  width: 100%;
+  display: flex;
+  margin-bottom: 5px;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+
+  .progress__track {
+    left: 50%;
+    height: 3px;
+    border-radius: 20px;
+    position: absolute;
+    transform: translate(-50%, 0);
+    background: ${(props) => props.theme.alphaBg};
+
+    &.song--track {
+      width: calc(100% - 130px);
+    }
+
+    &-update {
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      border-radius: 20px;
+      position: absolute;
+      background-color: ${(props) => props.theme.linkTextHover};
+
+      &::after {
+        content: "";
+        top: 49.9%;
+        right: 0;
+        width: 12px;
+        height: 12px;
+        display: none;
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(50%, -50%);
+        background-color: ${(props) => props.theme.linkTextHover};
+      }
+    }
+  }
+
+  .durationtime,
+  .tracktime {
+    width: 55px;
+    margin: 0 5px;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+    color: ${(props) => props.theme.navigationText};
+  }
+  .tracktime {
+    color: ${(props) => props.theme.textSecondary};
+  }
+  .progress {
+    flex: 1;
+    opacity: 1;
+    z-index: 5;
+    height: 18px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 2px;
+    will-change: opacity;
+    -webkit-appearance: none;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover ~ .progress__track {
+      height: 5px;
+      border-radius: 100px;
+    }
+
+    &:hover ~ .progress__track .progress__track-update {
+      height: 5px;
+      border-radius: 100px;
+    }
+
+    &:hover ~ .progress__track .progress__track-update::after {
+      display: block;
+    }
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 1px;
+      height: 18px;
+      cursor: pointer;
+      border-radius: 999px;
+      -webkit-appearance: none;
+      background-color: transparent;
+    }
   }
 `;
-const Progress = ({ setWidth, setHeight, percentSlider, getPercentSlider }) => {
-  const sliderRef = useRef(null);
+const Progress = ({ currentTime, songDuration, onChangeTime }) => {
+  const [isSeeking, setIsSeeking] = useState(false);
+  const prevSeeking = useRef(false);
+  const { infoSongPlayer } = useSelector((state) => state.audio);
+  const [progressValue, setProgressValue] = useState(0);
 
-  // Active UI Dot Slider Hover
-  const [isActiveSliderDotHover, setActiveSliderDotHover] = useState(false);
-
-  // Active UI Tooltip Dot Hover
-  const [isActiveSliderTooltipHover, setActiveSliderTooltipHover] =
-    useState(false);
-
-  // Handler Active Dot Slider Hover
-  const handleActiveSliderDotHover = (handle) => {
-    setActiveSliderDotHover(handle);
+  const handleChangeProgress = (e) => {
+    if (songDuration) setProgressValue(e.target.value);
   };
-
-  // Handler Active Tooltip Dot Hover
-  const handleActiveSliderTooltipHover = (handle) => {
-    setActiveSliderTooltipHover(handle);
+  const handleChangeTime = (e) => {
+    setIsSeeking(false);
+    const currentTime = (e.target.value * songDuration) / 100;
+    if (onChangeTime && songDuration) onChangeTime(currentTime);
   };
+  const progressWidth = useMemo(() => {
+    const width =
+      isSeeking || prevSeeking.current
+        ? progressValue
+        : Math.round((currentTime / songDuration) * 100) || 0;
+    return width;
+  }, [isSeeking, currentTime, songDuration, progressValue]);
+
+  const formatTime = useMemo(() => {
+    const songTime =
+      isSeeking || prevSeeking.current
+        ? (progressValue * songDuration) / 100 || 0
+        : currentTime;
+
+    return songTime;
+  }, [isSeeking, currentTime, songDuration, progressValue]);
+
+  useEffect(() => {
+    prevSeeking.current = isSeeking;
+  }, [isSeeking]);
   return (
-    <StyledProgress
-      style={{
-        width: `${setWidth}`,
-      }}
-      className="relative w-full progress"
-    >
-      {/* Slider Bar Progress */}
-      <div
-        className="px-0 py-[6px]"
-        onMouseOver={() => handleActiveSliderDotHover(true)}
-        onMouseOut={() => handleActiveSliderDotHover(false)}
-        ref={sliderRef}
-        onMouseDown={(e) => {
-          // console.log("Mouse Down")
-
-          /*
-            |-------------------|------|----------------|------|
-            ^                   ^      ^                ^
-            |<--Bounding Left-->|      |                |
-            |<-----------clientX------>|                |
-            |<-------------Slider Offset Width--------->|
-          */
-
-          if (sliderRef.current) {
-            let percentSliderWidth =
-              ((e.clientX - sliderRef.current.getBoundingClientRect().left) /
-                sliderRef.current.offsetWidth) *
-              100;
-
-            percentSliderWidth =
-              percentSliderWidth < 0
-                ? 0
-                : percentSliderWidth > 100
-                ? 100
-                : percentSliderWidth;
-
-            getPercentSlider(percentSliderWidth);
-          }
-
-          const handleMouseMove = (e) => {
-            // console.log("Mouse Move")
-            if (sliderRef.current) {
-              let percentSliderWidth =
-                ((e.clientX - sliderRef.current.getBoundingClientRect().left) /
-                  sliderRef.current.offsetWidth) *
-                100;
-
-              percentSliderWidth =
-                percentSliderWidth < 0
-                  ? 0
-                  : percentSliderWidth > 100
-                  ? 100
-                  : percentSliderWidth;
-
-              getPercentSlider(percentSliderWidth);
-            }
-          };
-
-          // Add Event Mouse Move
-          window.addEventListener("mousemove", handleMouseMove);
-
-          // Add Event Mouse Up
-          window.addEventListener("mouseup", () => {
-            // Remove Event Mouse Move
-            window.removeEventListener("mousemove", handleMouseMove);
-          });
-        }}
-      >
-        {/* Slider Bar Rail */}
-        <div
-          style={{
-            height: `${setHeight}`,
-          }}
-          className="relative   w-full transition-[width,left] duration-300 bg-[#4642422e] rounded-[15px]"
-        >
+    <Fragment>
+      <StyledProgress className="progress-block ">
+        <span className="tracktime">{ConvertDuration(formatTime)}</span>
+        <input
+          value={progressValue}
+          className="progress"
+          type="range"
+          step="1"
+          min="0"
+          max="100"
+          onChange={handleChangeProgress}
+          onMouseDown={() => setIsSeeking(true)}
+          onTouchStart={() => setIsSeeking(true)}
+          onMouseUp={handleChangeTime}
+          onTouchEnd={handleChangeTime}
+        />
+        <div className="progress__track song--track">
           <div
-            style={{
-              width: `${percentSlider}%`,
-              height: `${setHeight}`,
-            }}
-            className="top-0 left-0 -translate-y-2/4   absolute z-[1] progress-bar rounded-[15px]"
-          ></div>
-          {/* End React Slider Process  */}
-          {/* React Slider Dot
-           * Change Slider Dot -> left: 23%
-           */}
-          <div
-            style={{
-              left: `${percentSlider}%`,
-            }}
-            className="absolute z-[5] w-3 h-3 top-[50%] translate-x-[-50%] translate-y-[-50%] transition-[left]"
-          >
-            <div
-              onMouseOver={() => handleActiveSliderTooltipHover(true)}
-              onMouseOut={() => handleActiveSliderTooltipHover(false)}
-              className="box-border w-full h-full rounded-full cursor-pointer progress-dot "
-            ></div>
-          </div>
+            className="progress__track-update"
+            style={{ width: `${progressWidth}%` }}
+          />
         </div>
-      </div>
-    </StyledProgress>
+        <span className="durationtime">
+          {ConvertDuration(infoSongPlayer.duration)}
+        </span>
+      </StyledProgress>
+    </Fragment>
   );
 };
 
