@@ -14,13 +14,18 @@ import {
 const ChartRanking = ({ data = [], onClick }) => {
   const dispatch = useDispatch();
   const [songList, setSongList] = useState([]);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     if (data && data.RTChart) {
       const { items } = data.RTChart;
-      setSongList(items.slice(0, 5));
+      if (showAll) {
+        setSongList(items);
+      } else {
+        setSongList(items.slice(0, 10));
+      }
     }
-  }, [data]);
+  }, [data, showAll]);
 
   return (
     <div className="chart__ranking-container mt-7">
@@ -35,7 +40,13 @@ const ChartRanking = ({ data = [], onClick }) => {
           />
         ))}
 
-      <button className="view-all">Xem top 100</button>
+      {!showAll && (
+        <div className="w-full text-center">
+          <button onClick={() => setShowAll(true)} className="view-all">
+            Xem top 100
+          </button>
+        </div>
+      )}
     </div>
   );
 };

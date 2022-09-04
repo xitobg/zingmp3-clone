@@ -149,7 +149,6 @@ const PlayerControl = () => {
       request.get(`song/${currentSongId}`).then(async (res) => {
         if (res.data && res.data.data) {
           dispatch(setAudioSrc(res.data.data[128]));
-          console.log(srcAudio);
         }
       });
     }

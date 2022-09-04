@@ -11,7 +11,6 @@ import ConvertDuration from "~/utils/ConvertTime";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
 import viplabel from "~/assets/image/vipLabel.svg";
-import { toast } from "react-toastify";
 
 const StyledSong = styled.div`
   &:hover .icon-play {
@@ -20,7 +19,9 @@ const StyledSong = styled.div`
   &.active {
     background-color: ${(props) => props.theme.alphaBg};
   }
-
+  .play-btn {
+    font-size: 18px !important;
+  }
   &:hover .play-btn {
     visibility: visible;
   }
@@ -180,6 +181,10 @@ const StyledSong = styled.div`
   ${(props) =>
     props.playingBar &&
     css`
+      .media-left {
+        width: 100%;
+        margin-right: 0;
+      }
       &.active {
         background-color: ${(props) => props.theme.purplePrimary};
       }
@@ -196,14 +201,7 @@ const StyledSong = styled.div`
       }
     `};
 `;
-const SongItem = ({
-  item,
-  index,
-  onClick,
-  idArtistPage,
-  section = "",
-  playingBar,
-}) => {
+const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
   const dispatch = useDispatch();
   const { currentSongId, isPlay } = useSelector((state) => state.audio);
   const {
@@ -224,7 +222,7 @@ const SongItem = ({
       key={encodeId}
     >
       <div className="flex rounded-md select-none p-[10px] items-center">
-        <div className="flex items-center w-2/4 mr-[10px] flex-grow-0 flex-shrink-0">
+        <div className="flex items-center media-left w-2/4 mr-[10px] flex-grow-0 flex-shrink-0">
           {section === "zingchart" && (
             <div className="flex mr-[15px] items-center">
               <div

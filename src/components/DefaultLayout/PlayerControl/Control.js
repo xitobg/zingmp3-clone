@@ -1,11 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  memo,
-  useState,
-  useTransition,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "~/components/Icon";
 import Tippy from "@tippyjs/react";
@@ -21,8 +14,6 @@ import {
   setRepeatSong,
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
-import ConvertTotalDuration from "~/utils/ConvertTotalDuration";
-import ConvertDuration from "~/utils/ConvertTime";
 import Progress from "./Progress";
 import IconLoading from "~/components/Icon/IconLoading";
 
@@ -30,7 +21,6 @@ const Control = () => {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
-
   const {
     isPlay,
     loadingPlay,
@@ -39,7 +29,6 @@ const Control = () => {
     srcAudio,
     playlistSong,
     playlistRandom,
-    infoSongPlayer,
   } = useSelector((state) => state.audio);
   let currentIndex = useSelector((state) => state.audio.currentIndexSong);
   let currentIndexRandom = useSelector(
@@ -95,7 +84,6 @@ const Control = () => {
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi prev
     dispatch(setAudioSrc(""));
     dispatch(setLoadingPlay(true));
-    dispatch(setCurrentTime(0));
     if (isRandom) {
       if (currentIndexRandom <= 0) {
         dispatch(setCurrentIndexSongRandom(playlistRandom.length));
@@ -196,7 +184,7 @@ const Control = () => {
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   const handleOntimeUpdate = () => {
-    if (audioRef.current.duration) {
+    if (audioRef.current?.duration) {
       dispatch(setLoadingPlay(false));
     }
     setCurrentTime(audioRef.current.currentTime);

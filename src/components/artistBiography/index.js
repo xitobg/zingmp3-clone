@@ -22,7 +22,7 @@ const StyledSingerBiography = styled.div`
     color: ${(props) => props.theme.textSecondary};
   }
 `;
-const ArtistBiography = ({ data = {} }) => {
+const ArtistBiography = ({ data = {}, onClick = () => {} }) => {
   const [showModalBiography, setShowModalBiography] = useState(false);
   const {
     name,
@@ -33,6 +33,8 @@ const ArtistBiography = ({ data = {} }) => {
     awards,
     biography,
     thumbnailM,
+    playlistId,
+    sections,
   } = data;
   const { title, thumbnail: songThumb, releaseDate } = topAlbum;
   return (
@@ -57,6 +59,13 @@ const ArtistBiography = ({ data = {} }) => {
             <div className="flex flex-col gap-y-8 max-h-[138px] justify-between">
               <div className="flex gap-x-[10px]">
                 <Button
+                  onClick={() =>
+                    onClick(
+                      sections[0]?.items[0],
+                      sections[0]?.items,
+                      playlistId
+                    )
+                  }
                   large
                   className="play-btn"
                   leftIcon={<BsFillPlayFill />}

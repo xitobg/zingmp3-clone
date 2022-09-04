@@ -8,7 +8,7 @@ import Icon from "../Icon";
 const PlaylistItem = ({ item, onClick = null }) => {
   const dispatch = useDispatch();
   const { isPlay, playlistId } = useSelector((state) => state.audio);
-  const { encodeId, thumbnail, title, sortDescription, link, artists } = item;
+  const { encodeId, thumbnail, title, sortDescription, link } = item;
   return (
     <Link
       onClick={() => dispatch(setRandomSong(true))}

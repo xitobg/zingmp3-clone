@@ -22,6 +22,7 @@ import {
   setPlaylistSong,
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
+import Swal from "sweetalert2";
 const StyledZingChart = styled.div`
   margin-top: 30px;
   display: flex;
@@ -58,7 +59,7 @@ const StyledZingChart = styled.div`
 const ZingChart = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
-  const { isRandom } = useSelector((state) => state.audio);
+  const { isRandom, plalistId } = useSelector((state) => state.audio);
   const [dataZingChart, setDataZingChart] = useState([]);
   function shuffle(sourceArray) {
     for (var i = 0; i < sourceArray.length - 1; i++) {
@@ -92,10 +93,8 @@ const ZingChart = () => {
             playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
           )
         );
-        // dispatch(setCurrentIndexSongRandom(-1));
         dispatch(changeIconPlaying(true));
       } else {
-        // dispatch(setCurrentIndexSongRandom(-1));
         dispatch(setInfoSongPlayer(song));
         dispatch(setSongId(song.encodeId));
         dispatch(setPlaylistSong(playlistCanPlay));
@@ -107,7 +106,7 @@ const ZingChart = () => {
         dispatch(changeIconPlaying(true));
       }
     } else {
-      alert("This is vip song");
+      Swal.fire("Bài hát chưa được hỗ trợ!");
     }
   };
 
@@ -116,7 +115,7 @@ const ZingChart = () => {
     request
       .get("/chart/home")
       .then((res) => {
-        console.log("data zingchart:", res.data);
+        console.log("data zingchart:", dataZingChart.RTChart);
         setDataZingChart(res.data);
         dispatch(setLoading(false));
       })
@@ -135,9 +134,20 @@ const ZingChart = () => {
         <StyledZingChart>
           <div className="flex items-center chart-title gap-x-3">
             <h3 className="title">#zingchart</h3>
-            <button className="flex items-center justify-center w-10 h-10 rounded-full zingchart-btn">
-              <i className="text-xl text-white bi bi-play-fill"></i>
-            </button>
+            {dataZingChart?.RTChart?.sectionId !== plalistId && (
+              <button
+                onClick={() =>
+                  handlePlaySong(
+                    dataZingChart?.RTChart?.items[0],
+                    dataZingChart?.RTChart?.items,
+                    dataZingChart?.RTChart?.sectionId
+                  )
+                }
+                className="flex items-center justify-center w-10 h-10 rounded-full zingchart-btn"
+              >
+                <i className="text-xl text-white bi bi-play-fill"></i>
+              </button>
+            )}
           </div>
           <div className="flex flex-col my-7 gap-y-12">
             <div className="chart-line"></div>

@@ -117,94 +117,10 @@ const StyledSectionSong = styled.div`
     }
   }
 `;
-const SongSection = ({ data = {}, onClick, id }) => {
+const SongSection = ({ data = {}, onClick = () => {}, id }) => {
   const dispatch = useDispatch();
   const { items, title } = data;
-  const { isRandom } = useSelector((state) => state.audio);
-  const getCurrentIdexSong = (currentPlaylist, song) => {
-    return currentPlaylist.indexOf(song);
-  };
-  //Tạo ra array mới đã random từ array playlist
-  function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * i); // no +1 here!
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
 
-  const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
-    const playlistCanPlay = [];
-    if (song.streamingStatus === 1 && song.isWorldWide) {
-      dispatch(setAudioSrc(""));
-      dispatch(setCurrentTime(0));
-      dispatch(setPlaylistId(idPlaylist));
-      for (let songItem of currentPlayList) {
-        if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
-          playlistCanPlay.push(songItem);
-        }
-      }
-      if (isRandom) {
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-        );
-        // dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        // dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(
-          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        text: "Playlist chưa được hỗ trợ!",
-      });
-    }
-  };
-  //play random moi khi vao useEffect
-  const handlePlayRandomSong = (playlist, idPlaylist) => {
-    let songCanPlay = [];
-    let randomIndex;
-    for (let songItem of playlist) {
-      if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
-        songCanPlay.push(songItem);
-      }
-    }
-    if (songCanPlay.length === 0) {
-      Swal.fire({
-        icon: "error",
-        text: "Playlist chưa được hỗ trợ",
-      });
-    } else {
-      dispatch(setPlaylistId(idPlaylist));
-      dispatch(setAudioSrc(""));
-      dispatch(setCurrentTime(0));
-      randomIndex = Math.floor(Math.random() * songCanPlay.length - 1) + 1;
-      dispatch(setSongId(songCanPlay[randomIndex].encodeId));
-      dispatch(setInfoSongPlayer(songCanPlay[randomIndex]));
-      dispatch(setPlaylistSong(songCanPlay));
-      dispatch(setCurrentIndexSong(randomIndex));
-      dispatch(setRandomSong(true));
-      dispatch(changeIconPlaying(true));
-    }
-  };
-  useEffect(() => {
-    handlePlayRandomSong(items, id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, items]);
   return (
     <StyledSectionSong className="container-layout">
       <h3>{title}</h3>
@@ -217,7 +133,7 @@ const SongSection = ({ data = {}, onClick, id }) => {
             items?.map((item, index) => {
               return (
                 <SongItem
-                  onClick={() => handleGetSongPlaylist(item, items, id)}
+                  onClick={() => onClick(item, items, id)}
                   key={item.encodeId}
                   item={item}
                 />

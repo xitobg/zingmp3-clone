@@ -127,7 +127,6 @@ const Progress = ({ currentTime, songDuration, onChangeTime }) => {
       isSeeking || prevSeeking.current
         ? (progressValue * songDuration) / 100 || 0
         : currentTime;
-
     return songTime;
   }, [isSeeking, currentTime, songDuration, progressValue]);
 

@@ -337,9 +337,9 @@ const PlaylistDetail = () => {
                   </div>
                   <div className="flex flex-col justify-center mt-4 actions">
                     <div className="flex justify-center">
-                      {isPlay ? (
+                      {isPlay && dataAlbum.encodeId === playlistId ? (
                         <Button
-                          onClick={() => dispatch(changeIconPlaying(false))}
+                          onClick={handleGetSongPlaylist}
                           large
                           leftIcon={<BsFillPauseFill />}
                         >
@@ -347,7 +347,7 @@ const PlaylistDetail = () => {
                         </Button>
                       ) : (
                         <Button
-                          onClick={() => dispatch(changeIconPlaying(true))}
+                          onClick={handleGetSongPlaylist}
                           large
                           leftIcon={<BsFillPlayFill />}
                         >
