@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import ArtistBanner from "~/components/artistBanner";
@@ -8,7 +8,6 @@ import ArtistBiography from "~/components/artistBiography";
 import Loading from "~/components/loading/Loading";
 import MvArtist from "~/components/mv";
 import Playlist from "~/components/playlist/Playlist";
-import SongItem from "~/components/songItem";
 import WrapperLayout from "~/components/wrapperLayout";
 import {
   changeIconPlaying,
@@ -143,11 +142,11 @@ const ArtistDetails = () => {
       .get(`/artist/${artistName}`)
       .then((res) => {
         if (res.data && res.data.data) {
+          console.log("data artist:", res.data.data);
           setSingerData(res.data.data);
           const { sections } = res.data.data;
 
           handlePlayRandomSong(sections[0], res.data.data.playlistId);
-          console.log("data artist:", res.data.data);
           document.title = `${res.data.data.name} - Zing MP3 Official Account`;
           dispatch(setLoading(false));
         }

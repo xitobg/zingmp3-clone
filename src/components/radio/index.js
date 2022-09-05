@@ -6,7 +6,7 @@ const StyledRadio = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const RadioList = ({ data }) => {
+const RadioList = ({ data = {} }) => {
   const { items } = data;
   // console.log("radio:", items);
 
@@ -14,7 +14,7 @@ const RadioList = ({ data }) => {
     <StyledRadio>
       <h3>Radio Nổi bật</h3>
       <div className="grid grid-cols-7 gap-x-7">
-        {items.slice(0, 7).map((item) => (
+        {items?.slice(0, 7).map((item) => (
           <RadioItem key={item.id} item={item}></RadioItem>
         ))}
       </div>

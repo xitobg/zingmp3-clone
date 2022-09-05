@@ -67,7 +67,6 @@ const Home = () => {
             return (
               <Fragment key={`${index}${sectionId}`}>
                 <Event data={{ ...item }} />
-                <ArtistFavorist></ArtistFavorist>
                 <Partner />
               </Fragment>
             );

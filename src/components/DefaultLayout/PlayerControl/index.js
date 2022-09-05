@@ -8,13 +8,9 @@ import Icon from "~/components/Icon";
 import Control from "./Control";
 import { useDispatch, useSelector } from "react-redux";
 import request from "~/services/request";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-} from "~/redux-toolkit/audio/audioSlice";
-import { toast } from "react-toastify";
-import ConvertDuration from "~/utils/ConvertTime";
+import { setAudioSrc } from "~/redux-toolkit/audio/audioSlice";
 import { setShowPlayingbar } from "~/redux-toolkit/global/globalSlice";
+import { Slider, Stack } from "@mui/material";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
@@ -137,13 +133,46 @@ const StyledPlayer = styled.div`
   .is-repeat {
     color: ${(props) => props.theme.purplePrimary};
   }
+  & .track-slider {
+    margin-bottom: 0;
+    & .MuiSlider-root {
+      color: ${(props) => props.theme.linkTextHover};
+      .MuiSlider-thumb {
+        background-color: ${(props) => props.theme.linkTextHover};
+        width: 10px;
+        height: 10px;
+        border-radius: 100rem;
+        visibility: hidden;
+        &:hover {
+          box-shadow: none;
+        }
+      }
+      &:hover .MuiSlider-thumb {
+        visibility: visible;
+      }
+    }
+  }
+  & .MuiSlider-rail {
+    color: ${(props) => props.theme.alphaBg};
+  }
+  & .MuiSlider-track {
+    background-color: ${(props) => props.theme.linkTextHover};
+  }
+
+  .is-narrow {
+    background-color: hsla(0, 0%, 100%, 0.1);
+  }
 `;
 const PlayerControl = () => {
   const dispatch = useDispatch();
+  const [valueVolume, setValueVolume] = useState(100);
   const { showPlayingbar } = useSelector((state) => state.global);
   const { currentSongId, srcAudio, infoSongPlayer } = useSelector(
     (state) => state.audio
   );
+  const handleChangeVolume = (e) => {
+    setValueVolume(e.target.value);
+  };
   useEffect(() => {
     if (currentSongId !== null && currentSongId !== "") {
       request.get(`song/${currentSongId}`).then(async (res) => {
@@ -190,7 +219,7 @@ const PlayerControl = () => {
             </div>
           </div>
         </div>
-        <Control />
+        <Control valueVolume={valueVolume} />
         <div className="w-[30%] flex justify-end">
           <div className="flex items-center justify-center">
             <Tippy content="Xem lời bài hát">
@@ -203,11 +232,29 @@ const PlayerControl = () => {
                 <VscChromeRestore className="text-lg"></VscChromeRestore>
               </Icon>
             </Tippy>
-            <Icon>
-              <i className="text-lg bi bi-volume-up leading-[0px]"></i>
-            </Icon>
-
-            <div className="progress-volume relative w-[100px] h-[3px] mr-2 ml-1"></div>
+            <div className="flex items-center ">
+              <Icon>
+                {valueVolume > 0 ? (
+                  <i className="text-lg bi bi-volume-up leading-[0px]"></i>
+                ) : (
+                  <i className="bi leading-[0px] text-lg bi-volume-mute"></i>
+                )}
+              </Icon>
+              <Stack
+                className="flex-1 w-20 mb-0 track-slider "
+                spacing={2}
+                direction="row"
+                sx={{ mb: 1 }}
+                alignItems="center"
+              >
+                <Slider
+                  aria-label="Volume"
+                  value={valueVolume}
+                  onChange={handleChangeVolume}
+                />
+              </Stack>
+            </div>
+            <div className="is-narrow mx-5 w-[1px] h-8"></div>
             <Tippy content="Danh sách phát">
               <button
                 onClick={() => dispatch(setShowPlayingbar(!showPlayingbar))}

@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import VideoMV from "~/pages/mvAlbuml/VideoMV";
 //Page
 const Profile = lazy(() => import("~/pages/ProfilePage/Profile"));
 const Radio = lazy(() => import("~/pages/RadioPage/Radio"));
@@ -51,6 +52,10 @@ export const publicRoutes = [
   {
     path: "/playlist/:name/:id",
     component: PlaylistDetail,
+  },
+  {
+    path: "/video-clip/:name",
+    component: VideoMV,
   },
 ];
 // Private Router

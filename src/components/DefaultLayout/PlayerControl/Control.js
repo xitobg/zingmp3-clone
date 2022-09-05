@@ -17,7 +17,7 @@ import {
 import Progress from "./Progress";
 import IconLoading from "~/components/Icon/IconLoading";
 
-const Control = () => {
+const Control = ({ valueVolume = 100 }) => {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
@@ -197,8 +197,9 @@ const Control = () => {
     if (srcAudio !== "" || srcAudio !== undefined) {
       isPlay ? audioRef.current?.play() : audioRef.current?.pause();
     }
+    audioRef.current.volume = valueVolume / 100;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [srcAudio, isPlay]);
+  }, [srcAudio, isPlay, valueVolume]);
 
   return (
     <div className="player-control w-[40%] flex flex-col">
