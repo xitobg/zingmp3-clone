@@ -9,6 +9,7 @@ export const globalSlice = createSlice({
     showModalTheme: false,
     loading: false,
     showPlayingbar: false,
+    showVideoMV: false,
   },
   reducers: {
     setBgHeader: (state, action) => {
@@ -27,6 +28,9 @@ export const globalSlice = createSlice({
     setShowPlayingbar: (state, action) => {
       state.showPlayingbar = action.payload;
     },
+    setShowVideoMV: (state, action) => {
+      state.showVideoMV = action.payload;
+    },
   },
 });
 export const {
@@ -35,5 +39,6 @@ export const {
   setShowModalTheme,
   setLoading,
   setShowPlayingbar,
+  setShowVideoMV,
 } = globalSlice.actions;
 export default globalSlice.reducer;

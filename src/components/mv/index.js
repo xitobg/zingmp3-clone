@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import { setShowVideoMV } from "~/redux-toolkit/global/globalSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 const StyledMv = styled.div`
   .mv-item-image {
@@ -28,6 +31,7 @@ const StyledMv = styled.div`
   }
 `;
 const MvArtist = ({ data = {} }) => {
+  const dispatch = useDispatch();
   const { title, items } = data;
   return (
     <StyledMv className="container-layout ">
@@ -42,15 +46,10 @@ const MvArtist = ({ data = {} }) => {
               artist: { thumbnail },
               title: name,
               artists,
+              link,
             } = item;
             return (
-              <div
-                onClick={() =>
-                  toast.error("Tính năng xem MV chưa được cập nhật!")
-                }
-                key={encodeId}
-                className="relative flex flex-col"
-              >
+              <div key={encodeId} className="relative flex flex-col">
                 <div className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay">
                   <img
                     className="object-cover w-full transition-all duration-700 rounded-md"

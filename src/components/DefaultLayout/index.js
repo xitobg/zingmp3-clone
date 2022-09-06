@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
+import VideoMV from "~/pages/mvAlbuml/VideoMV";
 import Header from "./Header";
 import PlayerControl from "./PlayerControl";
 import PlayingBar from "./rightSidebar";
@@ -24,6 +25,7 @@ const DefaultLayout = ({ children }) => {
       </StyledWrapper>
       <PlayingBar />
       <PlayerControl />
+      <VideoMV />
     </>
   );
 };

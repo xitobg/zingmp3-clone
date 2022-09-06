@@ -54,7 +54,7 @@ export const publicRoutes = [
     component: PlaylistDetail,
   },
   {
-    path: "/video-clip/:name",
+    path: "/video-clip/:name/:id",
     component: VideoMV,
   },
 ];
