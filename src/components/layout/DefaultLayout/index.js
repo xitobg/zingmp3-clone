@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import styled from "styled-components";
-import VideoMV from "~/pages/mvAlbuml/VideoMV";
 import Header from "./Header";
 import PlayerControl from "./PlayerControl";
 import PlayingBar from "./rightSidebar";
@@ -19,13 +18,12 @@ const DefaultLayout = ({ children }) => {
   return (
     <>
       <StyledWrapper>
-        <Header></Header>
-        <Sidebar></Sidebar>
+        <Header />
+        <Sidebar />
         <>{children}</>
       </StyledWrapper>
       <PlayingBar />
       <PlayerControl />
-      <VideoMV />
     </>
   );
 };

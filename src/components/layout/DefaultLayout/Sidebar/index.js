@@ -9,10 +9,10 @@ import { BsUiChecksGrid } from "react-icons/bs";
 import { BsStar } from "react-icons/bs";
 import { IoIosRadio } from "react-icons/io";
 import { SiYoutubemusic } from "react-icons/si";
-import { LibraryData } from "~/components/DefaultLayout/Sidebar/library/LibraryData";
 import Button from "~/components/button";
 import logo from "~/assets/image/logo.svg";
 import MenuItem from "./menu/MenuItem";
+import { LibraryData } from "./library/LibraryData";
 const StyledSidebar = styled.div`
   background-color: ${(props) => props.theme.sidebarBg};
   height: calc(100vh - 90px);

@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
 import { setShowVideoMV } from "~/redux-toolkit/global/globalSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 const StyledMv = styled.div`
@@ -33,6 +35,10 @@ const StyledMv = styled.div`
 const MvArtist = ({ data = {} }) => {
   const dispatch = useDispatch();
   const { title, items } = data;
+  const handleShowVideo = () => {
+    dispatch(setShowVideoMV(true));
+    dispatch(changeIconPlaying(false));
+  };
   return (
     <StyledMv className="container-layout ">
       <h3>{title}</h3>
@@ -47,22 +53,51 @@ const MvArtist = ({ data = {} }) => {
               title: name,
               artists,
               link,
+              isWorldWide,
+              streamingStatus,
             } = item;
             return (
               <div key={encodeId} className="relative flex flex-col">
-                <div className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay">
-                  <img
-                    className="object-cover w-full transition-all duration-700 rounded-md"
-                    src={thumbnailM}
-                    alt=""
-                  />
-                  <div className="cursor-pointer invisible text-center border  border-white w-[45px] h-[45px] rounded-full center mv-action">
-                    <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
+                {streamingStatus === 1 && isWorldWide ? (
+                  <Link
+                    onClick={() =>
+                      handleShowVideo(streamingStatus, isWorldWide)
+                    }
+                    to={link}
+                    state={{ id: encodeId }}
+                    className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
+                  >
+                    <img
+                      className="object-cover w-full transition-all duration-700 rounded-md"
+                      src={thumbnailM}
+                      alt=""
+                    />
+                    <div className="cursor-pointer invisible text-center border  border-white w-[45px] h-[45px] rounded-full center mv-action">
+                      <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
+                    </div>
+                    <div className="absolute text-base text-white right-2 bottom-2 leading-normal py-[3px] font-normal px-[5px] rounded-[4px] z-[20] bg-[rgba(0,0,0,.7)]">
+                      {ConvertDuration(duration)}
+                    </div>
+                  </Link>
+                ) : (
+                  <div
+                    onClick={() => toast.error("MV Dành Cho Tài Khoản Vip!")}
+                    className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
+                  >
+                    <img
+                      className="object-cover w-full transition-all duration-700 rounded-md"
+                      src={thumbnailM}
+                      alt=""
+                    />
+                    <div className="cursor-pointer invisible text-center border  border-white w-[45px] h-[45px] rounded-full center mv-action">
+                      <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
+                    </div>
+                    <div className="absolute text-base text-white right-2 bottom-2 leading-normal py-[3px] font-normal px-[5px] rounded-[4px] z-[20] bg-[rgba(0,0,0,.7)]">
+                      {ConvertDuration(duration)}
+                    </div>
                   </div>
-                  <div className="absolute text-base text-white right-2 bottom-2 leading-normal py-[3px] font-normal px-[5px] rounded-[4px] z-[20] bg-[rgba(0,0,0,.7)]">
-                    {ConvertDuration(duration)}
-                  </div>
-                </div>
+                )}
+
                 <div className="flex relative py-[10px] items-center text-left">
                   <div className="mr-[10px]">
                     <div className="relative w-10 h-10 rounded-full cursor-pointer">
