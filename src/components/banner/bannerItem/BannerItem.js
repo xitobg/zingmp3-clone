@@ -1,8 +1,21 @@
-import React from "react";
+import { display } from "@mui/system";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  changeIconPlaying,
+  setAudioSrc,
+  setInfoSongPlayer,
+  setPlaylistId,
+  setPlaylistRandom,
+  setPlaylistSong,
+  setSongId,
+} from "~/redux-toolkit/audio/audioSlice";
+import request from "~/services/request";
 
 const BannerItem = ({ item }) => {
-  // console.log("banner item:", item);
+  const dispatch = useDispatch();
+
   return item.type === 4 ? (
     <Link
       to={item.link}

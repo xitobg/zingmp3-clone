@@ -100,7 +100,6 @@ const VideoMV = () => {
       }
     }
     fetch();
-    console.log(navigate);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, navigate]);

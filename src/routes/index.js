@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import VideoMV from "~/pages/mvPage/VideoMV";
+import NewMusic from "~/pages/newRelease/NewMusic";
+import Top100 from "~/pages/Top100/Top100";
 //Page
 const Profile = lazy(() => import("~/pages/ProfilePage/Profile"));
 const Radio = lazy(() => import("~/pages/RadioPage/Radio"));
@@ -26,12 +28,20 @@ export const publicRoutes = [
     component: ZingChart,
   },
   {
-    path: "radio",
+    path: "/radio",
     component: Radio,
   },
   {
-    path: "follow",
+    path: "/follow",
     component: Follow,
+  },
+  {
+    path: "/new-music",
+    component: NewMusic,
+  },
+  {
+    path: "/top-100",
+    component: Top100,
   },
   {
     path: "/nghe-si/:name",

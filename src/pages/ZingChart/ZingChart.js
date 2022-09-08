@@ -156,7 +156,7 @@ const ZingChart = () => {
             <div className="chart-line"></div>
           </div>
           <ChartRanking onClick={handlePlaySong} data={dataZingChart} />
-          <WeekChart data={dataZingChart} />
+          {/* <WeekChart data={dataZingChart} /> */}
         </StyledZingChart>
       )}
     </WrapperLayout>

@@ -167,9 +167,7 @@ const PlayerControl = () => {
   const dispatch = useDispatch();
   const [valueVolume, setValueVolume] = useState(100);
   const { showPlayingbar } = useSelector((state) => state.global);
-  const { currentSongId, srcAudio, infoSongPlayer } = useSelector(
-    (state) => state.audio
-  );
+  const { currentSongId, infoSongPlayer } = useSelector((state) => state.audio);
   const handleChangeVolume = (e) => {
     setValueVolume(e.target.value);
   };
@@ -235,9 +233,15 @@ const PlayerControl = () => {
             <div className="flex items-center ">
               <Icon>
                 {valueVolume > 0 ? (
-                  <i className="text-lg bi bi-volume-up leading-[0px]"></i>
+                  <i
+                    onClick={() => setValueVolume(0)}
+                    className="text-lg bi bi-volume-up leading-[0px]"
+                  ></i>
                 ) : (
-                  <i className="bi leading-[0px] text-lg bi-volume-mute"></i>
+                  <i
+                    onClick={() => setValueVolume(100)}
+                    className="bi leading-[0px] text-lg bi-volume-mute"
+                  ></i>
                 )}
               </Icon>
               <Stack

@@ -29,7 +29,7 @@ const ChartRanking = ({ data = [], onClick }) => {
 
   return (
     <div className="chart__ranking-container mt-7">
-      {songList.length > 0 &&
+      {songList?.length > 0 &&
         songList.map((item, index) => (
           <SongItem
             key={item.encodeId}

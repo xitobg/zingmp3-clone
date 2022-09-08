@@ -28,7 +28,6 @@ const StyledPlaylist = styled.div`
 `;
 const Playlist = ({ data = {} }) => {
   const { items, title } = data;
-
   return (
     <StyledPlaylist className="container-layout">
       <h3>{title}</h3>

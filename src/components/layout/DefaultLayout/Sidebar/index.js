@@ -112,7 +112,7 @@ const Sidebar = () => {
         />
         <MenuItem
           title="Radio"
-          to="radio"
+          to="/radio"
           icon={<IoIosRadio className="menu-item__icon" />}
         />
         <MenuItem
@@ -123,19 +123,22 @@ const Sidebar = () => {
       </div>
 
       <div className="sidebar__subnav-inner has-scroll-bar mt-[10px]">
-        {/* <div className="mb-4 sidebar-navbar-list relative after:absolute after:content=['']">
-          <div className="flex items-center px-6 py-2 font-semibold border-l border-transparent cursor-pointer menu-item">
-            <BsMusicNoteBeamed className="text-xl font-semibold text-inherit"></BsMusicNoteBeamed>
-            <span className="pl-3">Nhạc Mới</span>
-          </div>
+        <div className="mb-4 sidebar-navbar-list relative after:absolute after:content=['']">
+          <MenuItem
+            title="Nhạc Mới"
+            to="/new-music"
+            icon={<BsMusicNoteBeamed className="menu-item__icon" />}
+          />
+
           <div className="flex items-center px-6 py-2 font-semibold border-l border-transparent cursor-pointer menu-item">
             <BsUiChecksGrid className="text-xl font-semibold text-inherit"></BsUiChecksGrid>
             <span className="pl-3">Thể Loại</span>
           </div>
-          <div className="flex items-center px-6 py-2 font-semibold border-l border-transparent cursor-pointer menu-item">
-            <BsStar className="text-xl font-semibold text-inherit"></BsStar>
-            <span className="pl-3">Top 100</span>
-          </div>
+          <MenuItem
+            title="Top 100"
+            to="/top-100"
+            icon={<BsStar className="menu-item__icon" />}
+          />
           <div className="flex items-center px-6 py-2 font-semibold border-l border-transparent cursor-pointer menu-item">
             <SiYoutubemusic className="text-xl font-semibold text-inherit"></SiYoutubemusic>
             <span className="pl-3">Mv</span>
@@ -146,7 +149,7 @@ const Sidebar = () => {
             </div>
             <Button className="bg-[#ffdb00]">MUA VIP</Button>
           </div>
-        </div> */}
+        </div>
         <ul className="flex flex-col pt-7">
           <li className="flex library-item py-2 px-[25px]">
             <h4 className="text-xs library-title">THƯ VIỆN</h4>

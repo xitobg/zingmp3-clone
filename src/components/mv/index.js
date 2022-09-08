@@ -58,45 +58,24 @@ const MvArtist = ({ data = {} }) => {
             } = item;
             return (
               <div key={encodeId} className="relative flex flex-col">
-                {streamingStatus === 1 && isWorldWide ? (
-                  <Link
-                    onClick={() =>
-                      handleShowVideo(streamingStatus, isWorldWide)
-                    }
-                    to={link}
-                    state={{ id: encodeId }}
-                    className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
-                  >
-                    <img
-                      className="object-cover w-full transition-all duration-700 rounded-md"
-                      src={thumbnailM}
-                      alt=""
-                    />
-                    <div className="cursor-pointer invisible text-center border  border-white w-[45px] h-[45px] rounded-full center mv-action">
-                      <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
-                    </div>
-                    <div className="absolute text-base text-white right-2 bottom-2 leading-normal py-[3px] font-normal px-[5px] rounded-[4px] z-[20] bg-[rgba(0,0,0,.7)]">
-                      {ConvertDuration(duration)}
-                    </div>
-                  </Link>
-                ) : (
-                  <div
-                    onClick={() => toast.error("MV Dành Cho Tài Khoản Vip!")}
-                    className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
-                  >
-                    <img
-                      className="object-cover w-full transition-all duration-700 rounded-md"
-                      src={thumbnailM}
-                      alt=""
-                    />
-                    <div className="cursor-pointer invisible text-center border  border-white w-[45px] h-[45px] rounded-full center mv-action">
-                      <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
-                    </div>
-                    <div className="absolute text-base text-white right-2 bottom-2 leading-normal py-[3px] font-normal px-[5px] rounded-[4px] z-[20] bg-[rgba(0,0,0,.7)]">
-                      {ConvertDuration(duration)}
-                    </div>
+                <div
+                  onClick={() =>
+                    toast.error("Tính năng xem mv chưa được cập nhật!")
+                  }
+                  className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
+                >
+                  <img
+                    className="object-cover w-full transition-all duration-700 rounded-md"
+                    src={thumbnailM}
+                    alt=""
+                  />
+                  <div className="cursor-pointer invisible text-center border  border-white w-[45px] h-[45px] rounded-full center mv-action">
+                    <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
                   </div>
-                )}
+                  <div className="absolute text-base text-white right-2 bottom-2 leading-normal py-[3px] font-normal px-[5px] rounded-[4px] z-[20] bg-[rgba(0,0,0,.7)]">
+                    {ConvertDuration(duration)}
+                  </div>
+                </div>
 
                 <div className="flex relative py-[10px] items-center text-left">
                   <div className="mr-[10px]">

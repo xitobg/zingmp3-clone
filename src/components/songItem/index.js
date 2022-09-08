@@ -223,7 +223,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
     >
       <div className="flex rounded-md select-none p-[10px] items-center">
         <div className="flex items-center media-left w-2/4 mr-[10px] flex-grow-0 flex-shrink-0">
-          {section === "zingchart" && (
+          {section === "zingchart" || section === "new-release" ? (
             <div className="flex mr-[15px] items-center">
               <div
                 className={`song__rank-number  ${
@@ -244,7 +244,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
                   <i className="text-base bi bi-dash-lg icon-dash"></i>
                 </div>
               ) : (
-                <div className="flex   flex-col sort-ranking items-center  w-[18px] h-[36px]">
+                <div className="flex flex-col sort-ranking items-center  w-[18px] h-[36px]">
                   {rakingStatus > 0 ? (
                     <TiArrowSortedUp className="text-[#1dc186] text-xs w-[18px] h-[18px]"></TiArrowSortedUp>
                   ) : (
@@ -256,6 +256,8 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
                 </div>
               )}
             </div>
+          ) : (
+            ""
           )}
           {section === "playlist" && (
             <div className="flex justify-center song-icon-note mr-[10px] items-center text-xs">
