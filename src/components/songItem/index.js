@@ -6,7 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Icon from "~/components/Icon";
-import { changeIconPlaying, setSongId } from "~/redux-toolkit/audio/audioSlice";
+import {
+  changeIconPlaying,
+  setPlaylistSongFav,
+  setSongId,
+} from "~/redux-toolkit/audio/audioSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
@@ -214,6 +218,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
     duration,
     streamingStatus,
   } = item;
+
   return (
     <StyledSong
       playingBar={playingBar}

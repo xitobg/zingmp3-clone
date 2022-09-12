@@ -9,13 +9,12 @@ import {
   setPlaylistId,
   setPlaylistRandom,
   setPlaylistSong,
+  setRepeatSong,
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import request from "~/services/request";
 
 const BannerItem = ({ item }) => {
-  const dispatch = useDispatch();
-
   return item.type === 4 ? (
     <Link
       to={item.link}

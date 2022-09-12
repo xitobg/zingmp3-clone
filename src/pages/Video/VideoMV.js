@@ -80,7 +80,7 @@ const VideoMV = () => {
   const location = useLocation();
   const { id } = location.state || {};
   const { showVideoMV } = useSelector((state) => state.global);
-  const [dataMv, setDataMv] = useState([]);
+  const [dataVideoMV, setDataVideoMV] = useState([]);
   const handleCloseVideo = () => {
     dispatch(setShowVideoMV(false));
     navigate(-1);
@@ -93,7 +93,7 @@ const VideoMV = () => {
         );
         console.log("data mv:", response.data.data);
         if (response.data && response.data.data) {
-          setDataMv(response.data.data);
+          setDataVideoMV(response.data.data);
         }
       } catch (error) {
         console.error(error);
@@ -102,9 +102,9 @@ const VideoMV = () => {
     fetch();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, navigate]);
+  }, [id]);
 
-  const { streaming, recommends, artist, title } = dataMv;
+  const { streaming, recommends, artist, title } = dataVideoMV;
   return (
     <>
       <StyledVideo className={`${showVideoMV ? "show" : ""}`}>

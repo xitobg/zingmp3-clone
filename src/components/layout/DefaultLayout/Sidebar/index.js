@@ -78,6 +78,15 @@ const StyledSidebar = styled.div`
       }
     }
   }
+  & .vip-btn {
+    background-color: #ffdb00;
+    border-color: #ffdb00;
+    color: black;
+    display: inline-block;
+    padding: 6px 35px;
+    font-size: 12px;
+    font-weight: 600;
+  }
   .create-playlist {
     border-top: 1px solid ${(props) => props.theme.borderPrimary};
     &-icon,
@@ -126,7 +135,7 @@ const Sidebar = () => {
         <div className="mb-4 sidebar-navbar-list relative after:absolute after:content=['']">
           <MenuItem
             title="Nhạc Mới"
-            to="/new-music"
+            to="/new-release"
             icon={<BsMusicNoteBeamed className="menu-item__icon" />}
           />
 
@@ -139,20 +148,22 @@ const Sidebar = () => {
             to="/top-100"
             icon={<BsStar className="menu-item__icon" />}
           />
-          <div className="flex items-center px-6 py-2 font-semibold border-l border-transparent cursor-pointer menu-item">
-            <SiYoutubemusic className="text-xl font-semibold text-inherit"></SiYoutubemusic>
-            <span className="pl-3">Mv</span>
-          </div>
+          <MenuItem
+            title="MV"
+            to="/mv"
+            icon={<SiYoutubemusic className="menu-item__icon" />}
+          />
+
           <div className="w- flex mx-5 my-3 justify-center items-center  flex-col rounded-lg w-[200px] bg-bgGradient py-4 px-2">
             <div className="mb-2 text-xs font-semibold leading-5 text-center text-white">
               Nghe nhạc không quảng cáo cùng kho nhạc VIP
             </div>
-            <Button className="bg-[#ffdb00]">MUA VIP</Button>
+            <Button className=" vip-btn">MUA VIP</Button>
           </div>
         </div>
         <ul className="flex flex-col pt-7">
           <li className="flex library-item py-2 px-[25px]">
-            <h4 className="text-xs library-title">THƯ VIỆN</h4>
+            <h4 className="text-xs font-semibold library-title">THƯ VIỆN</h4>
             <i className="ml-auto text-sm bi library-icon bi-pencil-fill"></i>
           </li>
           {LibraryData.length > 0 &&

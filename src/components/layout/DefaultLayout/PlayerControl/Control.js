@@ -168,7 +168,7 @@ const Control = ({ valueVolume = 100 }) => {
       } else {
         if (currentIndex === playlistSong.length - 1) {
           dispatch(setCurrentIndexSong(0));
-          dispatch(setInfoSongPlayer(playlistSong[0].encodeId));
+          dispatch(setInfoSongPlayer(playlistSong[0]));
           dispatch(setSongId(playlistSong[0].encodeId));
           dispatch(changeIconPlaying(true));
         } else {

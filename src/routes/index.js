@@ -1,7 +1,9 @@
 import { lazy } from "react";
-import VideoMV from "~/pages/mvPage/VideoMV";
+import VideoMV from "~/pages/Video/VideoMV";
 import NewMusic from "~/pages/newRelease/NewMusic";
 import Top100 from "~/pages/Top100/Top100";
+import CategoryMv from "~/pages/MVCategory/CategoryMv";
+import SignUp from "~/pages/signUp/SignUp";
 //Page
 const Profile = lazy(() => import("~/pages/ProfilePage/Profile"));
 const Radio = lazy(() => import("~/pages/RadioPage/Radio"));
@@ -36,12 +38,16 @@ export const publicRoutes = [
     component: Follow,
   },
   {
-    path: "/new-music",
+    path: "/new-release",
     component: NewMusic,
   },
   {
     path: "/top-100",
     component: Top100,
+  },
+  {
+    path: "/mv",
+    component: CategoryMv,
   },
   {
     path: "/nghe-si/:name",
@@ -66,6 +72,11 @@ export const publicRoutes = [
   {
     path: "/video-clip/:name/:id",
     component: VideoMV,
+    layout: null,
+  },
+  {
+    path: "/sign-up",
+    component: SignUp,
     layout: null,
   },
 ];

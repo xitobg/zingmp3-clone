@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 import logozingmp3 from "~/assets/image/logo.jpeg";
 export const audioSlice = createSlice({
   name: "audio",
@@ -77,6 +79,7 @@ export const audioSlice = createSlice({
         JSON.stringify([...action.payload])
       );
     },
+
     setCurrentIndexSong: (state, action) => {
       state.currentIndexSong = action.payload;
     },

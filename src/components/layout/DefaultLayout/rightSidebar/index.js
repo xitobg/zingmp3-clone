@@ -1,8 +1,18 @@
 import Tippy from "@tippyjs/react";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import SongItem from "~/components/songItem";
+import {
+  changeIconPlaying,
+  setAudioSrc,
+  setCurrentIndexSong,
+  setCurrentIndexSongRandom,
+  setInfoSongPlayer,
+  setPlaylistRandom,
+  setSongId,
+} from "~/redux-toolkit/audio/audioSlice";
 const StyledPlaying = styled.div`
   position: fixed;
   width: 330px !important;
@@ -39,9 +49,53 @@ const StyledPlaying = styled.div`
 `;
 const PlayingBar = () => {
   const { showPlayingbar } = useSelector((state) => state.global);
-  const { playlistSong, playlistRandom, currentIndexSong, currentIndexRandom } =
-    useSelector((state) => state.audio);
-  const handlePlaySong = () => {};
+  const dispatch = useDispatch();
+  const {
+    playlistSong,
+    playlistRandom,
+    currentIndexSong,
+    currentIndexSongRandom,
+    isRandom,
+  } = useSelector((state) => state.audio);
+  function shuffle(array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }
+
+  const handlePlaySong = (playlist, randomPlaylist, song, index) => {
+    let indexSong = playlist.findIndex(
+      (item) => item.encodeId === song.encodeId
+    );
+    let randomIndexSong = playlistRandom.findIndex(
+      (item) => item.encodeId === song.encodeId
+    );
+    dispatch(setCurrentIndexSongRandom(randomIndexSong));
+    dispatch(setCurrentIndexSong(indexSong));
+    dispatch(setInfoSongPlayer(song));
+    dispatch(setSongId(song.encodeId));
+    dispatch(setAudioSrc(""));
+    dispatch(changeIconPlaying(true));
+  };
+  useEffect(() => {
+    if (isRandom) {
+      dispatch(setPlaylistRandom(shuffle([...playlistRandom])));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRandom]);
   return (
     <StyledPlaying className={`${showPlayingbar ? "show" : ""}`}>
       <div className="relative flex flex-col px-3 playing-bar-container">
@@ -68,16 +122,55 @@ const PlayingBar = () => {
           </div>
         </div>
         <div className="flex pb-[200px] flex-col max-h-screen has-scroll-bar play-bar-list">
-          {playlistSong?.map((item, index) => {
-            return (
-              <SongItem
-                playingBar
-                key={item.encodeId}
-                item={item}
-                section="search"
-              />
-            );
-          })}
+          {isRandom
+            ? playlistRandom.map((song, index) => {
+                if (song.streamingStatus !== 1) {
+                  return Swal.fire("Bài hát chưa được hỗ trợ!");
+                } else {
+                  return (
+                    index >= currentIndexSongRandom && (
+                      <SongItem
+                        onClick={() =>
+                          handlePlaySong(
+                            playlistSong,
+                            playlistRandom,
+                            song,
+                            index
+                          )
+                        }
+                        playingBar
+                        key={song.encodeId}
+                        item={song}
+                        section="search"
+                      />
+                    )
+                  );
+                }
+              })
+            : playlistSong.map((song, index) => {
+                if (song.streamingStatus !== 1) {
+                  return Swal.fire("Bài hát chưa được hỗ trợ!");
+                } else {
+                  return (
+                    index >= currentIndexSong && (
+                      <SongItem
+                        onClick={() =>
+                          handlePlaySong(
+                            playlistSong,
+                            playlistRandom,
+                            song,
+                            index
+                          )
+                        }
+                        playingBar
+                        key={song.encodeId}
+                        item={song}
+                        section="search"
+                      />
+                    )
+                  );
+                }
+              })}
         </div>
       </div>
     </StyledPlaying>

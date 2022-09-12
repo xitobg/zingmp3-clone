@@ -1,5 +1,17 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {
+  changeIconPlaying,
+  setAudioSrc,
+  setInfoSongPlayer,
+  setPlaylistId,
+  setPlaylistRandom,
+  setPlaylistSong,
+  setRepeatSong,
+  setSongId,
+} from "~/redux-toolkit/audio/audioSlice";
 import ConvertDates from "~/utils/ConvertDates";
 const StyledNewRelease = styled.div`
   .new__release-item {
@@ -42,11 +54,21 @@ const StyledNewRelease = styled.div`
   }
 `;
 const NewRelease = ({ data = {} }) => {
-  const { items } = data;
-
+  const dispatch = useDispatch();
+  const { items, title } = data;
+  const handlePlaySong = (song) => {
+    dispatch(setRepeatSong(true));
+    dispatch(setAudioSrc(""));
+    dispatch(setPlaylistId(""));
+    dispatch(setPlaylistSong([song]));
+    dispatch(setPlaylistRandom([song]));
+    dispatch(setSongId(song.encodeId));
+    dispatch(setInfoSongPlayer(song));
+    dispatch(changeIconPlaying(true));
+  };
   return (
     <StyledNewRelease className="container-layout">
-      <h3>Mới Phát Hành</h3>
+      <h3>{title}</h3>
       <div className="grid grid-cols-3 py-[5px] gap-x-7">
         {items.slice(0, 3).map((item, index) => {
           const {
@@ -56,9 +78,12 @@ const NewRelease = ({ data = {} }) => {
             encodeId,
             releaseDate,
             releasedAt,
+            link,
           } = item;
           return (
             <div
+              onClick={() => handlePlaySong(item)}
+              to={link}
               key={encodeId}
               className="flex new__release-item cursor-pointer rounded-[4px] p-[15px] "
             >

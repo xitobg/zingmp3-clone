@@ -6,7 +6,11 @@ import styled from "styled-components";
 import SongItem from "~/components/songItem";
 import {
   changeIconPlaying,
+  setAudioSrc,
   setInfoSongPlayer,
+  setPlaylistId,
+  setPlaylistRandom,
+  setPlaylistSong,
   setRepeatSong,
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
@@ -41,13 +45,15 @@ const StyledSearchSuggest = styled.div`
 const SearchSuggest = ({ data = [] }) => {
   const dispatch = useDispatch();
   const handlePlaySong = (song) => {
-    console.log(song);
+    dispatch(setAudioSrc(""));
+    dispatch(setPlaylistId(""));
+    dispatch(setPlaylistSong([song]));
+    dispatch(setPlaylistRandom([song]));
     dispatch(setSongId(song.encodeId));
     dispatch(setInfoSongPlayer(song));
     dispatch(changeIconPlaying(true));
     dispatch(setRepeatSong(true));
   };
-
   return (
     data.length > 0 &&
     data.map((item, index) => {
