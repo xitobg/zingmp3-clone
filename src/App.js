@@ -13,8 +13,8 @@ function App() {
   return (
     <Fragment>
       <ThemeProvider theme={theme}>
-        <ToastContainer></ToastContainer>
-        <GlobalStyles></GlobalStyles>
+        <ToastContainer />
+        <GlobalStyles />
         <Suspense fallback={<></>}>
           <Routes>
             {publicRoutes.map((route, index) => {

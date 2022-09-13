@@ -31,6 +31,7 @@ const StyledButton = styled.button`
     `};
 `;
 const Button = ({
+  type,
   className,
   preview = false,
   onClick = null,
@@ -43,6 +44,7 @@ const Button = ({
 }) => {
   return (
     <StyledButton
+      type={type}
       large={large}
       preview={preview}
       onClick={onClick}
