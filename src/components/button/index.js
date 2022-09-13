@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
+import LoadingSpinner from "../loading/LoadingSpinner";
 const StyledButton = styled.button`
   &:hover {
     filter: brightness(0.9);
@@ -12,6 +13,9 @@ const StyledButton = styled.button`
   font-size: 8px;
   text-transform: uppercase;
   font-weight: 400;
+  & span {
+    line-height: 0px;
+  }
   ${(props) =>
     props.preview &&
     css`
@@ -41,17 +45,21 @@ const Button = ({
   small = false,
   large = false,
   border = false,
+  ...props
 }) => {
+  const { isLoading, to } = props;
+  const child = !!isLoading ? <LoadingSpinner /> : children;
   return (
     <StyledButton
       type={type}
       large={large}
       preview={preview}
       onClick={onClick}
+      {...props}
       className={`flex items-center whitespace-nowrap rounded-full justify-center    uppercase  ${className}`}
     >
       {leftIcon && <div className="text-[16px] mr-[5px]">{leftIcon}</div>}
-      <span> {children}</span>
+      <span> {child}</span>
       {rightIcon && <>{rightIcon}</>}
     </StyledButton>
   );
