@@ -11,8 +11,7 @@ const InputStyles = styled.div`
     padding: ${(props) =>
       props.hasIcon ? "16px 60px 16px 20px" : "16px 20px"};
     background-color: transparent;
-    border: 1px solid ${(props) => props.theme.navigationText};
-    /* border: 1px solid ${(props) => props.theme.purplePrimary}; */
+    border: 1px solid #ddd;
     border-radius: 2px;
     transition: all 0.2s linear;
     color: black;

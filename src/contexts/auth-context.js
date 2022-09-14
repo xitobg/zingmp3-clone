@@ -1,6 +1,13 @@
 import { auth, db } from "~/firebase-app/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const { createContext, useContext, useState, useEffect } = require("react");
@@ -10,21 +17,27 @@ function AuthProvider(props) {
   const [userInfo, setUserInfo] = useState({});
   const value = { userInfo, setUserInfo };
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const docRef = query(
-          collection(db, "users"),
-          where("email", "==", user.email)
-        );
-        onSnapshot(docRef, (snapshot) => {
-          snapshot.forEach((doc) => {
-            setUserInfo({
-              ...user,
-              ...doc.data(),
-            });
-          });
+        // const docRef = query(
+        //   collection(db, "users"),
+        //   where("email", "==", user.email)
+        // );
+        // onSnapshot(docRef, (snapshot) => {
+        //   snapshot.forEach((doc) => {
+        //     setUserInfo({
+        //       ...user,
+        //       ...doc.data(),
+        //     });
+        //   });
+        // });
+        const docRef = doc(db, "users", user.uid);
+        const result = await getDoc(docRef);
+        setUserInfo({
+          ...result.data(),
+          ...user,
         });
-        setUserInfo(user);
+        // setUserInfo(user);
       } else {
         setUserInfo(null);
       }

@@ -4,6 +4,7 @@ import NewMusic from "~/pages/newRelease/NewMusic";
 import Top100 from "~/pages/Top100/Top100";
 import CategoryMv from "~/pages/MVCategory/CategoryMv";
 import SignUp from "~/pages/signUp/SignUp";
+import SignIn from "~/pages/signIn/SignIn";
 //Page
 const Profile = lazy(() => import("~/pages/ProfilePage/Profile"));
 const Radio = lazy(() => import("~/pages/RadioPage/Radio"));
@@ -77,6 +78,11 @@ export const publicRoutes = [
   {
     path: "/sign-up",
     component: SignUp,
+    layout: null,
+  },
+  {
+    path: "/sign-in",
+    component: SignIn,
     layout: null,
   },
 ];

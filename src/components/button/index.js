@@ -13,9 +13,7 @@ const StyledButton = styled.button`
   font-size: 8px;
   text-transform: uppercase;
   font-weight: 400;
-  & span {
-    line-height: 0px;
-  }
+
   ${(props) =>
     props.preview &&
     css`

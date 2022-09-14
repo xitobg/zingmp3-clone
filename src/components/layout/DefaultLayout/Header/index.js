@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from "react";
+import { signOut } from "firebase/auth";
+import { auth } from "~/firebase-app/firebase-config";
 import styled from "styled-components";
 import { IoSettingsOutline } from "react-icons/io5";
 import Tippy from "@tippyjs/react";
@@ -10,6 +12,11 @@ import { setShowModalTheme } from "~/redux-toolkit/global/globalSlice";
 import avatar from "~/assets/image/avatar.jpg";
 import { useAuth } from "~/contexts/auth-context";
 import { ThemeIcon } from "~/components/layout/DefaultLayout/Header/icons/Icons";
+import { RiVipCrownLine, RiVipDiamondLine } from "react-icons/ri";
+import { FiLogOut, FiLogIn } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import useClickOutSide from "~/hooks/useClickOutSide";
 const StyledHeader = styled.div`
   z-index: 300;
   color: ${(props) => props.theme.textColor};
@@ -34,12 +41,44 @@ const StyledHeader = styled.div`
   .upload-btn {
     color: ${(props) => props.theme.settingIconText};
   }
+  & .menu-list {
+    top: 50px;
+    right: 0;
+    background-color: ${(props) => props.theme.primaryBg};
+    padding: 10px 0;
+    border-radius: 8px;
+    position: absolute;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+    width: 240px;
+    & .setting-line {
+      background-color: ${(props) => props.theme.navigationText};
+      opacity: 0.4;
+    }
+    & .header-player-setting {
+      color: ${(props) => props.theme.navigationText};
+      &:hover {
+        background-color: ${(props) => props.theme.alphaBg};
+        color: ${(props) => props.theme.linkTextHover};
+      }
+    }
+  }
 `;
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { show, setShow, nodeRef } = useClickOutSide();
   const { isSticky } = useSelector((state) => state.global);
-  const { userInfo } = useAuth();
-  console.log("user info:", userInfo);
+  const { userInfo, setUserInfo } = useAuth();
+  // console.log("user info:", userInfo?.displayName);
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setUserInfo(undefined);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <Fragment>
       <StyledHeader
@@ -71,12 +110,75 @@ const Header = () => {
             </button>
           </Tippy>
           {!userInfo ? (
-            <button className="flex items-center justify-center w-10 h-10 overflow-hidden rounded-full cursor-pointer">
+            <button
+              ref={nodeRef}
+              onClick={() => setShow(!show)}
+              className="relative flex items-center justify-center w-10 h-10 rounded-full cursor-pointer"
+            >
               <img className="rounded-full" src={avatar} alt="" />
+              <div
+                className={`absolute  z-50 top-0 menu-list  w-[170px] ${
+                  show ? "" : "hidden"
+                }`}
+              >
+                <div
+                  onClick={() => toast.error("Tính năng chưa cập nhật!")}
+                  className="relative gap-x-3 flex py-3 pl-[17px] pr-5 text-sm leading-normal items-center header-player-setting"
+                >
+                  <RiVipDiamondLine />
+                  <span className="text-inherit">Nâng cấp VIP</span>
+                </div>
+                <div
+                  onClick={() => toast.error("Tính năng chưa cập nhật!")}
+                  className="relative gap-x-3 flex py-3 pl-[17px] pr-5 text-sm leading-normal items-center header-player-setting"
+                >
+                  <RiVipCrownLine />
+                  <span className="text-inherit">Mua code VIP</span>
+                </div>
+                <div
+                  onClick={() => navigate("/sign-in")}
+                  className="relative gap-x-3 flex py-3 pl-[17px] pr-5 text-sm leading-normal items-center header-player-setting"
+                >
+                  <FiLogIn className="text-xl text-inherit" />
+                  <span className="text-inherit">Đăng nhập</span>
+                </div>
+              </div>
             </button>
           ) : (
-            <button className="flex items-center justify-center w-10 h-10 overflow-hidden rounded-full cursor-pointer">
+            <button
+              ref={nodeRef}
+              onClick={() => setShow(!show)}
+              className="relative flex items-center justify-center w-10 h-10 rounded-full cursor-pointer"
+            >
               <img className="rounded-full" src={userInfo.photoURL} alt="" />
+              <div
+                className={`absolute  z-50 top-0 menu-list  w-[170px] ${
+                  show ? "" : "hidden"
+                }`}
+              >
+                <div
+                  onClick={() => toast.error("Tính năng chưa cập nhật!")}
+                  className="relative gap-x-3 flex py-3 pl-[17px] pr-5 text-sm leading-normal items-center header-player-setting"
+                >
+                  <RiVipDiamondLine className="text-xl text-inherit" />
+                  <span className="text-inherit">Nâng cấp VIP</span>
+                </div>
+                <div
+                  onClick={() => toast.error("Tính năng chưa cập nhật!")}
+                  className="relative gap-x-3 flex py-3 pl-[17px] pr-5 text-sm leading-normal items-center header-player-setting"
+                >
+                  <RiVipCrownLine className="text-xl text-inherit" />
+                  <span className="text-inherit">Mua code VIP</span>
+                </div>
+                <div className="setting-line my-2 w-full h-[1px]"></div>
+                <div
+                  onClick={handleSignOut}
+                  className="relative gap-x-3 flex py-3 pl-[17px] pr-5 text-sm leading-normal items-center header-player-setting"
+                >
+                  <FiLogOut className="text-xl text-inherit" />
+                  <span className="text-inherit">Đăng xuất</span>
+                </div>
+              </div>
             </button>
           )}
         </div>
