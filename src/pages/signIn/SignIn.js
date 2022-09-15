@@ -4,12 +4,8 @@ import styled from "styled-components";
 import { Field } from "~/components/field";
 import { Input } from "~/components/input";
 import * as yup from "yup";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { db, auth } from "~/firebase-app/firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "~/firebase-app/firebase-config";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
