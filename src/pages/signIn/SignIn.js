@@ -104,7 +104,7 @@ const SignIn = () => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Có vẻ như bạn chưa có tài khoản vui lòng đăng kí tài khoản!",
+          text: "Tài khoản không tồn tại vui lòng đăng kí tài khoản!",
         });
       }
     }

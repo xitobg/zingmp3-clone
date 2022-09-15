@@ -17,6 +17,7 @@ import { FiLogOut, FiLogIn } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useClickOutSide from "~/hooks/useClickOutSide";
+import Swal from "sweetalert2";
 const StyledHeader = styled.div`
   z-index: 300;
   color: ${(props) => props.theme.textColor};
@@ -74,6 +75,10 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         setUserInfo(undefined);
+        Swal.fire({
+          icon: "success",
+          text: "Đăng xuất thành công",
+        });
       })
       .catch((err) => {
         console.log(err);

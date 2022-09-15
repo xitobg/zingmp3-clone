@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyBRNcoK5HFyVSvfqywVLonaaBks9wNLXfc",
-  authDomain: "zingmp3-311d7.firebaseapp.com",
-  projectId: "zingmp3-311d7",
-  storageBucket: "zingmp3-311d7.appspot.com",
-  messagingSenderId: "801012309576",
-  appId: "1:801012309576:web:c188f1798b32c684fac27d",
+  apiKey: "AIzaSyCGIMpJ25yLXssvJqA2XieH7wy4GptC-7g",
+  authDomain: "zingmp3-cb50e.firebaseapp.com",
+  projectId: "zingmp3-cb50e",
+  storageBucket: "zingmp3-cb50e.appspot.com",
+  messagingSenderId: "169009616034",
+  appId: "1:169009616034:web:951755ff986463be4933fb",
 };
 
 const app = initializeApp(firebaseConfig);
