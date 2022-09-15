@@ -37,7 +37,7 @@ function AuthProvider(props) {
           ...result.data(),
           ...user,
         });
-        // setUserInfo(user);
+        setUserInfo(user);
       } else {
         setUserInfo(null);
       }

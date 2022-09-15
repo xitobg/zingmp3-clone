@@ -108,9 +108,9 @@ const SignIn = () => {
   return (
     <StyledSignIn>
       <div className="flex items-center w-full px-5 py-3">
-        <div className="relative w-20 h-20 cursor-pointer ">
+        <NavLink to={"/"} className="relative w-20 h-20 cursor-pointer ">
           <img className="object-cover w-full" src={logoMp3} alt="" />
-        </div>
+        </NavLink>
       </div>
 
       <div className="px-10 absolute top-2/4 left-2/4 max-h-full -translate-x-2/4 -translate-y-2/4 gap-y-5 sign-up-container py-10  rounded-lg w-[40vw]  max-w-[900px]">
