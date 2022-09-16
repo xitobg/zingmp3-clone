@@ -55,6 +55,13 @@ const Banner = ({ data }) => {
         },
       },
       {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+
+      {
         breakpoint: 1200,
         settings: {
           slidesToShow: 3,

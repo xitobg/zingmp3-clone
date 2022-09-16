@@ -141,4 +141,40 @@ export const GlobalClasses = css`
       );
     }
   }
+  //RESPONSIVE
+  @media (max-width: 1024px) {
+    .hide-on-mobile-tablet {
+      display: none;
+    }
+    //Trang chu
+    .side-bar {
+      width: 70px;
+      padding-top: 10px;
+      & .sidebar-navbar-list::after {
+        width: 70px !important;
+      }
+      & .menu-item {
+        padding: 15px 0;
+        justify-content: center;
+        align-items: center;
+      }
+      & .zingmp3-brand {
+        width: inherit;
+        padding: 0;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        & .logo-mobile {
+          display: block;
+        }
+      }
+    }
+    //header
+    .header {
+      width: calc(100% - 70px);
+    }
+    .playlist-list {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
 `;

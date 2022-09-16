@@ -9,7 +9,7 @@ const MenuItem = ({ title = "", to, icon }) => {
       to={to}
     >
       {icon}
-      <span className="menu-item__title">{title}</span>
+      <span className="menu-item__title hide-on-mobile-tablet">{title}</span>
     </NavLink>
   );
 };

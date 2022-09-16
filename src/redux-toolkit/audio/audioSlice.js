@@ -15,7 +15,6 @@ export const audioSlice = createSlice({
     isRepeat: false,
     isRandom: false,
     isMute: false,
-    showNowPlaying: false,
     currentSongId: JSON.parse(localStorage.getItem("songId")) || "",
     srcAudio: "",
     currentTime: JSON.parse(localStorage.getItem("CURRENT_TIME")) || 0,
@@ -87,9 +86,6 @@ export const audioSlice = createSlice({
     setLoadingPlay: (state, action) => {
       state.loadingPlay = action.payload;
     },
-    setShowNowPlaying: (state, action) => {
-      state.showNowPlaying = action.payload;
-    },
   },
 });
 export const {
@@ -107,6 +103,5 @@ export const {
   setCurrentIndexSong,
   setCurrentIndexSongRandom,
   setLoadingPlay,
-  setShowNowPlaying,
 } = audioSlice.actions;
 export default audioSlice.reducer;

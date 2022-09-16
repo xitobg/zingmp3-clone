@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import PlayerControl from "../PlayerControl";
 import iconPlay from "~/assets/image/iconPlaying.gif";
 import { useEffect } from "react";
 const StyledPlaying = styled.div`
@@ -29,32 +28,48 @@ const StyledPlaying = styled.div`
     display: block;
   }
 `;
-const NowPlaying = () => {
-  const playingRef = useRef(null);
-  const { infoSongPlayer, isPlay, showNowPlaying } = useSelector(
-    (state) => state.audio
-  );
-  const colors = ["#3460f5", "#6b3483", "#3460f5", "#ea7aa0"];
-  const changleColors = () => {
-    for (let color of colors) {
-      playingRef.current.backgroundColor = color;
-      color++;
-      if (color > colors.length - 1) {
-        color = 0;
-      }
-    }
-  };
+const NowPlaying = ({ show = false, handleShow = () => {} }) => {
+  const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
+  const colors = [
+    "#219ebc",
+    "#e63946",
+    "#3a0ca3",
+    "#ff006e",
+    "#f66b97",
+    "#3f37c9",
+    "#ff99c8",
+    "#8ac926",
+    "#9b5de5",
+    "#ffe5ec",
+    "#ff70a6",
+    "#00b4d8",
+  ];
+
+  // const [color, setColor] = useState(0);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setColor(() => Math.floor(Math.random() * colors.length));
+  //   }, 1000);
+  //   console.log(color);
+
+  // }, []);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    changleColors();
-    setInterval(changleColors, 1000);
+    const interval = setInterval(() => {
+      setIndex((prevState) => prevState + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  const color = useMemo(() => {
+    return colors[index % colors.length];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [index]);
   return (
     <StyledPlaying
-      ref={playingRef}
+      style={{ backgroundColor: color }}
       className={`bottom-0 left-0 right-0 flex flex-col items-center justify-center w-full h-full p-3 ${
-        showNowPlaying ? "open" : ""
+        show ? "open" : ""
       } `}
     >
       <div className="flex flex-col items-center flex-1">

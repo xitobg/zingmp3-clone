@@ -29,6 +29,7 @@ const StyledPlayer = styled.div`
   background-image: url(${(props) => props.theme.bgPlayer});
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 999;
+  transition: 0.5s all;
   .player-container {
     position: relative;
     z-index: 9999;
@@ -169,14 +170,30 @@ const StyledPlayer = styled.div`
   .is-narrow {
     background-color: hsla(0, 0%, 100%, 0.1);
   }
+  &.show-now-playing {
+    & .player-container {
+      background-color: transparent;
+
+      & .player-left {
+        visibility: hidden;
+      }
+      & .player-control {
+        flex-direction: column-reverse;
+      }
+      & .player-restore,
+      & .is-narrow,
+      & .note-list-icon {
+        display: none;
+      }
+    }
+  }
 `;
-const PlayerControl = ({ className = "" }) => {
+const PlayerControl = () => {
   const dispatch = useDispatch();
   const [valueVolume, setValueVolume] = useState(100);
   const { showPlayingbar } = useSelector((state) => state.global);
-  const { currentSongId, infoSongPlayer, showNowPlaying } = useSelector(
-    (state) => state.audio
-  );
+  const { currentSongId, infoSongPlayer } = useSelector((state) => state.audio);
+  const [showNowPlaying, setShowNowPlaying] = useState(false);
   const handleChangeVolume = (e) => {
     setValueVolume(e.target.value);
   };
@@ -191,9 +208,9 @@ const PlayerControl = ({ className = "" }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSongId, dispatch]);
   return (
-    <StyledPlayer>
+    <StyledPlayer className={`${showNowPlaying ? "show-now-playing" : ""}`}>
       <div className="player-container ">
-        <div className="flex w-[30%]">
+        <div className="flex player-left w-[30%]">
           <div className="flex items-center ">
             <div className="w-[64px] h-[64px] mr-[10px] rounded-[4px]">
               <img
@@ -233,21 +250,21 @@ const PlayerControl = ({ className = "" }) => {
               {!showNowPlaying ? (
                 <Icon>
                   <AiOutlineExpand
-                    onClick={() => dispatch(setShowNowPlaying(true))}
+                    onClick={() => setShowNowPlaying(true)}
                     className="text-lg"
                   ></AiOutlineExpand>
                 </Icon>
               ) : (
                 <Icon>
                   <AiOutlineCompress
-                    onClick={() => dispatch(setShowNowPlaying(false))}
+                    onClick={() => setShowNowPlaying(false)}
                     className="text-lg"
                   ></AiOutlineCompress>
                 </Icon>
               )}
             </Tippy>
             <Tippy content="Chế độ cửa sổ">
-              <Icon>
+              <Icon className="player-restore">
                 <VscChromeRestore className="text-lg"></VscChromeRestore>
               </Icon>
             </Tippy>
@@ -293,7 +310,7 @@ const PlayerControl = ({ className = "" }) => {
           </div>
         </div>
       </div>
-      <NowPlaying />
+      <NowPlaying show={showNowPlaying} />
     </StyledPlayer>
   );
 };

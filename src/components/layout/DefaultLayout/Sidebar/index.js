@@ -13,6 +13,7 @@ import Button from "~/components/button";
 import logo from "~/assets/image/logo.svg";
 import MenuItem from "./menu/MenuItem";
 import { LibraryData } from "./library/LibraryData";
+import logoMobile from "~/assets/image/logomain.svg";
 const StyledSidebar = styled.div`
   background-color: ${(props) => props.theme.sidebarBg};
   height: calc(100vh - 90px);
@@ -97,10 +98,13 @@ const StyledSidebar = styled.div`
 `;
 const Sidebar = () => {
   return (
-    <StyledSidebar className=" pt-5 relative top-0 left-0  flex flex-col w-[240px]">
-      <div className="zingmp3-brand w-[240px] h-[70px] flex items-center px-7">
-        <div className="w-[120px] h-10 relative">
+    <StyledSidebar className=" pt-5 side-bar relative top-0 left-0  flex flex-col w-[240px]">
+      <div className="zingmp3-brand  w-[240px] h-[70px] flex items-center px-7">
+        <div className="w-[120px] hide-on-mobile-tablet  h-10 relative">
           <img className="object-cover w-full" src={logo} alt="" />
+        </div>
+        <div className="hidden w-10 logo-mobile">
+          <img src={logoMobile} alt="" />
         </div>
       </div>
       <div className="mb-4 sidebar-navbar-list  relative after:absolute after:content=['']">
@@ -138,11 +142,11 @@ const Sidebar = () => {
             to="/new-release"
             icon={<BsMusicNoteBeamed className="menu-item__icon" />}
           />
-
-          <div className="flex items-center px-6 py-2 font-semibold border-l border-transparent cursor-pointer menu-item">
-            <BsUiChecksGrid className="text-xl font-semibold text-inherit"></BsUiChecksGrid>
-            <span className="pl-3">Thể Loại</span>
-          </div>
+          <MenuItem
+            title="Thể Loại"
+            to="/new-release"
+            icon={<BsUiChecksGrid className="menu-item__icon" />}
+          />
           <MenuItem
             title="Top 100"
             to="/top-100"
@@ -154,7 +158,7 @@ const Sidebar = () => {
             icon={<SiYoutubemusic className="menu-item__icon" />}
           />
 
-          <div className="w- flex mx-5 my-3 justify-center items-center  flex-col rounded-lg w-[200px] bg-bgGradient py-4 px-2">
+          <div className="w- flex hide-on-mobile-tablet mx-5 my-3 justify-center items-center  flex-col rounded-lg w-[200px] bg-bgGradient py-4 px-2">
             <div className="mb-2 text-xs font-semibold leading-5 text-center text-white">
               Nghe nhạc không quảng cáo cùng kho nhạc VIP
             </div>
@@ -162,8 +166,8 @@ const Sidebar = () => {
           </div>
         </div>
         <ul className="flex flex-col pt-7">
-          <li className="flex library-item py-2 px-[25px]">
-            <h4 className="text-xs font-semibold library-title">THƯ VIỆN</h4>
+          <li className="flex library-item py-2 px-[25px] hide-on-mobile-tablet">
+            <h4 className="text-xs font-semibold library-title ">THƯ VIỆN</h4>
             <i className="ml-auto text-sm bi library-icon bi-pencil-fill"></i>
           </li>
           {LibraryData.length > 0 &&
@@ -175,7 +179,7 @@ const Sidebar = () => {
                     src={item.icon}
                     alt=""
                   />
-                  <span className="pl-3 text-[13px] cursor-pointer text-inherit">
+                  <span className="pl-3 text-[13px] cursor-pointer text-inherit hide-on-mobile-tablet">
                     {item.title}
                   </span>
                 </div>
@@ -183,7 +187,7 @@ const Sidebar = () => {
             ))}
         </ul>
       </div>
-      <div className="w-[240px] cursor-pointer h-[54px] px-7 flex items-center left-0  create-playlist mt-auto">
+      <div className="w-[240px] hide-on-mobile-tablet cursor-pointer h-[54px] px-7 flex items-center left-0  create-playlist mt-auto">
         <i className="bi create-playlist-icon  text-lg  mr-[10px] bi-plus-lg add-playlist-btn"></i>
         <span className="text-sm font-semibold create-playlist-title">
           Tạo playlist mới

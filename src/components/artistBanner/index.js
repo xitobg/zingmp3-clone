@@ -59,6 +59,12 @@ const ArtistBanner = ({ data = {} }) => {
         },
       },
       {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
         breakpoint: 1200,
         settings: {
           slidesToShow: 5,
