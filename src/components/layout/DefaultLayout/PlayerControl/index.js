@@ -8,9 +8,14 @@ import Icon from "~/components/Icon";
 import Control from "./Control";
 import { useDispatch, useSelector } from "react-redux";
 import request from "~/services/request";
-import { setAudioSrc } from "~/redux-toolkit/audio/audioSlice";
+import {
+  setAudioSrc,
+  setShowNowPlaying,
+} from "~/redux-toolkit/audio/audioSlice";
 import { setShowPlayingbar } from "~/redux-toolkit/global/globalSlice";
 import { Slider, Stack } from "@mui/material";
+import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
+import NowPlaying from "../nowPlaying";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
@@ -25,6 +30,8 @@ const StyledPlayer = styled.div`
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 999;
   .player-container {
+    position: relative;
+    z-index: 9999;
     display: flex;
     padding: 0 20px;
     cursor: pointer;
@@ -163,11 +170,13 @@ const StyledPlayer = styled.div`
     background-color: hsla(0, 0%, 100%, 0.1);
   }
 `;
-const PlayerControl = () => {
+const PlayerControl = ({ className = "" }) => {
   const dispatch = useDispatch();
   const [valueVolume, setValueVolume] = useState(100);
   const { showPlayingbar } = useSelector((state) => state.global);
-  const { currentSongId, infoSongPlayer } = useSelector((state) => state.audio);
+  const { currentSongId, infoSongPlayer, showNowPlaying } = useSelector(
+    (state) => state.audio
+  );
   const handleChangeVolume = (e) => {
     setValueVolume(e.target.value);
   };
@@ -183,7 +192,7 @@ const PlayerControl = () => {
   }, [currentSongId, dispatch]);
   return (
     <StyledPlayer>
-      <div className="player-container">
+      <div className="player-container ">
         <div className="flex w-[30%]">
           <div className="flex items-center ">
             <div className="w-[64px] h-[64px] mr-[10px] rounded-[4px]">
@@ -220,10 +229,22 @@ const PlayerControl = () => {
         <Control valueVolume={valueVolume} />
         <div className="w-[30%] flex justify-end">
           <div className="flex items-center justify-center">
-            <Tippy content="Xem lời bài hát">
-              <Icon>
-                <GiMicrophone className="text-lg"></GiMicrophone>
-              </Icon>
+            <Tippy content="Toàn màn hình">
+              {!showNowPlaying ? (
+                <Icon>
+                  <AiOutlineExpand
+                    onClick={() => dispatch(setShowNowPlaying(true))}
+                    className="text-lg"
+                  ></AiOutlineExpand>
+                </Icon>
+              ) : (
+                <Icon>
+                  <AiOutlineCompress
+                    onClick={() => dispatch(setShowNowPlaying(false))}
+                    className="text-lg"
+                  ></AiOutlineCompress>
+                </Icon>
+              )}
             </Tippy>
             <Tippy content="Chế độ cửa sổ">
               <Icon>
@@ -272,6 +293,7 @@ const PlayerControl = () => {
           </div>
         </div>
       </div>
+      <NowPlaying />
     </StyledPlayer>
   );
 };

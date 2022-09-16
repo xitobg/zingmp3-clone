@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import PlayerControl from "../PlayerControl";
 import iconPlay from "~/assets/image/iconPlaying.gif";
+import { useEffect } from "react";
 const StyledPlaying = styled.div`
   position: fixed;
   background-size: 1920px auto;
@@ -10,7 +11,11 @@ const StyledPlaying = styled.div`
   -webkit-tap-highlight-color: transparent;
   transition: 0.7s;
   background-color: black;
-  z-index: 9999;
+  z-index: 900;
+  top: 100%;
+  &.open {
+    top: 0;
+  }
   & .now-playing-thumb {
     border-radius: 12px;
     box-shadow: 0 54px 55px rgb(0 0 0 / 25%), 0 -12px 30px rgb(0 0 0 / 12%),
@@ -20,11 +25,38 @@ const StyledPlaying = styled.div`
     overflow: hidden;
     width: 350px;
   }
+  & .show {
+    display: block;
+  }
 `;
 const NowPlaying = () => {
-  const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
+  const playingRef = useRef(null);
+  const { infoSongPlayer, isPlay, showNowPlaying } = useSelector(
+    (state) => state.audio
+  );
+  const colors = ["#3460f5", "#6b3483", "#3460f5", "#ea7aa0"];
+  const changleColors = () => {
+    for (let color of colors) {
+      playingRef.current.backgroundColor = color;
+      color++;
+      if (color > colors.length - 1) {
+        color = 0;
+      }
+    }
+  };
+
+  useEffect(() => {
+    changleColors();
+    setInterval(changleColors, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
   return (
-    <StyledPlaying className="inset-0 flex flex-col items-center justify-center w-full h-full p-3">
+    <StyledPlaying
+      ref={playingRef}
+      className={`bottom-0 left-0 right-0 flex flex-col items-center justify-center w-full h-full p-3 ${
+        showNowPlaying ? "open" : ""
+      } `}
+    >
       <div className="flex flex-col items-center flex-1">
         <div className="relative now-playing-thumb">
           <img
@@ -45,7 +77,6 @@ const NowPlaying = () => {
           {infoSongPlayer.artistsNames}
         </span>
       </div>
-      <PlayerControl />
     </StyledPlaying>
   );
 };
