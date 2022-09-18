@@ -199,24 +199,6 @@ export const GlobalClasses = css`
   }
 
   @media screen and (max-width: 739px) {
-    ${
-      "" /* .side-bar {
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      height: 45px;
-      width: 100%;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: block;
-      & .sidebar-navbar-list::after,
-      & .zingmp3-brand,
-      & .sidebar__subnav-inner,
-      & .library-list {
-        display: none;
-      }
-    } */
-    }
     .header {
       width: 100%;
       & .btn-theme:nth-child(2) {
@@ -261,6 +243,54 @@ export const GlobalClasses = css`
       }
       .show-now-playing-mobile {
         display: block;
+      }
+    }
+
+    .side-bar {
+      position: fixed;
+      top: calc(100% - 45px);
+      right: 0;
+      left: 0;
+      height: 45px;
+      overflow: hidden;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      padding-top: 0;
+      .zingmp3-brand,
+      .sidebar-navbar-list::after,
+      .sidebar__subnav-inner {
+        display: none;
+      }
+      .sidebar-navbar-list {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        .menu-item {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 0;
+          margin: 0;
+          border-left-width: 0;
+          border-bottom-width: 2px;
+          border-color: transparent;
+          width: 100%;
+          &.active {
+            border-color: ${(props) => props.theme.purplePrimary};
+          }
+          .menu-item__title {
+            display: inline-block;
+            font-size: 10px;
+            padding: 0;
+          }
+          .menu-item__icon {
+            font-size: 16px;
+          }
+        }
       }
     }
   }
