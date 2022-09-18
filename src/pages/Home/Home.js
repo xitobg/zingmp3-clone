@@ -48,7 +48,13 @@ const Home = () => {
           if (sectionType === "banner") {
             return <Banner key={`${index}${sectionId}`} data={{ ...item }} />;
           } else if (sectionType === "playlist") {
-            return <Playlist key={`${index}${sectionId}`} data={{ ...item }} />;
+            return (
+              <Playlist
+                page="home"
+                key={`${index}${sectionId}`}
+                data={{ ...item }}
+              />
+            );
           } else if (sectionType === "livestream") {
             return (
               <RadioList key={`${index}${sectionId}`} data={{ ...item }} />

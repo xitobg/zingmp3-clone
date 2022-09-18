@@ -16,6 +16,8 @@ import {
 } from "~/redux-toolkit/audio/audioSlice";
 import Progress from "./Progress";
 import IconLoading from "~/components/Icon/IconLoading";
+import { AiOutlineExpand } from "react-icons/ai";
+import { setShowNowPlaying } from "~/redux-toolkit/global/globalSlice";
 
 const Control = ({ valueVolume = 100 }) => {
   const dispatch = useDispatch();
@@ -203,16 +205,16 @@ const Control = ({ valueVolume = 100 }) => {
 
   return (
     <div className="player-control w-[40%] flex flex-col">
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center control-btn-list">
         <div className="inline-flex items-center ">
           <Tippy content="Phát ngẫu nhiên">
-            <Icon onClick={handleRandomSong} control>
+            <Icon className="random-btn" onClick={handleRandomSong} control>
               <i
                 className={`p-1 bi bi-shuffle ${isRandom ? "is-random" : ""}`}
               ></i>
             </Icon>
           </Tippy>
-          <Icon onClick={handlePrevSong} control>
+          <Icon className="prev-btn" onClick={handlePrevSong} control>
             <i className="p-1 bi bi-skip-start-fill"></i>
           </Icon>
           <button
@@ -230,7 +232,7 @@ const Control = ({ valueVolume = 100 }) => {
             <i className="p-1 bi bi-skip-end-fill"></i>
           </Icon>
           <Tippy content="Phát lại một bài">
-            <Icon onClick={handleRepeatSong} control>
+            <Icon className="repeat-btn" onClick={handleRepeatSong} control>
               <i
                 className={`p-1 bi bi-arrow-repeat ${
                   isRepeat ? "is-repeat" : ""
@@ -238,9 +240,12 @@ const Control = ({ valueVolume = 100 }) => {
               ></i>
             </Icon>
           </Tippy>
+          <Icon onClick={() => dispatch(setShowNowPlaying(true))}>
+            <AiOutlineExpand className="hidden text-lg show-now-playing-mobile"></AiOutlineExpand>
+          </Icon>
         </div>
       </div>
-      <div className="w-full mt-[10px] flex items-center justify-center ">
+      <div className="w-full mt-[10px] flex items-center justify-center player-progress ">
         <Progress
           songDuration={audioRef.current?.duration}
           currentTime={currentTime}

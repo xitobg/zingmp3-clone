@@ -10,6 +10,7 @@ export const globalSlice = createSlice({
     loading: false,
     showPlayingbar: false,
     showVideoMV: JSON.parse(localStorage.getItem("showMV")) || false,
+    showNowPlaying: false,
   },
   reducers: {
     setBgHeader: (state, action) => {
@@ -32,6 +33,9 @@ export const globalSlice = createSlice({
       state.showVideoMV = action.payload;
       localStorage.setItem("showMV", JSON.stringify(action.payload));
     },
+    setShowNowPlaying: (state, action) => {
+      state.showNowPlaying = action.payload;
+    },
   },
 });
 export const {
@@ -41,5 +45,6 @@ export const {
   setLoading,
   setShowPlayingbar,
   setShowVideoMV,
+  setShowNowPlaying,
 } = globalSlice.actions;
 export default globalSlice.reducer;

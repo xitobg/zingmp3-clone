@@ -8,11 +8,11 @@ import Icon from "~/components/Icon";
 import Control from "./Control";
 import { useDispatch, useSelector } from "react-redux";
 import request from "~/services/request";
+import { setAudioSrc } from "~/redux-toolkit/audio/audioSlice";
 import {
-  setAudioSrc,
   setShowNowPlaying,
-} from "~/redux-toolkit/audio/audioSlice";
-import { setShowPlayingbar } from "~/redux-toolkit/global/globalSlice";
+  setShowPlayingbar,
+} from "~/redux-toolkit/global/globalSlice";
 import { Slider, Stack } from "@mui/material";
 import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
 import NowPlaying from "../nowPlaying";
@@ -191,9 +191,10 @@ const StyledPlayer = styled.div`
 const PlayerControl = () => {
   const dispatch = useDispatch();
   const [valueVolume, setValueVolume] = useState(100);
-  const { showPlayingbar } = useSelector((state) => state.global);
+  const { showPlayingbar, showNowPlaying } = useSelector(
+    (state) => state.global
+  );
   const { currentSongId, infoSongPlayer } = useSelector((state) => state.audio);
-  const [showNowPlaying, setShowNowPlaying] = useState(false);
   const handleChangeVolume = (e) => {
     setValueVolume(e.target.value);
   };
@@ -208,18 +209,20 @@ const PlayerControl = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSongId, dispatch]);
   return (
-    <StyledPlayer className={`${showNowPlaying ? "show-now-playing" : ""}`}>
+    <StyledPlayer
+      className={`player-main ${showNowPlaying ? "show-now-playing" : ""}`}
+    >
       <div className="player-container ">
         <div className="flex player-left w-[30%]">
           <div className="flex items-center ">
-            <div className="w-[64px] h-[64px] mr-[10px] rounded-[4px]">
+            <div className="w-[64px] h-[64px] player-thumb mr-[10px] rounded-[4px]">
               <img
                 className="w-full object-cover rounded-[4px]"
                 src={infoSongPlayer.thumbnail}
                 alt=""
               />
             </div>
-            <div className="flex flex-col overflow-hidden justify-center max-w-[130px] flex-grow ">
+            <div className="flex flex-col player-info overflow-hidden justify-center max-w-[130px] flex-grow ">
               <div className="player__name whitespace-nowrap">
                 {infoSongPlayer.title}
               </div>
@@ -227,8 +230,8 @@ const PlayerControl = () => {
                 {infoSongPlayer.artistsNames}
               </span>
             </div>
-            <div className="flex items-center justify-end">
-              <div className="flex player-icon ">
+            <div className="flex items-center justify-end player-icon">
+              <div className="flex ">
                 <Tippy content="Thêm vào thư viện">
                   <Icon>
                     <i className="bi icon-heart bi-heart"></i>
@@ -244,31 +247,25 @@ const PlayerControl = () => {
           </div>
         </div>
         <Control valueVolume={valueVolume} />
-        <div className="w-[30%] flex justify-end">
+        <div className="w-[30%] player-right flex justify-end">
           <div className="flex items-center justify-center">
             <Tippy content="Toàn màn hình">
               {!showNowPlaying ? (
-                <Icon>
-                  <AiOutlineExpand
-                    onClick={() => setShowNowPlaying(true)}
-                    className="text-lg"
-                  ></AiOutlineExpand>
+                <Icon onClick={() => dispatch(setShowNowPlaying(true))}>
+                  <AiOutlineExpand className="text-lg"></AiOutlineExpand>
                 </Icon>
               ) : (
-                <Icon>
-                  <AiOutlineCompress
-                    onClick={() => setShowNowPlaying(false)}
-                    className="text-lg"
-                  ></AiOutlineCompress>
+                <Icon onClick={() => dispatch(setShowNowPlaying(false))}>
+                  <AiOutlineCompress className="text-lg"></AiOutlineCompress>
                 </Icon>
               )}
             </Tippy>
             <Tippy content="Chế độ cửa sổ">
-              <Icon className="player-restore">
+              <Icon className="player-restore hide-on-mobile-tablet">
                 <VscChromeRestore className="text-lg"></VscChromeRestore>
               </Icon>
             </Tippy>
-            <div className="flex items-center ">
+            <div className="flex items-center player-volume">
               <Icon>
                 {valueVolume > 0 ? (
                   <i
@@ -296,7 +293,7 @@ const PlayerControl = () => {
                 />
               </Stack>
             </div>
-            <div className="is-narrow mx-5 w-[1px] h-8"></div>
+            <div className="is-narrow hide-on-mobile-tablet mx-5 w-[1px] h-8"></div>
             <Tippy content="Danh sách phát">
               <button
                 onClick={() => dispatch(setShowPlayingbar(!showPlayingbar))}
@@ -310,7 +307,7 @@ const PlayerControl = () => {
           </div>
         </div>
       </div>
-      <NowPlaying show={showNowPlaying} />
+      <NowPlaying />
     </StyledPlayer>
   );
 };

@@ -28,7 +28,8 @@ const StyledPlaying = styled.div`
     display: block;
   }
 `;
-const NowPlaying = ({ show = false, handleShow = () => {} }) => {
+const NowPlaying = () => {
+  const { showNowPlaying } = useSelector((state) => state.global);
   const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
   const colors = [
     "#219ebc",
@@ -69,7 +70,7 @@ const NowPlaying = ({ show = false, handleShow = () => {} }) => {
     <StyledPlaying
       style={{ backgroundColor: color }}
       className={`bottom-0 left-0 right-0 flex flex-col items-center justify-center w-full h-full p-3 ${
-        show ? "open" : ""
+        showNowPlaying ? "open" : ""
       } `}
     >
       <div className="flex flex-col items-center flex-1">

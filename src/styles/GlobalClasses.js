@@ -142,7 +142,7 @@ export const GlobalClasses = css`
     }
   }
   //RESPONSIVE
-  @media (max-width: 1024px) {
+  @media screen and (max-width: 1024px) {
     .hide-on-mobile-tablet {
       display: none;
     }
@@ -153,6 +153,7 @@ export const GlobalClasses = css`
       & .sidebar-navbar-list::after {
         width: 70px !important;
       }
+
       & .menu-item {
         padding: 15px 0;
         justify-content: center;
@@ -173,8 +174,94 @@ export const GlobalClasses = css`
     .header {
       width: calc(100% - 70px);
     }
-    .playlist-list {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    .wrapper-playlist {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      & .playlist-item:last-child {
+        display: none;
+      }
+    }
+
+    .wrapper-mix {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      & .mix-item:last-child {
+        display: none;
+      }
+    }
+    .note-list-icon {
+      margin-left: 8px;
+    }
+  }
+  @media screen and (max-width: 920px) {
+    .player-icon {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 739px) {
+    ${
+      "" /* .side-bar {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 45px;
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: block;
+      & .sidebar-navbar-list::after,
+      & .zingmp3-brand,
+      & .sidebar__subnav-inner,
+      & .library-list {
+        display: none;
+      }
+    } */
+    }
+    .header {
+      width: 100%;
+      & .btn-theme:nth-child(2) {
+        display: none;
+      }
+    }
+    .player-main {
+      bottom: 45px;
+      .player-left {
+        height: 100%;
+        .player__name {
+          max-width: 80px;
+        }
+      }
+      & .player-container {
+        padding: 0 5px;
+        height: 45px;
+        .player-thumb {
+          width: 40px;
+          height: 40px;
+        }
+        .player-info {
+          min-width: 180px;
+        }
+      }
+      .player-right,
+      .repeat-btn,
+      .prev-btn,
+      .random-btn,
+      .note-list-icon,
+      .player-volume,
+      .player-icon,
+      .player-progress {
+        display: none;
+      }
+      .toggle-play {
+        border: none;
+        margin: 0;
+      }
+      .control-btn-list {
+        justify-content: flex-end;
+      }
+      .show-now-playing-mobile {
+        display: block;
+      }
     }
   }
 `;

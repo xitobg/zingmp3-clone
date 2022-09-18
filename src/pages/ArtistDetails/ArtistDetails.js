@@ -181,7 +181,13 @@ const ArtistDetails = () => {
                   ></SongSection>
                 );
               } else if (sectionType === "playlist") {
-                return <Playlist key={`${title}${index}`} data={{ ...item }} />;
+                return (
+                  <Playlist
+                    page="home"
+                    key={`${title}${index}`}
+                    data={{ ...item }}
+                  />
+                );
               } else if (sectionType === "artist") {
                 return (
                   <ArtistBanner key={`${title}${index}`} data={{ ...item }} />

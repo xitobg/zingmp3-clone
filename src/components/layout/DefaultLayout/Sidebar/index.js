@@ -165,7 +165,7 @@ const Sidebar = () => {
             <Button className=" vip-btn">MUA VIP</Button>
           </div>
         </div>
-        <ul className="flex flex-col pt-7">
+        <ul className="flex flex-col library-list pt-7">
           <li className="flex library-item py-2 px-[25px] hide-on-mobile-tablet">
             <h4 className="text-xs font-semibold library-title ">THƯ VIỆN</h4>
             <i className="ml-auto text-sm bi library-icon bi-pencil-fill"></i>

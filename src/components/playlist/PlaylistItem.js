@@ -14,7 +14,7 @@ const PlaylistItem = ({ item, onClick = null }) => {
       onClick={() => dispatch(setRandomSong(true))}
       to={link}
       state={{ id: encodeId }}
-      className="flex flex-col mb-4"
+      className="flex flex-col mb-4 playlist-item"
     >
       <div className="relative w-full overflow-hidden rounded-md cursor-pointer card__item-img overlay ">
         <div className="relative">

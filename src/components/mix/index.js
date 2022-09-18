@@ -43,7 +43,7 @@ const Mix = ({ data = {} }) => {
   return (
     <StyledMix className="container-layout">
       <h3>{title}</h3>
-      <div className="grid grid-cols-5 gap-x-7">
+      <div className="grid grid-cols-5 wrapper-mix gap-x-7">
         {items?.slice(0, 5).map((item) => {
           const { encodeId, thumbnail, title, link } = item;
           return (
@@ -51,7 +51,7 @@ const Mix = ({ data = {} }) => {
               to={link}
               state={{ id: encodeId }}
               key={encodeId}
-              className="flex flex-col"
+              className="flex flex-col mix-item"
             >
               <div className="relative  card__item-img after:invisible overflow-hidden hover:after:visible after:content-[''] after:w-full after:h-full after:inset-0 after:bg-black after:bg-opacity-50 after:absolute w-full rounded-md cursor-pointer ">
                 <img
