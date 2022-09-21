@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ArtistBanner from "~/components/artistBanner";
 import Banner from "~/components/banner";
 import Chart from "~/components/chart";
@@ -8,7 +8,6 @@ import Playlist from "~/components/playlist/Playlist";
 import RadioList from "~/components/radio";
 import WeekChart from "~/components/weekChart";
 import Mix from "~/components/mix";
-import ArtistFavorist from "~/components/artistsFavorist";
 import Partner from "~/components/partner";
 import WrapperLayout from "~/components/wrapperLayout";
 import request from "~/services/request";
