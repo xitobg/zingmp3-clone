@@ -15,7 +15,7 @@ import {
 } from "~/redux-toolkit/global/globalSlice";
 import { Slider, Stack } from "@mui/material";
 import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
-import NowPlaying from "../nowPlaying";
+import NowPlaying from "../NowPlaying";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;

@@ -27,6 +27,69 @@ const StyledPlaying = styled.div`
   & .show {
     display: block;
   }
+  .music-waves {
+    position: absolute;
+  }
+
+  .music-waves span {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    bottom: 0;
+    background: #000;
+    animation: waves 0.5s infinite ease;
+  }
+
+  .music-waves span:nth-child(1) {
+    animation-delay: 0.3s;
+    background: #ff8c00;
+  }
+
+  .music-waves span:nth-child(2) {
+    margin-left: 7px;
+    animation-delay: 0.4s;
+    background: #ffff00;
+  }
+
+  .music-waves span:nth-child(3) {
+    margin-left: 14px;
+    animation-delay: 0.6s;
+    background: #26d53a;
+  }
+
+  .music-waves span:nth-child(4) {
+    margin-left: 21px;
+    animation-delay: 0.8s;
+    background: #26e6a3;
+  }
+
+  .music-waves span:nth-child(5) {
+    margin-left: 28px;
+    animation-delay: 1s;
+    background: #1da8e2;
+  }
+
+  @keyframes waves {
+    0% {
+      height: 8px;
+    }
+
+    30% {
+      height: 18px;
+    }
+
+    60% {
+      height: 24px;
+    }
+
+    80% {
+      height: 18px;
+    }
+
+    100% {
+      height: 8px;
+    }
+  }
 `;
 const NowPlaying = () => {
   const { showNowPlaying } = useSelector((state) => state.global);
@@ -81,8 +144,15 @@ const NowPlaying = () => {
             alt=""
           />
           {isPlay && (
-            <div className="absolute bottom-[14px] left-[14px] w-10 h-10 now-playing-icon">
-              <img src={iconPlay} alt="" />
+            <div className="absolute  bottom-[-14px] left-[14px] w-10 h-10 now-playing-icon">
+              {/* <img src={iconPlay} alt="" /> */}
+              <div class="music-waves">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
           )}
         </div>
