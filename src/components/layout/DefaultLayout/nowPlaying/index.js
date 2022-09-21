@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import iconPlay from "~/assets/image/iconPlaying.gif";
 import { useEffect } from "react";
 const StyledPlaying = styled.div`
   position: fixed;
@@ -145,7 +144,6 @@ const NowPlaying = () => {
           />
           {isPlay && (
             <div className="absolute  bottom-[-14px] left-[14px] w-10 h-10 now-playing-icon">
-              {/* <img src={iconPlay} alt="" /> */}
               <div class="music-waves">
                 <span></span>
                 <span></span>
