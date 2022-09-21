@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "~/firebase-app/firebase-config";
 import styled from "styled-components";
@@ -25,7 +25,6 @@ const StyledHeader = styled.div`
     box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
     background-color: ${(props) => props.theme.layoutBg};
   }
-  width: calc(100% - 240px);
 
   .btn-theme {
     background-color: ${(props) => props.theme.alphaBg};
@@ -87,7 +86,7 @@ const Header = () => {
   return (
     <Fragment>
       <StyledHeader
-        className={`header justify-between flex items-center fixed top-0 right-0 h-[70px] px-7 ${
+        className={`header justify-between w-[calc(100%-240px)] flex items-center fixed top-0 right-0 h-[70px] px-7 ${
           isSticky ? "isSticky" : ""
         }`}
       >
@@ -102,7 +101,7 @@ const Header = () => {
             </button>
           </Tippy>
           <Tippy content="Tải lên ">
-            <button className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-theme ">
+            <button className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-upload btn-theme ">
               <input id="upload-song" className="hidden" type="file" />
               <label htmlFor="upload-song">
                 <i className="cursor-pointer upload-btn bi text-inherit bi-upload"></i>
@@ -110,7 +109,7 @@ const Header = () => {
             </button>
           </Tippy>
           <Tippy content="Cài đặt">
-            <button className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-theme ">
+            <button className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-setting btn-theme ">
               <IoSettingsOutline className="cursor-pointer btn-seting"></IoSettingsOutline>
             </button>
           </Tippy>

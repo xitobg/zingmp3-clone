@@ -46,7 +46,11 @@ const WrapperLayout = ({ children }) => {
     return () => containerElm.removeEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return <StyledWrapper ref={containerRef}>{children}</StyledWrapper>;
+  return (
+    <StyledWrapper className="wrapper-layout" ref={containerRef}>
+      {children}
+    </StyledWrapper>
+  );
 };
 
 export default WrapperLayout;

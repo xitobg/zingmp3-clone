@@ -31,7 +31,7 @@ const SuggestItem = () => {
   return (
     <StyledSuggest>
       <BiTrendingUp className="icon-trend"></BiTrendingUp>
-      <span className="suggest-text">thương em</span>
+      <span className="suggest-text">Duyên duyên số số</span>
     </StyledSuggest>
   );
 };

@@ -144,7 +144,7 @@ const NowPlaying = () => {
           />
           {isPlay && (
             <div className="absolute  bottom-[-14px] left-[14px] w-10 h-10 now-playing-icon">
-              <div class="music-waves">
+              <div className="music-waves">
                 <span></span>
                 <span></span>
                 <span></span>

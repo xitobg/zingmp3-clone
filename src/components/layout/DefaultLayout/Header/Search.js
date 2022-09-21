@@ -152,7 +152,7 @@ const Search = () => {
           </div>
         )}
       >
-        <div className="w-[500px]  relative">
+        <div className="w-[500px] input-search  relative">
           <input
             onFocus={handleShowResult}
             ref={inputRef}

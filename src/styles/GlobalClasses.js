@@ -193,14 +193,27 @@ export const GlobalClasses = css`
     }
   }
   @media screen and (max-width: 920px) {
+    .btn-upload,
     .player-icon {
       display: none;
+    }
+    .search-result,
+    .input-search {
+      width: 350px;
     }
   }
 
   @media screen and (max-width: 739px) {
+    .wrapper-layout {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
     .header {
       width: 100%;
+      padding: 0 10px;
+
       & .btn-theme:nth-child(2) {
         display: none;
       }
@@ -292,6 +305,23 @@ export const GlobalClasses = css`
           }
         }
       }
+    }
+  }
+  @media screen and (max-width: 586px) {
+    .btn-setting {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 530px) {
+    .search-result,
+    .input-search {
+      width: 300px;
+    }
+  }
+  @media screen and (max-width: 460px) {
+    .search-result,
+    .input-search {
+      width: 240px;
     }
   }
 `;
