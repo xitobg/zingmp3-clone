@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import styled from "styled-components";
 import Header from "./Header";
-import NowPlaying from "./NowPlaying";
+import NowPlaying from "./PlayerMain";
 import PlayerControl from "./PlayerControl";
 import PlayingBar from "./rightSidebar";
 import Sidebar from "./Sidebar";

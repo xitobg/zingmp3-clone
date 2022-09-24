@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { GiMicrophone } from "react-icons/gi";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { VscChromeRestore } from "react-icons/vsc";
 import Tippy from "@tippyjs/react";
@@ -15,7 +14,7 @@ import {
 } from "~/redux-toolkit/global/globalSlice";
 import { Slider, Stack } from "@mui/material";
 import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
-import NowPlaying from "../NowPlaying";
+import NowPlaying from "../PlayerMain";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
