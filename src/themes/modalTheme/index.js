@@ -103,7 +103,7 @@ const ModalTheme = ({ open = false, handleClose = () => {} }) => {
               <h4 className="theme-title mb-[10px] font-semibold block capitalize">
                 {theme.header}
               </h4>
-              <div className="grid gap-x-[14px] grid-cols-6">
+              <div className="grid theme-container-list gap-x-[14px] grid-cols-6">
                 {theme.data.map((item, index) => (
                   <div key={index} className="mb-5">
                     <div className="relative w-full overflow-hidden rounded-md theme__item-image">

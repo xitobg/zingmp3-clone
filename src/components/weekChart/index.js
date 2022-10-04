@@ -14,7 +14,7 @@ const WeekChart = ({ data = {} }) => {
       {items.map((item) => (
         <div
           key={`${item.banner}`}
-          className="w-full cursor-pointer overflow-hidden banner-weekchart relative mb-[30px] rounded-md"
+          className="w-full cursor-pointer weekchart-banner-item overflow-hidden banner-weekchart relative mb-[30px] rounded-md"
         >
           <img
             className="object-cover w-full transition-all duration-700 rounded-md"

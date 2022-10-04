@@ -52,14 +52,22 @@ const ArtistBanner = ({ data = {} }) => {
           slidesToShow: 1,
         },
       },
+      //màn hình dưới 600px
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 2,
+        },
+      },
+
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
         },
       },
       {
-        breakpoint: 1024,
+        breakpoint: 1150,
         settings: {
           slidesToShow: 4,
         },
@@ -67,7 +75,7 @@ const ArtistBanner = ({ data = {} }) => {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 5,
+          slidesToShow: 4,
         },
       },
       {
@@ -97,12 +105,12 @@ const ArtistBanner = ({ data = {} }) => {
                 src={item.thumbnail}
                 alt=""
               />
-              <div className="absolute z-10    flex invisible artists-action justify-center items-center border border-white top-2/4 w-[45px] rounded-full h-[45px] left-2/4 -translate-x-2/4 -translate-y-2/4 text-white">
+              <div className="absolute z-10   flex invisible artists-action justify-center items-center border border-white top-2/4 w-[45px] rounded-full h-[45px] left-2/4 -translate-x-2/4 -translate-y-2/4 text-white">
                 <i className="text-3xl bi bi-play-fill"></i>
               </div>
             </Link>
             <div className="flex flex-col">
-              <span className="mt-4 mb-1 text-base font-medium text-center cursor-pointer artists-name text-ellipsis">
+              <span className="mt-4 mb-1 text-base font-medium text-center cursor-pointer whitespace-nowrap artists-name text-ellipsis">
                 {item.name}
               </span>
               <p className="text-xs leading-[1.33] artists-follow text-center font-normal">

@@ -142,6 +142,46 @@ export const GlobalClasses = css`
     }
   }
   //RESPONSIVE
+  @media screen and (max-width: 1220px) {
+    .new-release-container {
+      grid-template-columns: unset;
+      grid-auto-flow: column;
+      grid-auto-columns: 50%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-snap-stop: always;
+      .new__release-item {
+        scroll-snap-align: start;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      }
+    }
+    .new-release-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .new-release-container::-webkit-scrollbar {
+      display: none;
+    }
+    .radio-container {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      .radio-item:nth-child(6),
+      .radio-item:nth-child(7) {
+        display: none;
+      }
+    }
+    .event-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      .event-item:last-child {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: 1100px) {
+    .theme-container-list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
   @media screen and (max-width: 1024px) {
     .hide-on-mobile-tablet {
       display: none;
@@ -201,6 +241,9 @@ export const GlobalClasses = css`
     .input-search {
       width: 350px;
     }
+    .theme-container-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   @media screen and (max-width: 739px) {
@@ -209,6 +252,9 @@ export const GlobalClasses = css`
       padding-right: 10px;
       padding-top: 40px;
       padding-bottom: 40px;
+    }
+    .wrapper-playlist {
+      column-gap: 20px;
     }
     .header {
       width: 100%;
@@ -306,10 +352,79 @@ export const GlobalClasses = css`
         }
       }
     }
+    .partner-container {
+      padding: 0;
+      .partner-list {
+        justify-content: center;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        row-gap: 16px;
+        padding: 0;
+      }
+    }
+    .theme-container-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
+  @media screen and (max-width: 650px) {
+    .new-release-container {
+      grid-template-columns: unset;
+      grid-auto-flow: column;
+      grid-auto-columns: 60%;
+      overflow-x: auto;
+    }
+  }
+
   @media screen and (max-width: 586px) {
+    .wrapper-playlist {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      .playlist-item:nth-child(4) {
+        display: none;
+      }
+    }
     .btn-setting {
       display: none;
+    }
+    .new-release-container {
+      grid-auto-columns: 70%;
+    }
+    .radio-container {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      .radio-item:nth-child(4),
+      .radio-item:nth-child(5) {
+        display: none;
+      }
+    }
+    .partner-list {
+      justify-content: center;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      row-gap: 12px;
+      column-gap: 12px;
+    }
+    .event-list {
+      grid-template-columns: unset;
+      grid-auto-flow: column;
+      grid-auto-columns: 60%;
+      overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .event-item {
+        scroll-snap-align: start;
+      }
+    }
+    .wrapper-mix {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      .mix-item:nth-child(4) {
+        display: none;
+      }
+    }
+    .weekchart-banner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      &-item:last-child {
+        display: none;
+      }
     }
   }
   @media screen and (max-width: 530px) {
@@ -322,6 +437,24 @@ export const GlobalClasses = css`
     .search-result,
     .input-search {
       width: 240px;
+    }
+    .new-release-container {
+      grid-auto-columns: 80%;
+    }
+    .wrapper-playlist {
+      grid-template-columns: unset;
+      grid-auto-flow: column;
+      grid-auto-columns: 60%;
+      overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .playlist-item {
+        scroll-snap-align: start;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      }
     }
   }
 `;

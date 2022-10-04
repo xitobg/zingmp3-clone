@@ -1,6 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import {
   changeIconPlaying,
@@ -69,7 +68,7 @@ const NewRelease = ({ data = {} }) => {
   return (
     <StyledNewRelease className="container-layout">
       <h3>{title}</h3>
-      <div className="grid grid-cols-3 py-[5px] gap-x-7">
+      <div className="grid new-release-container grid-cols-3 py-[5px] gap-x-7">
         {items.slice(0, 3).map((item, index) => {
           const {
             title,

@@ -27,15 +27,14 @@ const StyledEvent = styled.div`
 `;
 const Event = ({ data = {} }) => {
   const { items } = data;
-  // console.log("data event:", items);
   return (
-    <StyledEvent className="container-layout">
+    <StyledEvent className="container-layout event-container">
       <h3>Sự Kiện</h3>
-      <div className="grid grid-cols-3 gap-x-7">
+      <div className="grid grid-cols-3 event-list gap-x-7">
         {items.slice(0, 3).map((item) => {
           const { encodeId, coverH, label, title, followers } = item;
           return (
-            <div key={encodeId} className="relative flex flex-col ">
+            <div key={encodeId} className="relative flex flex-col event-item ">
               <div className="relative mb-2  z-10 after:absolute after:content-[''] after:inset-0 after:w-full after:h-full  w-full overflow-hidden rounded-md cursor-pointer event-img">
                 <img
                   className="object-cover w-full transition-all duration-700 rounded-md "
@@ -80,7 +79,7 @@ const Event = ({ data = {} }) => {
                   </div>
                 </div>
                 <div>
-                  <button className="px-5 leading-[0] py-5 text-base text-white rounded-full btn-follow">
+                  <button className="px-5 whitespace-nowrap leading-[0] py-5 text-base text-white rounded-full btn-follow">
                     {item.subscribeText}
                   </button>
                 </div>
