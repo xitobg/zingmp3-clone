@@ -231,6 +231,21 @@ export const GlobalClasses = css`
     .note-list-icon {
       margin-left: 8px;
     }
+    .show-now-playing {
+      .player-volume {
+        display: none;
+      }
+      .player-container {
+        padding: 0;
+      }
+      .player-right,
+      .player-left {
+        width: 20%;
+      }
+      .player-control {
+        width: 60%;
+      }
+    }
   }
   @media screen and (max-width: 920px) {
     .btn-upload,
@@ -264,7 +279,7 @@ export const GlobalClasses = css`
         display: none;
       }
     }
-    .player-main {
+    .player-main:not(.show-now-playing) {
       bottom: 45px;
       .player-left {
         height: 100%;
@@ -302,6 +317,21 @@ export const GlobalClasses = css`
       }
       .show-now-playing-mobile {
         display: block;
+      }
+    }
+    .show-now-playing {
+      .player-volume {
+        display: none;
+      }
+      .player-container {
+        padding: 0;
+      }
+      .player-right,
+      .player-left {
+        width: 10%;
+      }
+      .player-control {
+        width: 80%;
       }
     }
 
@@ -363,6 +393,12 @@ export const GlobalClasses = css`
     }
     .theme-container-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .modal-container {
+      height: 300px;
+      max-height: unset !important ;
+      min-height: unset !important ;
+      padding: 0 16px !important;
     }
   }
   @media screen and (max-width: 650px) {
@@ -453,7 +489,17 @@ export const GlobalClasses = css`
       }
       .playlist-item {
         scroll-snap-align: start;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+        .card-content-subtitle {
+          display: none;
+        }
+        .card-title {
+          font-size: 16px;
+          color: #fff;
+          display: initial;
+          white-space: wrap;
+          text-transform: capitalize;
+        }
       }
     }
   }

@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { BiHomeAlt } from "react-icons/bi";
-import { BsVinyl } from "react-icons/bs";
-import { BsMusicNoteList } from "react-icons/bs";
-import { BsFillFilePlayFill } from "react-icons/bs";
-import { BsMusicNoteBeamed } from "react-icons/bs";
-import { BsUiChecksGrid } from "react-icons/bs";
-import { BsStar } from "react-icons/bs";
+import {
+  BsVinyl,
+  BsStar,
+  BsMusicNoteList,
+  BsFillFilePlayFill,
+  BsMusicNoteBeamed,
+  BsUiChecksGrid,
+} from "react-icons/bs";
 import { IoIosRadio } from "react-icons/io";
 import { SiYoutubemusic } from "react-icons/si";
 import Button from "~/components/button";
@@ -142,11 +144,11 @@ const Sidebar = () => {
             to="/new-release"
             icon={<BsMusicNoteBeamed className="menu-item__icon" />}
           />
-          <MenuItem
+          {/* <MenuItem
             title="Thể Loại"
-            to="/new-release"
+            to="/"
             icon={<BsUiChecksGrid className="menu-item__icon" />}
-          />
+          /> */}
           <MenuItem
             title="Top 100"
             to="/top-100"

@@ -186,6 +186,12 @@ const StyledPlayer = styled.div`
       }
     }
   }
+
+  &.show-now-playing {
+    .show-now-playing-mobile {
+      display: none;
+    }
+  }
 `;
 const PlayerControl = () => {
   const dispatch = useDispatch();
