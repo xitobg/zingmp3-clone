@@ -118,14 +118,13 @@ const StyledSectionSong = styled.div`
   }
 `;
 const SongSection = ({ data = {}, onClick = () => {}, id }) => {
-  const dispatch = useDispatch();
   const { items, title } = data;
 
   return (
     <StyledSectionSong className="container-layout">
       <h3>{title}</h3>
       <div className="flex mb-[25px]">
-        <div className="relative pt-[10px] w-[270px] h-[230px] flex items-center">
+        <div className="relative artist-detail-slideshow  pt-[10px] w-[270px] h-[230px] flex items-center">
           <SlideShow data={items} />
         </div>
         <div className="h-[244px] has-scroll-bar play-list pl-5 w-full flex flex-col flex-1">

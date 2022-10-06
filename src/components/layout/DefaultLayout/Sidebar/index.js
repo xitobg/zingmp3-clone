@@ -22,6 +22,7 @@ const StyledSidebar = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 302;
   .sidebar-navbar-list::after {
     top: calc(100% + 15px);
     height: 1px;
@@ -110,13 +111,13 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="mb-4 sidebar-navbar-list  relative after:absolute after:content=['']">
-        <MenuItem
+        {/* <MenuItem
           title="Cá Nhân"
           to="/profile"
           icon={<BiHomeAlt className="menu-item__icon" />}
-        />
+        /> */}
         <MenuItem
-          title="Khám Phá"
+          title="Trang Chủ"
           to="/"
           icon={<BsVinyl className="menu-item__icon" />}
         />

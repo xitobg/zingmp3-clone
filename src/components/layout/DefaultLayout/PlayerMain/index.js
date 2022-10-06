@@ -135,7 +135,7 @@ const NowPlaying = () => {
         showNowPlaying ? "open" : ""
       } `}
     >
-      <div className="flex flex-col items-center flex-1">
+      <div className="flex flex-col items-center flex-1 now-playing-content">
         <div className="relative now-playing-thumb">
           <img
             className="object-cover w-full"

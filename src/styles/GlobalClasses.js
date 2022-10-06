@@ -246,6 +246,30 @@ export const GlobalClasses = css`
         width: 60%;
       }
     }
+    .album-container {
+      .album-content {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .artist-detail-layout {
+      padding-top: 60px;
+      .artist__container-info {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+      }
+      .song-item {
+        .media-content {
+          display: none;
+        }
+        .media-right {
+          flex: 1 !important;
+          margin: 0;
+          justify-content: flex-end !important;
+        }
+      }
+    }
   }
   @media screen and (max-width: 920px) {
     .btn-upload,
@@ -258,6 +282,28 @@ export const GlobalClasses = css`
     }
     .theme-container-list {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .song-item {
+      .media-content {
+        display: none;
+      }
+      .media-right {
+        margin: 0;
+        flex: 1;
+        justify-content: flex-end;
+      }
+      .song__info {
+        overflow: initial;
+      }
+      .song__info-author {
+        display: initial;
+        white-space: nowrap;
+      }
+    }
+  }
+  @media screen and (max-width: 860px) {
+    .artist-detail-slideshow {
+      display: none;
     }
   }
 
@@ -467,6 +513,35 @@ export const GlobalClasses = css`
     .search-result,
     .input-search {
       width: 300px;
+    }
+    .song-item {
+      .media-right {
+        display: none;
+      }
+      .song__rank-number {
+        text-align: right;
+        font-weight: 400;
+        font-size: 18px;
+        width: 0;
+      }
+      .ranking-status {
+        margin-right: 8px;
+      }
+      .sort-ranking {
+        margin-left: 8px;
+      }
+    }
+    .show-now-playing {
+      .now-playing-thumb {
+        width: 250px;
+        height: 250px;
+      }
+      .now-playing-content {
+        padding-top: 100px;
+      }
+      .now-playing-title {
+        font-size: 20px;
+      }
     }
   }
   @media screen and (max-width: 460px) {

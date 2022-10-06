@@ -164,7 +164,7 @@ const ArtistDetails = () => {
       <WrapperLayout>
         {loading && <Loading />}
         {!loading && (
-          <StyledArtistDetails>
+          <StyledArtistDetails className="artist-detail-layout">
             <ArtistBiography
               onClick={handleGetSongPlaylist}
               data={{ ...singerData }}

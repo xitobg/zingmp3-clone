@@ -229,7 +229,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
       <div className="flex rounded-md select-none p-[10px] items-center">
         <div className="flex items-center media-left w-2/4 mr-[10px] flex-grow-0 flex-shrink-0">
           {section === "zingchart" || section === "new-release" ? (
-            <div className="flex mr-[15px] items-center">
+            <div className="flex ranking-status mr-[15px] items-center">
               <div
                 className={`song__rank-number  ${
                   index === 0

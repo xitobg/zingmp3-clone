@@ -44,8 +44,8 @@ const ArtistBiography = ({ data = {}, onClick = () => {} }) => {
           <h4 className="text-[40px] title font-bold mb-[5px]  tracking-[-.08px] ">
             {name}
           </h4>
-          <div className="biography">
-            <div className="max-h-[70px] text-inherit text-base  leading-[1.64] mb-4">
+          <div className="overflow-hidden biography">
+            <div className="max-h-[70px]   biography-desc text-inherit text-base  leading-[1.64] mb-5">
               {sortBiography}
               {biography !== "" && (
                 <button
