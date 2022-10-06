@@ -241,7 +241,7 @@ const Control = ({ valueVolume = 100 }) => {
             </Icon>
           </Tippy>
           <Icon
-            className="show-now-playing-mobile"
+            className="hidden show-now-playing-mobile"
             onClick={() => dispatch(setShowNowPlaying(true))}
           >
             <AiOutlineExpand className="text-lg "></AiOutlineExpand>

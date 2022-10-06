@@ -336,16 +336,16 @@ export const GlobalClasses = css`
     }
 
     .side-bar {
-      position: fixed;
-      top: calc(100% - 45px);
-      right: 0;
-      left: 0;
-      height: 45px;
-      overflow: hidden;
-      width: 100%;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      display: block;
-      padding-top: 0;
+      position: fixed !important;
+      top: calc(100% - 45px) !important;
+      right: 0 !important;
+      left: 0 !important;
+      height: 45px !important;
+      overflow: hidden !important;
+      width: 100% !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+      display: block !important;
+      padding-top: 0 !important;
       .zingmp3-brand,
       .sidebar-navbar-list::after,
       .sidebar__subnav-inner {
