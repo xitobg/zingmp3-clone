@@ -126,7 +126,7 @@ const SignUp = () => {
       });
   };
   return (
-    <StyledSignUp>
+    <StyledSignUp className="sign-up-layout">
       <div className="flex items-center w-full px-5 py-3">
         <NavLink to={"/"} className="relative w-20 h-20 cursor-pointer ">
           <img className="object-cover w-full" src={logoMp3} alt="" />

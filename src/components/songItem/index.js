@@ -181,6 +181,7 @@ const StyledSong = styled.div`
   }
   .song-icon-note {
     color: ${(props) => props.theme.textSecondary};
+    flex-shrink: 0;
   }
   ${(props) =>
     props.playingBar &&

@@ -251,6 +251,9 @@ export const GlobalClasses = css`
         flex-direction: column;
         align-items: center;
       }
+      .album-right {
+        width: 100%;
+      }
     }
     .artist-detail-layout {
       padding-top: 60px;
@@ -269,6 +272,9 @@ export const GlobalClasses = css`
           justify-content: flex-end !important;
         }
       }
+    }
+    .sign-up-container {
+      width: 500px;
     }
   }
   @media screen and (max-width: 920px) {
@@ -289,7 +295,7 @@ export const GlobalClasses = css`
       }
       .media-right {
         margin: 0;
-        flex: 1;
+        flex: 1 !important;
         justify-content: flex-end;
       }
       .song__info {
@@ -299,6 +305,9 @@ export const GlobalClasses = css`
         display: initial;
         white-space: nowrap;
       }
+    }
+    .biography-desc {
+      max-height: 100px;
     }
   }
   @media screen and (max-width: 860px) {
@@ -508,6 +517,9 @@ export const GlobalClasses = css`
         display: none;
       }
     }
+    .sign-up-container {
+      width: 400px;
+    }
   }
   @media screen and (max-width: 530px) {
     .search-result,
@@ -576,6 +588,10 @@ export const GlobalClasses = css`
           text-transform: capitalize;
         }
       }
+    }
+    .sign-up-container {
+      width: 350px;
+      padding: 12px;
     }
   }
 `;
