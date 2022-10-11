@@ -254,6 +254,9 @@ export const GlobalClasses = css`
       .album-right {
         width: 100%;
       }
+      .description {
+        margin-top: 16px;
+      }
     }
     .artist-detail-layout {
       padding-top: 60px;
