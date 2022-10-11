@@ -40,6 +40,7 @@ const StyledSidebar = styled.div`
     border-color: transparent;
     font-size: 13px;
     color: ${(props) => props.theme.navigationText};
+
     &:hover {
       opacity: 0.8;
     }
@@ -48,6 +49,7 @@ const StyledSidebar = styled.div`
       background-color: ${(props) => props.theme.alphaBg};
       color: ${(props) => props.theme.navigationText};
     }
+
     .menu-item__title {
       color: inherit;
       padding-left: 12px;
@@ -63,6 +65,9 @@ const StyledSidebar = styled.div`
     &:hover {
       color: ${(props) => props.theme.textItemHover};
     }
+  }
+  .show-on-mobile {
+    display: none;
   }
   .sidebar__subnav-inner {
     -webkit-mask-image: linear-gradient(
@@ -127,14 +132,28 @@ const Sidebar = () => {
           icon={<BsMusicNoteList className="menu-item__icon" />}
         />
         <MenuItem
+          className=" show-on-mobile"
+          title="Nhạc Mới"
+          to="/new-release"
+          icon={<BsMusicNoteList className="menu-item__icon" />}
+        />
+        <MenuItem
+          className=" show-on-mobile"
+          title="Top 100"
+          to="/top-100"
+          icon={<BsMusicNoteList className="menu-item__icon" />}
+        />
+        <MenuItem
+          className="hide-on-mobile"
           title="Radio"
           to="/radio"
           icon={<IoIosRadio className="menu-item__icon" />}
         />
         <MenuItem
+          className="hide-on-mobile"
           title="Theo Dõi"
           to="/follow"
-          icon={<BsFillFilePlayFill className="menu-item__icon" />}
+          icon={<BsFillFilePlayFill className="menu-item__icon " />}
         />
       </div>
 

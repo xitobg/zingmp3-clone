@@ -455,6 +455,12 @@ export const GlobalClasses = css`
       min-height: unset !important ;
       padding: 0 16px !important;
     }
+    .side-bar .sidebar-navbar-list .hide-on-mobile {
+      display: none;
+    }
+    .side-bar .sidebar-navbar-list .show-on-mobile {
+      display: flex;
+    }
   }
   @media screen and (max-width: 650px) {
     .new-release-container {
@@ -555,6 +561,12 @@ export const GlobalClasses = css`
         font-size: 20px;
       }
     }
+    .modal-biography .modal-biography__content {
+      width: 400px;
+    }
+    .portal-modal {
+      width: 90vw;
+    }
   }
   @media screen and (max-width: 460px) {
     .search-result,
@@ -592,6 +604,9 @@ export const GlobalClasses = css`
     .sign-up-container {
       width: 350px;
       padding: 12px;
+    }
+    .modal-biography .modal-biography__content {
+      width: 360px;
     }
   }
 `;

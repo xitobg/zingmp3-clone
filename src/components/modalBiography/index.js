@@ -15,6 +15,7 @@ const StyledModalBiography = styled.div`
   }
   .modal-biography__content {
     background-color: ${(props) => props.theme.primaryBg};
+    width: 480px;
   }
   & .close-modal {
     color: ${(props) => props.theme.textPrimary};
@@ -71,7 +72,7 @@ const ModalBiography = ({
         onClick={handleClose}
         className="absolute inset-0 z-20 bg-black opacity-60 "
       ></div>
-      <div className="w-[480px] rounded-[8px] overflow-hidden relative z-50 max-h-full inset-0 m-auto modal-biography__content  pb-5">
+      <div className=" rounded-[8px] overflow-hidden relative z-50 max-h-full inset-0 m-auto modal-biography__content  pb-5">
         <Tippy content="Đóng" placement="top">
           <button
             onClick={handleClose}

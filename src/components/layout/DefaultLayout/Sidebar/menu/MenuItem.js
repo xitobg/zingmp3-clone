@@ -1,10 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const MenuItem = ({ title = "", to, icon }) => {
+const MenuItem = ({ title = "", to, icon, className }) => {
   return (
     <NavLink
-      className="menu-item"
+      className={`menu-item ${className}`}
       style={(nav) => ({ active: nav.isActive })}
       to={to}
     >

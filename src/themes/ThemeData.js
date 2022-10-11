@@ -151,7 +151,7 @@ export const themes = {
     bgPlayingBar: "#5d218c",
     bgImage: zma,
     bgPlayer: zmaPlayer,
-    layoutBg: "#1e1e1e",
+    layoutBg: "#37075d",
     sidebarBg: "hsla(0,0%,100%,0.05);",
     textPrimary: "#fff",
     linkTextHover: "#fff",

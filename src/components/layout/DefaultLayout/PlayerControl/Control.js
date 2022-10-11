@@ -196,7 +196,7 @@ const Control = ({ valueVolume = 100 }) => {
     return currentime;
   };
   useEffect(() => {
-    if (srcAudio !== "" || srcAudio !== undefined) {
+    if (srcAudio !== "") {
       isPlay ? audioRef.current?.play() : audioRef.current?.pause();
     }
     audioRef.current.volume = valueVolume / 100;
