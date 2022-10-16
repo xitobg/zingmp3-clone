@@ -261,7 +261,7 @@ export const GlobalClasses = css`
         margin-top: 16px;
       }
     }
-    .artist-detail-layout {
+    div.artist-detail-layout {
       padding-top: 60px;
       .artist__container-info {
         display: flex;
@@ -320,9 +320,10 @@ export const GlobalClasses = css`
     .artist-detail-slideshow {
       display: none;
     }
-    .artist-detail-layout .artist__container-info,
+    div.artist-detail-layout .artist__container-info,
     .play-list {
-      padding: 0;
+      padding-left: 0px;
+      padding-right: 0px;
     }
   }
 
