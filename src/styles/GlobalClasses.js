@@ -295,7 +295,7 @@ export const GlobalClasses = css`
     .theme-container-list {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    .song-item {
+    div.song-item {
       .media-content {
         display: none;
       }
@@ -312,8 +312,8 @@ export const GlobalClasses = css`
         white-space: nowrap;
       }
     }
-    .biography-desc {
-      max-height: 100px;
+    div.biography-desc {
+      max-height: 180px;
     }
   }
   @media screen and (max-width: 860px) {
