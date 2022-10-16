@@ -333,7 +333,7 @@ export const GlobalClasses = css`
       padding-top: 40px;
       padding-bottom: 40px;
     }
-    .wrapper-playlist {
+    div.wrapper-playlist {
       column-gap: 20px;
     }
     .header {
@@ -548,7 +548,7 @@ export const GlobalClasses = css`
     .input-search {
       width: 300px;
     }
-    .song-item {
+    div.song-item {
       .media-right {
         display: none;
       }
