@@ -584,6 +584,10 @@ export const GlobalClasses = css`
     .portal-modal {
       width: 90vw;
     }
+    div.media-left {
+      margin-right: 0;
+      width: 100%;
+    }
   }
   @media screen and (max-width: 460px) {
     .search-result,
