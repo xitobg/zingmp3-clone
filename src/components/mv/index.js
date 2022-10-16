@@ -42,7 +42,7 @@ const MvArtist = ({ data = {} }) => {
   return (
     <StyledMv className="container-layout ">
       <h3>{title}</h3>
-      <div className="grid grid-cols-3 gap-y-4 gap-x-7">
+      <div className="grid grid-cols-3 mv-artist-list gap-y-4 gap-x-7">
         {items.length > 0 &&
           items?.map((item, index) => {
             const {
@@ -57,7 +57,10 @@ const MvArtist = ({ data = {} }) => {
               streamingStatus,
             } = item;
             return (
-              <div key={encodeId} className="relative flex flex-col">
+              <div
+                key={encodeId}
+                className="relative flex flex-col mv-artist-card"
+              >
                 <div
                   onClick={() =>
                     toast.error("Tính năng xem mv chưa được cập nhật!")

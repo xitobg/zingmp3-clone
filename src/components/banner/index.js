@@ -35,7 +35,7 @@ const Banner = ({ data }) => {
     infinite: true,
     speed: 500,
     arrows: true,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -77,7 +77,7 @@ const Banner = ({ data }) => {
   };
   return (
     <StyledBanner className="container-layout">
-      <div className="relative w-full overflow-hidden ">
+      <div className="relative w-full ">
         <Slider {...slickProperty}>
           {items
             .filter((item) => item.type === 1 || item.type === 4)

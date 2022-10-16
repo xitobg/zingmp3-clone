@@ -13,8 +13,11 @@ export const GlobalClasses = css`
     color: ${(props) => props.theme.textPrimary};
   }
   //slick slider
-  .slick-list {
+  .slick-slider {
     margin: 0 -14px;
+  }
+  .slick-list {
+    ${"" /* margin: 0 -28px; */}
     & .slick-slide {
       padding: 0 14px;
     }
@@ -317,6 +320,10 @@ export const GlobalClasses = css`
     .artist-detail-slideshow {
       display: none;
     }
+    .artist-detail-layout .artist__container-info,
+    .play-list {
+      padding: 0;
+    }
   }
 
   @media screen and (max-width: 739px) {
@@ -464,6 +471,9 @@ export const GlobalClasses = css`
     .side-bar .sidebar-navbar-list .show-on-mobile {
       display: flex;
     }
+    .mv-artist-list {
+      column-gap: 20px;
+    }
   }
   @media screen and (max-width: 650px) {
     .new-release-container {
@@ -528,6 +538,9 @@ export const GlobalClasses = css`
     }
     .sign-up-container {
       width: 400px;
+    }
+    .mv-artist-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media screen and (max-width: 530px) {
@@ -610,6 +623,20 @@ export const GlobalClasses = css`
     }
     .modal-biography .modal-biography__content {
       width: 360px;
+    }
+    .mv-artist-list {
+      grid-template-columns: unset;
+      grid-auto-flow: column;
+      grid-auto-columns: 60%;
+      overflow-x: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .mv-artist-card {
+        scroll-snap-align: start;
+      }
     }
   }
 `;
