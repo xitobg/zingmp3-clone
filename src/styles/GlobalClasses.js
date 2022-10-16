@@ -327,7 +327,7 @@ export const GlobalClasses = css`
   }
 
   @media screen and (max-width: 739px) {
-    .wrapper-layout {
+    div.wrapper-layout {
       padding-left: 10px;
       padding-right: 10px;
       padding-top: 40px;
