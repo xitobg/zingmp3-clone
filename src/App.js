@@ -15,7 +15,6 @@ function App() {
     <Fragment>
       <ThemeProvider theme={theme}>
         <ToastContainer />
-        <GlobalStyles />
         <Suspense fallback={<></>}>
           <AuthProvider>
             <Routes>
@@ -37,7 +36,7 @@ function App() {
             </Routes>
           </AuthProvider>
         </Suspense>
-        ;
+        <GlobalStyles />;
       </ThemeProvider>
     </Fragment>
   );
