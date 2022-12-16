@@ -25,29 +25,6 @@ import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import request from "~/services/request";
 import SongSection from "./song";
 
-const StyledArtistDetails = styled.div`
-  padding-top: 110px;
-  .artist__container-info {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    padding-left: 14px;
-    padding-right: 14px;
-    column-gap: 28px;
-  }
-  .title {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  .biography {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  .play-btn {
-    font-size: 14px;
-    padding: 9px 24px;
-    &:hover {
-      filter: brightness(0.9);
-    }
-  }
-`;
 const ArtistDetails = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -204,3 +181,26 @@ const ArtistDetails = () => {
 };
 
 export default ArtistDetails;
+const StyledArtistDetails = styled.div`
+  padding-top: 110px;
+  .artist__container-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding-left: 14px;
+    padding-right: 14px;
+    column-gap: 28px;
+  }
+  .title {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  .biography {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  .play-btn {
+    font-size: 14px;
+    padding: 9px 24px;
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+`;

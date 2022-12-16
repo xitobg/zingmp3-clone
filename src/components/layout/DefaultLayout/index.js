@@ -5,6 +5,7 @@ import NowPlaying from "./PlayerMain";
 import PlayerControl from "./PlayerControl";
 import PlayingBar from "./rightSidebar";
 import Sidebar from "./Sidebar";
+import VideoMV from "~/pages/Video/VideoMV";
 
 const StyledWrapper = styled.div`
   background-image: url(${(props) => props.theme.bgImage});
@@ -17,16 +18,15 @@ const StyledWrapper = styled.div`
 `;
 const DefaultLayout = ({ children }) => {
   return (
-    <>
-      <StyledWrapper>
-        <Header />
-        <Sidebar />
-        <>{children}</>
-      </StyledWrapper>
+    <StyledWrapper>
+      <Header />
+      <Sidebar />
+      <>{children}</>
       <PlayingBar />
       <NowPlaying />
       <PlayerControl />
-    </>
+      <VideoMV />
+    </StyledWrapper>
   );
 };
 export default DefaultLayout;

@@ -34,122 +34,7 @@ import Loading from "~/components/loading/Loading";
 import SongItem from "~/components/songItem";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-const StyledAlbum = styled.div`
-  .album-content {
-    display: flex;
-    column-gap: 28px;
-  }
-  @keyframes animateThumb {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  .album-card-image {
-    & .thumb-rotate {
-      transition: 2s all;
-    }
-    &.playing .z-thumb .thumb-rotate {
-      border-radius: 100rem;
-      animation: animateThumb 10s linear infinite;
-      transition: border-radius 2s linear;
-    }
-    &.playing .overlay {
-      border-radius: 100rem;
-    }
-    & .z-thumb {
-      box-shadow: 0 5px 8px 0 rgb(0 0 0 / 20%);
-      overflow: hidden;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    &:hover .z-thumb .thumb-rotate img {
-      transform: scale(1.1) translateZ(0);
-    }
-    &:hover .album-action {
-      visibility: visible;
-    }
-  }
-  .album__content-title {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  .like,
-  .artists,
-  .release {
-    color: ${(props) => props.theme.textSecondary};
-    font-size: 12px;
-    line-height: 1.75;
-  }
-  .artists {
-    cursor: pointer;
-    & span:hover {
-      color: ${(props) => props.theme.linkTextHover};
-      text-decoration: underline;
-    }
-  }
-  .add-library {
-    color: ${(props) => props.theme.purplePrimary};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    background-color: ${(props) => props.theme.alphaBg};
-    margin-right: 10px;
-  }
-  .dot-btn {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  & .description {
-    color: ${(props) => props.theme.textPrimary};
-    span {
-      color: ${(props) => props.theme.textSecondary};
-    }
-  }
-  .select-header {
-    border-bottom: 1px solid ${(props) => props.theme.borderSecondary};
-    padding: 10px;
-    border-radius: 5px;
-    user-select: none;
-    height: 46px;
-  }
-  .sort-btn {
-    color: ${(props) => props.theme.textSecondary};
-    border: 1px solid ${(props) => props.theme.textSecondary};
-    border-radius: 2px;
-    padding: 1px;
-  }
-  .column-text {
-    color: ${(props) => props.theme.textSecondary};
-  }
-  & .album-media-right,
-  & .album-media-content {
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-    text-align: left;
-    align-self: center;
-    width: 0;
-  }
-  .song-album-list {
-    height: 600px;
-    max-height: 100%;
-  }
-  .album-info {
-    &:hover {
-      color: ${(props) => props.theme.linkTextHover};
-      text-decoration: underline;
-    }
-  }
-  .bottom-info {
-    color: ${(props) => props.theme.textSecondary};
-  }
-  .artist-name {
-    &:hover {
-      text-decoration: underline;
-      color: ${(props) => props.theme.linkTextHover};
-    }
-  }
-`;
+
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -443,3 +328,119 @@ const PlaylistDetail = () => {
 };
 
 export default memo(PlaylistDetail);
+const StyledAlbum = styled.div`
+  .album-content {
+    display: flex;
+    column-gap: 28px;
+  }
+  @keyframes animateThumb {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .album-card-image {
+    & .thumb-rotate {
+      transition: 2s all;
+    }
+    &.playing .z-thumb .thumb-rotate {
+      border-radius: 100rem;
+      animation: animateThumb 10s linear infinite;
+      transition: border-radius 2s linear;
+    }
+    &.playing .overlay {
+      border-radius: 100rem;
+    }
+    & .z-thumb {
+      box-shadow: 0 5px 8px 0 rgb(0 0 0 / 20%);
+      overflow: hidden;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    &:hover .z-thumb .thumb-rotate img {
+      transform: scale(1.1) translateZ(0);
+    }
+    &:hover .album-action {
+      visibility: visible;
+    }
+  }
+  .album__content-title {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  .like,
+  .artists,
+  .release {
+    color: ${(props) => props.theme.textSecondary};
+    font-size: 12px;
+    line-height: 1.75;
+  }
+  .artists {
+    cursor: pointer;
+    & span:hover {
+      color: ${(props) => props.theme.linkTextHover};
+      text-decoration: underline;
+    }
+  }
+  .add-library {
+    color: ${(props) => props.theme.purplePrimary};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color: ${(props) => props.theme.alphaBg};
+    margin-right: 10px;
+  }
+  .dot-btn {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  & .description {
+    color: ${(props) => props.theme.textPrimary};
+    span {
+      color: ${(props) => props.theme.textSecondary};
+    }
+  }
+  .select-header {
+    border-bottom: 1px solid ${(props) => props.theme.borderSecondary};
+    padding: 10px;
+    border-radius: 5px;
+    user-select: none;
+    height: 46px;
+  }
+  .sort-btn {
+    color: ${(props) => props.theme.textSecondary};
+    border: 1px solid ${(props) => props.theme.textSecondary};
+    border-radius: 2px;
+    padding: 1px;
+  }
+  .column-text {
+    color: ${(props) => props.theme.textSecondary};
+  }
+  & .album-media-right,
+  & .album-media-content {
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    align-self: center;
+    width: 0;
+  }
+  .song-album-list {
+    height: 600px;
+    max-height: 100%;
+  }
+  .album-info {
+    &:hover {
+      color: ${(props) => props.theme.linkTextHover};
+      text-decoration: underline;
+    }
+  }
+  .bottom-info {
+    color: ${(props) => props.theme.textSecondary};
+  }
+  .artist-name {
+    &:hover {
+      text-decoration: underline;
+      color: ${(props) => props.theme.linkTextHover};
+    }
+  }
+`;

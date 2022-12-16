@@ -13,66 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import request from "~/services/request";
 import LoadingSearch from "~/components/loading/LoadingSearch";
-// css
-const StyledSearch = styled.div`
-  .search-input {
-    background-color: ${(props) => props.theme.alphaBg};
-    border-radius: 12px;
-    font-size: 13px;
-    color: ${(props) => props.theme.textPrimary};
-    &.show-result {
-      border-radius: 20px 20px 0 0;
-      background-color: ${(props) => props.theme.primaryBg};
-    }
-  }
-  input::-webkit-input-placeholder {
-    color: ${(props) => props.theme.navigationText};
-  }
-  input::-moz-input-placeholder {
-    color: ${(props) => props.theme.navigationText};
-  }
-  .search-icon {
-    color: ${(props) => props.theme.navigationText};
-    right: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .song-sugges-item {
-    &:hover {
-      background-color: ${(props) => props.theme.alphaBg};
-    }
-    &:hover .media-action {
-      visibility: visible;
-    }
-    &:hover .song-thumb::after {
-      visibility: visible;
-    }
-  }
-  .song__sugges-info {
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-    align-self: center;
-    .song__sugges-author {
-      color: ${(props) => props.theme.textSecondary};
-      font-size: 12px;
-    }
-    .song__sugges-name:hover {
-      color: ${(props) => props.theme.linkTextHover};
-    }
-  }
-  .suggest-container {
-    overflow: hidden overlay;
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-      border-radius: 12px;
-      background-color: ${(props) => props.theme.layoutBg};
-    }
-  }
-`;
-//
+
 const Search = () => {
   const inputRef = useRef(null);
   const [loadingSearch, setLoadingSearch] = useState(false);
@@ -142,7 +83,8 @@ const Search = () => {
                 </div>
               ) : (
                 searchValue &&
-                !searchResult[0] && (
+                !searchResult[0] &&
+                !loadingSearch && (
                   <div className="h-auto text-center suggest-container">
                     Không tìm thấy kết quả
                   </div>
@@ -174,3 +116,63 @@ const Search = () => {
 };
 
 export default Search;
+// css
+const StyledSearch = styled.div`
+  .search-input {
+    background-color: ${(props) => props.theme.alphaBg};
+    border-radius: 12px;
+    font-size: 13px;
+    color: ${(props) => props.theme.textPrimary};
+    &.show-result {
+      border-radius: 20px 20px 0 0;
+      background-color: ${(props) => props.theme.primaryBg};
+    }
+  }
+  input::-webkit-input-placeholder {
+    color: ${(props) => props.theme.navigationText};
+  }
+  input::-moz-input-placeholder {
+    color: ${(props) => props.theme.navigationText};
+  }
+  .search-icon {
+    color: ${(props) => props.theme.navigationText};
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .song-sugges-item {
+    &:hover {
+      background-color: ${(props) => props.theme.alphaBg};
+    }
+    &:hover .media-action {
+      visibility: visible;
+    }
+    &:hover .song-thumb::after {
+      visibility: visible;
+    }
+  }
+  .song__sugges-info {
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-self: center;
+    .song__sugges-author {
+      color: ${(props) => props.theme.textSecondary};
+      font-size: 12px;
+    }
+    .song__sugges-name:hover {
+      color: ${(props) => props.theme.linkTextHover};
+    }
+  }
+  .suggest-container {
+    overflow: hidden overlay;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 12px;
+      background-color: ${(props) => props.theme.layoutBg};
+    }
+  }
+`;
+//

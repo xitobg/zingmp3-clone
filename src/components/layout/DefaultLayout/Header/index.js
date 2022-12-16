@@ -187,9 +187,7 @@ const Header = () => {
           )}
         </div>
       </StyledHeader>
-      <ModalTheme
-        handleClose={() => dispatch(setShowModalTheme(false))}
-      ></ModalTheme>
+      <ModalTheme handleClose={() => dispatch(setShowModalTheme(false))} />
     </Fragment>
   );
 };

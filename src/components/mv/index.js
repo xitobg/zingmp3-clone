@@ -1,49 +1,24 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
-import { setShowVideoMV } from "~/redux-toolkit/global/globalSlice";
+import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
 import ConvertDuration from "~/utils/ConvertTime";
-const StyledMv = styled.div`
-  .mv-item-image {
-    &:hover img {
-      transform: scale(1.1) translateZ(0);
-    }
-    &:hover .mv-action {
-      visibility: visible;
-    }
-  }
-  .mv-title {
-    color: ${(props) => props.theme.textPrimary};
-    &:hover {
-      color: ${(props) => props.theme.linkTextHover};
-    }
-  }
-  .mv-author {
-    color: ${(props) => props.theme.textSecondary};
-    flex-wrap: nowrap;
-    text-overflow: ellipsis;
-    & span:hover {
-      text-decoration: underline;
-      color: ${(props) => props.theme.linkTextHover};
-    }
-  }
-`;
+
 const MvArtist = ({ data = {} }) => {
   const dispatch = useDispatch();
   const { title, items } = data;
-  const handleShowVideo = () => {
+  const handleShowVideoMv = (idMv) => {
     dispatch(setShowVideoMV(true));
     dispatch(changeIconPlaying(false));
+    dispatch(setIdMv(idMv));
   };
   return (
     <StyledMv className="container-layout ">
-      <h3>{title}</h3>
+      <h3>{title || ""}</h3>
       <div className="grid grid-cols-3 mv-artist-list gap-y-4 gap-x-7">
-        {items.length > 0 &&
+        {items &&
           items?.map((item, index) => {
             const {
               encodeId,
@@ -62,9 +37,7 @@ const MvArtist = ({ data = {} }) => {
                 className="relative flex flex-col mv-artist-card"
               >
                 <div
-                  onClick={() =>
-                    toast.error("Tính năng xem mv chưa được cập nhật!")
-                  }
+                  onClick={() => handleShowVideoMv(encodeId)}
                   className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
                 >
                   <img
@@ -121,3 +94,28 @@ const MvArtist = ({ data = {} }) => {
 };
 
 export default MvArtist;
+const StyledMv = styled.div`
+  .mv-item-image {
+    &:hover img {
+      transform: scale(1.1) translateZ(0);
+    }
+    &:hover .mv-action {
+      visibility: visible;
+    }
+  }
+  .mv-title {
+    color: ${(props) => props.theme.textPrimary};
+    &:hover {
+      color: ${(props) => props.theme.linkTextHover};
+    }
+  }
+  .mv-author {
+    color: ${(props) => props.theme.textSecondary};
+    flex-wrap: nowrap;
+    text-overflow: ellipsis;
+    & span:hover {
+      text-decoration: underline;
+      color: ${(props) => props.theme.linkTextHover};
+    }
+  }
+`;

@@ -70,11 +70,11 @@ export const publicRoutes = [
     path: "/playlist/:name/:id",
     component: PlaylistDetail,
   },
-  {
-    path: "/video-clip/:name/:id",
-    component: VideoMV,
-    layout: null,
-  },
+  // {
+  //   path: "/video-clip/:name/:id",
+  //   component: VideoMV,
+  //   layout: null,
+  // },
   {
     path: "/sign-up",
     component: SignUp,

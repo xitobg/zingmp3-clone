@@ -15,6 +15,7 @@ import {
 import { Slider, Stack } from "@mui/material";
 import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
 import NowPlaying from "../PlayerMain";
+import axios from "axios";
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
@@ -204,6 +205,14 @@ const PlayerControl = () => {
     setValueVolume(e.target.value);
   };
   useEffect(() => {
+    const fetch = async () => {
+      const res = await axios
+        .get(`https://api-zingmp3.vercel.app/api/song/6BO96UE0`)
+        .then((res) => {
+          console.log(res.data);
+        });
+    };
+    fetch();
     if (currentSongId !== null && currentSongId !== "") {
       request.get(`song/${currentSongId}`).then(async (res) => {
         if (res.data && res.data.data) {
