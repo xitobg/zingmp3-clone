@@ -12,46 +12,7 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import ConvertDates from "~/utils/ConvertDates";
-const StyledNewRelease = styled.div`
-  .new__release-item {
-    &:hover .new__release-img .artists-action,
-    &:hover .new__release-img::after {
-      visibility: visible;
-    }
-    box-shadow: 0 2px 10px 0 ${(props) => props.theme.mainBoxShadow};
-    background-color: ${(props) => props.theme.boxItemBg};
-    .new__release-img {
-      &::after {
-        background-color: ${(props) => props.theme.darkAlpha50Bg};
-      }
 
-      &:hover .artists-img {
-        transform: scale(1.1);
-      }
-    }
-  }
-  .new-release-name {
-    white-space: normal;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    text-transform: capitalize;
-    color: ${(props) => props.theme.textPrimary};
-    cursor: pointer;
-  }
-  .new-release-author {
-    color: ${(props) => props.theme.textSecondary};
-  }
-  .new-release-rank {
-    -webkit-text-stroke: 1px ${(props) => props.theme.textSecondary};
-    font-weight: 900;
-    font-family: "Roboto", sans-serif;
-  }
-  .new-release-date {
-    color: ${(props) => props.theme.textSecondary};
-  }
-`;
 const NewRelease = ({ data = {} }) => {
   const dispatch = useDispatch();
   const { items, title } = data;
@@ -123,3 +84,43 @@ const NewRelease = ({ data = {} }) => {
 };
 
 export default NewRelease;
+const StyledNewRelease = styled.div`
+  .new__release-item {
+    &:hover .new__release-img .artists-action,
+    &:hover .new__release-img::after {
+      visibility: visible;
+    }
+    box-shadow: 0 2px 10px 0 ${(props) => props.theme.mainBoxShadow};
+    background-color: ${(props) => props.theme.boxItemBg};
+    .new__release-img {
+      &::after {
+        background-color: ${(props) => props.theme.darkAlpha50Bg};
+      }
+
+      &:hover .artists-img {
+        transform: scale(1.1);
+      }
+    }
+  }
+  .new-release-name {
+    white-space: normal;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    text-transform: capitalize;
+    color: ${(props) => props.theme.textPrimary};
+    cursor: pointer;
+  }
+  .new-release-author {
+    color: ${(props) => props.theme.textSecondary};
+  }
+  .new-release-rank {
+    -webkit-text-stroke: 1px ${(props) => props.theme.textSecondary};
+    font-weight: 900;
+    font-family: "Roboto", sans-serif;
+  }
+  .new-release-date {
+    color: ${(props) => props.theme.textSecondary};
+  }
+`;

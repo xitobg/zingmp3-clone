@@ -282,6 +282,9 @@ export const GlobalClasses = css`
     .sign-up-container {
       width: 500px;
     }
+    div.post-list-item {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
   @media screen and (max-width: 920px) {
     .btn-upload,
@@ -482,6 +485,12 @@ export const GlobalClasses = css`
       grid-auto-flow: column;
       grid-auto-columns: 60%;
       overflow-x: auto;
+    }
+    div.post-list-item {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      .post-image {
+        height: 400px;
+      }
     }
   }
 
