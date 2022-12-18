@@ -11,13 +11,13 @@ const CategoryMv = () => {
   const [dataListMV, setDataListMV] = useState([]);
   const { loading } = useSelector((state) => state.global);
   useEffect(() => {
-    dispatch(setLoading(true));
     async function fetch() {
       try {
+        dispatch(setLoading(true));
         const response = await axios.get(
-          `https://api-zingmp3-alpha.vercel.app/api/listmv?id="IWZ9Z08I"&page=1&count=18`
+          `https://api-zingmp3-alpha.vercel.app/api/listmv?id="IWZ9Z08I"&page=1&count=48`
         );
-        console.log("data categorymv:", response.data.data);
+        console.log("data listMV:", response.data.data);
         if (response.data && response.data.data) {
           setDataListMV(response.data.data);
           dispatch(setLoading(false));

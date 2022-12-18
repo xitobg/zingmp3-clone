@@ -11,9 +11,9 @@ const Follow = () => {
   const { loading } = useSelector((state) => state.global);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setLoading(true));
     async function fetch() {
       try {
+        dispatch(setLoading(true));
         const response = await axios.get(
           `https://api-zingmp3next.vercel.app/api/newfeeds?id="IWZ9Z08I"`
         );
@@ -35,7 +35,7 @@ const Follow = () => {
     <WrapperLayout>
       {loading && <Loading />}
       {!loading && (
-        <div className="follow-container mt-12">
+        <div className="mt-12 follow-container">
           <div className="grid grid-cols-3 post-list-item gap-y-5 gap-x-7">
             {dataFollow?.items &&
               dataFollow.items.map((item, index) => {

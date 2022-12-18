@@ -82,7 +82,7 @@ const Search = () => {
                   <SearchSuggest data={searchResult} />
                 </div>
               ) : (
-                searchValue &&
+                !searchValue &&
                 !searchResult[0] &&
                 !loadingSearch && (
                   <div className="h-auto text-center suggest-container">

@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 const StyledRadioItem = styled.div`
   display: flex;
@@ -40,7 +41,10 @@ const RadioItem = ({ item }) => {
     activeUsers,
   } = item;
   return (
-    <StyledRadioItem className="radio-item">
+    <StyledRadioItem
+      onClick={() => toast("Tính năng chưa được cập nhật!")}
+      className="radio-item"
+    >
       <div className="relative w-full bg-transparent cursor-pointer radio-top ">
         <div className="relative overflow-hidden border-2 border-red-600 rounded-full sw-full radio-img ">
           <img

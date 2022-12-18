@@ -16,6 +16,143 @@ import { Slider, Stack } from "@mui/material";
 import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
 import NowPlaying from "../PlayerMain";
 import axios from "axios";
+
+const PlayerControl = () => {
+  const dispatch = useDispatch();
+  const [valueVolume, setValueVolume] = useState(100);
+  const { showPlayingbar, showNowPlaying } = useSelector(
+    (state) => state.global
+  );
+  const { currentSongId, infoSongPlayer } = useSelector((state) => state.audio);
+  const handleChangeVolume = (e) => {
+    setValueVolume(e.target.value);
+  };
+  useEffect(() => {
+    // const fetch = async () => {
+    //   const res = await axios
+    //     .get(`https://api-zingmp3next.vercel.app/api/song/ZZ70OD0I`)
+    //     .then((res) => {
+    //       console.log(res.data);
+    //     });
+    // };
+    // fetch();
+
+    if (currentSongId !== null && currentSongId !== "") {
+      request.get(`song/${currentSongId}`).then(async (res) => {
+        if (res.data && res.data.data) {
+          console.log(res.data);
+
+          dispatch(setAudioSrc(res.data.data[128]));
+        }
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSongId, dispatch]);
+  return (
+    <StyledPlayer
+      className={`player-main ${showNowPlaying ? "show-now-playing" : ""}`}
+    >
+      <div className="player-container ">
+        <div className="flex player-left w-[30%]">
+          <div className="flex items-center ">
+            <div className="w-[64px] h-[64px] player-thumb mr-[10px] rounded-[4px]">
+              <img
+                className="w-full object-cover rounded-[4px]"
+                src={infoSongPlayer.thumbnail}
+                alt=""
+              />
+            </div>
+            <div className="flex flex-col player-info overflow-hidden justify-center max-w-[130px] flex-grow ">
+              <div className="player__name whitespace-nowrap">
+                {infoSongPlayer.title}
+              </div>
+              <span className="player__author whitespace-nowrap">
+                {infoSongPlayer.artistsNames}
+              </span>
+            </div>
+            <div className="flex items-center justify-end player-icon">
+              <div className="flex ">
+                <Tippy content="Thêm vào thư viện">
+                  <Icon>
+                    <i className="bi icon-heart bi-heart"></i>
+                  </Icon>
+                </Tippy>
+                <Tippy content="Xem thêm">
+                  <Icon>
+                    <i className="bi bi-three-dots"></i>
+                  </Icon>
+                </Tippy>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Control valueVolume={valueVolume} />
+        <div className="w-[30%] player-right flex justify-end">
+          <div className="flex items-center justify-center">
+            <Tippy content="Toàn màn hình">
+              {!showNowPlaying ? (
+                <Icon onClick={() => dispatch(setShowNowPlaying(true))}>
+                  <AiOutlineExpand className="text-lg"></AiOutlineExpand>
+                </Icon>
+              ) : (
+                <Icon onClick={() => dispatch(setShowNowPlaying(false))}>
+                  <AiOutlineCompress className="text-lg"></AiOutlineCompress>
+                </Icon>
+              )}
+            </Tippy>
+            <Tippy content="Chế độ cửa sổ">
+              <Icon className="player-restore hide-on-mobile-tablet">
+                <VscChromeRestore className="text-lg"></VscChromeRestore>
+              </Icon>
+            </Tippy>
+            <div className="flex items-center player-volume">
+              <Icon>
+                {valueVolume > 0 ? (
+                  <i
+                    onClick={() => setValueVolume(0)}
+                    className="text-lg bi bi-volume-up leading-[0px]"
+                  ></i>
+                ) : (
+                  <i
+                    onClick={() => setValueVolume(100)}
+                    className="bi leading-[0px] text-lg bi-volume-mute"
+                  ></i>
+                )}
+              </Icon>
+              <Stack
+                className="flex-1 w-20 mb-0 track-slider "
+                spacing={2}
+                direction="row"
+                sx={{ mb: 1 }}
+                alignItems="center"
+              >
+                <Slider
+                  aria-label="Volume"
+                  value={valueVolume}
+                  onChange={handleChangeVolume}
+                />
+              </Stack>
+            </div>
+            <div className="is-narrow hide-on-mobile-tablet mx-5 w-[1px] h-8"></div>
+            <Tippy content="Danh sách phát">
+              <button
+                onClick={() => dispatch(setShowPlayingbar(!showPlayingbar))}
+                className={`note-list-icon rounded-[4px] h-[30px] px-[5px] leading-[30px] text-xs font-medium ${
+                  showPlayingbar ? "active" : ""
+                }`}
+              >
+                <i className="text-lg bi bi-music-note-list leading-[0px]"></i>
+              </button>
+            </Tippy>
+          </div>
+        </div>
+      </div>
+      <NowPlaying />
+    </StyledPlayer>
+  );
+};
+
+export default PlayerControl;
 const StyledPlayer = styled.div`
   position: fixed;
   left: 0;
@@ -194,136 +331,3 @@ const StyledPlayer = styled.div`
     }
   }
 `;
-const PlayerControl = () => {
-  const dispatch = useDispatch();
-  const [valueVolume, setValueVolume] = useState(100);
-  const { showPlayingbar, showNowPlaying } = useSelector(
-    (state) => state.global
-  );
-  const { currentSongId, infoSongPlayer } = useSelector((state) => state.audio);
-  const handleChangeVolume = (e) => {
-    setValueVolume(e.target.value);
-  };
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await axios
-        .get(`https://api-zingmp3.vercel.app/api/song/6BO96UE0`)
-        .then((res) => {
-          console.log(res.data);
-        });
-    };
-    fetch();
-    if (currentSongId !== null && currentSongId !== "") {
-      request.get(`song/${currentSongId}`).then(async (res) => {
-        if (res.data && res.data.data) {
-          dispatch(setAudioSrc(res.data.data[128]));
-        }
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSongId, dispatch]);
-  return (
-    <StyledPlayer
-      className={`player-main ${showNowPlaying ? "show-now-playing" : ""}`}
-    >
-      <div className="player-container ">
-        <div className="flex player-left w-[30%]">
-          <div className="flex items-center ">
-            <div className="w-[64px] h-[64px] player-thumb mr-[10px] rounded-[4px]">
-              <img
-                className="w-full object-cover rounded-[4px]"
-                src={infoSongPlayer.thumbnail}
-                alt=""
-              />
-            </div>
-            <div className="flex flex-col player-info overflow-hidden justify-center max-w-[130px] flex-grow ">
-              <div className="player__name whitespace-nowrap">
-                {infoSongPlayer.title}
-              </div>
-              <span className="player__author whitespace-nowrap">
-                {infoSongPlayer.artistsNames}
-              </span>
-            </div>
-            <div className="flex items-center justify-end player-icon">
-              <div className="flex ">
-                <Tippy content="Thêm vào thư viện">
-                  <Icon>
-                    <i className="bi icon-heart bi-heart"></i>
-                  </Icon>
-                </Tippy>
-                <Tippy content="Xem thêm">
-                  <Icon>
-                    <i className="bi bi-three-dots"></i>
-                  </Icon>
-                </Tippy>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Control valueVolume={valueVolume} />
-        <div className="w-[30%] player-right flex justify-end">
-          <div className="flex items-center justify-center">
-            <Tippy content="Toàn màn hình">
-              {!showNowPlaying ? (
-                <Icon onClick={() => dispatch(setShowNowPlaying(true))}>
-                  <AiOutlineExpand className="text-lg"></AiOutlineExpand>
-                </Icon>
-              ) : (
-                <Icon onClick={() => dispatch(setShowNowPlaying(false))}>
-                  <AiOutlineCompress className="text-lg"></AiOutlineCompress>
-                </Icon>
-              )}
-            </Tippy>
-            <Tippy content="Chế độ cửa sổ">
-              <Icon className="player-restore hide-on-mobile-tablet">
-                <VscChromeRestore className="text-lg"></VscChromeRestore>
-              </Icon>
-            </Tippy>
-            <div className="flex items-center player-volume">
-              <Icon>
-                {valueVolume > 0 ? (
-                  <i
-                    onClick={() => setValueVolume(0)}
-                    className="text-lg bi bi-volume-up leading-[0px]"
-                  ></i>
-                ) : (
-                  <i
-                    onClick={() => setValueVolume(100)}
-                    className="bi leading-[0px] text-lg bi-volume-mute"
-                  ></i>
-                )}
-              </Icon>
-              <Stack
-                className="flex-1 w-20 mb-0 track-slider "
-                spacing={2}
-                direction="row"
-                sx={{ mb: 1 }}
-                alignItems="center"
-              >
-                <Slider
-                  aria-label="Volume"
-                  value={valueVolume}
-                  onChange={handleChangeVolume}
-                />
-              </Stack>
-            </div>
-            <div className="is-narrow hide-on-mobile-tablet mx-5 w-[1px] h-8"></div>
-            <Tippy content="Danh sách phát">
-              <button
-                onClick={() => dispatch(setShowPlayingbar(!showPlayingbar))}
-                className={`note-list-icon rounded-[4px] h-[30px] px-[5px] leading-[30px] text-xs font-medium ${
-                  showPlayingbar ? "active" : ""
-                }`}
-              >
-                <i className="text-lg bi bi-music-note-list leading-[0px]"></i>
-              </button>
-            </Tippy>
-          </div>
-        </div>
-      </div>
-      <NowPlaying />
-    </StyledPlayer>
-  );
-};
-
-export default PlayerControl;

@@ -19,15 +19,6 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import Swal from "sweetalert2";
-const StyledNewRelease = styled.div`
-  & .new-release-btn {
-    background-color: ${(props) => props.theme.purplePrimary};
-  }
-  & .title {
-    font-size: 40px;
-    font-weight: 800;
-  }
-`;
 
 const NewMusic = () => {
   const dispatch = useDispatch();
@@ -158,3 +149,12 @@ const NewMusic = () => {
 };
 
 export default NewMusic;
+const StyledNewRelease = styled.div`
+  & .new-release-btn {
+    background-color: ${(props) => props.theme.purplePrimary};
+  }
+  & .title {
+    font-size: 40px;
+    font-weight: 800;
+  }
+`;

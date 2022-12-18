@@ -7,7 +7,6 @@ import {
   BsMusicNoteList,
   BsFillFilePlayFill,
   BsMusicNoteBeamed,
-  BsUiChecksGrid,
 } from "react-icons/bs";
 import { IoIosRadio } from "react-icons/io";
 import { SiYoutubemusic } from "react-icons/si";
@@ -16,94 +15,7 @@ import logo from "~/assets/image/logo.svg";
 import MenuItem from "./menu/MenuItem";
 import { LibraryData } from "./library/LibraryData";
 import logoMobile from "~/assets/image/logomain.svg";
-const StyledSidebar = styled.div`
-  background-color: ${(props) => props.theme.sidebarBg};
-  height: calc(100vh - 90px);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 302;
-  .sidebar-navbar-list::after {
-    top: calc(100% + 15px);
-    height: 1px;
-    width: 188px;
-    background-color: ${(props) => props.theme.navigationText};
-    left: 50%;
-    transform: translateX(-50%);
-  }
 
-  .menu-item {
-    display: flex;
-    align-items: center;
-    padding: 8px 24px;
-    border-left-width: 3px;
-    border-color: transparent;
-    font-size: 13px;
-    color: ${(props) => props.theme.navigationText};
-
-    &:hover {
-      opacity: 0.8;
-    }
-    &.active {
-      border-color: ${(props) => props.theme.purplePrimary};
-      background-color: ${(props) => props.theme.alphaBg};
-      color: ${(props) => props.theme.navigationText};
-    }
-
-    .menu-item__title {
-      color: inherit;
-      padding-left: 12px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .menu-item__icon {
-      font-size: 20px;
-      line-height: 28px;
-      font-weight: 600;
-      color: inherit;
-    }
-    &:hover {
-      color: ${(props) => props.theme.textItemHover};
-    }
-  }
-  .show-on-mobile {
-    display: none;
-  }
-  .sidebar__subnav-inner {
-    -webkit-mask-image: linear-gradient(
-      180deg,
-      hsla(0, 0%, 100%, 0),
-      hsla(0, 0%, 100%, 0.8) 10%,
-      #fff 25%,
-      #fff
-    );
-    .library-item {
-      color: ${(props) => props.theme.navigationText};
-      .library-title {
-        color: ${(props) => props.theme.navigationText};
-      }
-      .library-icon {
-        color: ${(props) => props.theme.navigationText};
-      }
-    }
-  }
-  & .vip-btn {
-    background-color: #ffdb00;
-    border-color: #ffdb00;
-    color: black;
-    display: inline-block;
-    padding: 6px 35px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  .create-playlist {
-    border-top: 1px solid ${(props) => props.theme.borderPrimary};
-    &-icon,
-    &-title {
-      color: ${(props) => props.theme.navigationText};
-    }
-  }
-`;
 const Sidebar = () => {
   return (
     <StyledSidebar className=" pt-5 side-bar relative top-0 left-0  flex flex-col w-[240px]">
@@ -220,3 +132,91 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+const StyledSidebar = styled.div`
+  background-color: ${(props) => props.theme.sidebarBg};
+  height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 302;
+  .sidebar-navbar-list::after {
+    top: calc(100% + 15px);
+    height: 1px;
+    width: 188px;
+    background-color: ${(props) => props.theme.navigationText};
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 24px;
+    border-left-width: 3px;
+    border-color: transparent;
+    font-size: 13px;
+    color: ${(props) => props.theme.navigationText};
+
+    &:hover {
+      opacity: 0.8;
+    }
+    &.active {
+      border-color: ${(props) => props.theme.purplePrimary};
+      background-color: ${(props) => props.theme.alphaBg};
+      color: ${(props) => props.theme.navigationText};
+    }
+
+    .menu-item__title {
+      color: inherit;
+      padding-left: 12px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .menu-item__icon {
+      font-size: 20px;
+      line-height: 28px;
+      font-weight: 600;
+      color: inherit;
+    }
+    &:hover {
+      color: ${(props) => props.theme.textItemHover};
+    }
+  }
+  .show-on-mobile {
+    display: none;
+  }
+  .sidebar__subnav-inner {
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      hsla(0, 0%, 100%, 0),
+      hsla(0, 0%, 100%, 0.8) 10%,
+      #fff 25%,
+      #fff
+    );
+    .library-item {
+      color: ${(props) => props.theme.navigationText};
+      .library-title {
+        color: ${(props) => props.theme.navigationText};
+      }
+      .library-icon {
+        color: ${(props) => props.theme.navigationText};
+      }
+    }
+  }
+  & .vip-btn {
+    background-color: #ffdb00;
+    border-color: #ffdb00;
+    color: black;
+    display: inline-block;
+    padding: 6px 35px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .create-playlist {
+    border-top: 1px solid ${(props) => props.theme.borderPrimary};
+    &-icon,
+    &-title {
+      color: ${(props) => props.theme.navigationText};
+    }
+  }
+`;

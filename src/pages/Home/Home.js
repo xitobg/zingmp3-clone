@@ -5,7 +5,7 @@ import Chart from "~/components/chart";
 import Event from "~/components/event";
 import NewRelease from "~/components/newRelease";
 import Playlist from "~/components/playlist/Playlist";
-import RadioList from "~/components/radio";
+import RadioList from "~/components/radio/RadioList";
 import WeekChart from "~/components/weekChart";
 import Mix from "~/components/mix";
 import Partner from "~/components/partner";
@@ -34,7 +34,7 @@ const Home = () => {
         console.log(err);
       });
     document.title =
-      "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile ";
+      "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

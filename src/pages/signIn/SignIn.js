@@ -14,34 +14,6 @@ import InputPasswordToggle from "~/components/input/InputPasswordToggle";
 import logoMp3 from "~/assets/image/logomp3.svg";
 import Swal from "sweetalert2";
 import { useAuth } from "~/contexts/auth-context";
-const StyledSignIn = styled.div`
-  height: 100vh;
-  position: relative;
-  & .sign-up-container {
-    background-color: #fff;
-    & .sign-up-title {
-      color: ${(props) => props.theme.purplePrimary};
-    }
-  }
-  .submit-btn {
-    padding: 0 50px;
-    font-size: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    & span {
-      line-height: 0px;
-    }
-  }
-  & .sign-in-link {
-    color: ${(props) => props.theme.purplePrimary};
-  }
-  & .sign-in-google {
-    border: 1px solid #ddd;
-  }
-`;
 
 const schema = yup.object({
   email: yup
@@ -160,3 +132,31 @@ const SignIn = () => {
 };
 
 export default SignIn;
+const StyledSignIn = styled.div`
+  height: 100vh;
+  position: relative;
+  & .sign-up-container {
+    background-color: #fff;
+    & .sign-up-title {
+      color: ${(props) => props.theme.purplePrimary};
+    }
+  }
+  .submit-btn {
+    padding: 0 50px;
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    & span {
+      line-height: 0px;
+    }
+  }
+  & .sign-in-link {
+    color: ${(props) => props.theme.purplePrimary};
+  }
+  & .sign-in-google {
+    border: 1px solid #ddd;
+  }
+`;

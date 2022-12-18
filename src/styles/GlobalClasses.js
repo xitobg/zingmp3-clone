@@ -478,6 +478,9 @@ export const GlobalClasses = css`
     .mv-artist-list {
       column-gap: 20px;
     }
+    div.caterogymv-container {
+      margin-top: 80px;
+    }
   }
   @media screen and (max-width: 650px) {
     .new-release-container {
