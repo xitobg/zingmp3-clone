@@ -4,11 +4,9 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import axios from "axios";
-import RadioItem from "../../components/radio/RadioItem";
 import RadioList from "~/components/radio/RadioList";
 const Radio = () => {
   const [dataRadio, setDataRadio] = useState([]);
-  const [item, setItem] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     async function fetch() {
