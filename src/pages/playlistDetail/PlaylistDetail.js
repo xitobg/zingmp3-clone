@@ -6,7 +6,6 @@ import Icon from "~/components/Icon";
 import { BsFillHeartFill } from "react-icons/bs";
 import Tippy from "@tippyjs/react";
 import ConvertNumber from "~/utils/ConvertNumber";
-import SongAlbum from "./songAlbum";
 import ConvertDates from "~/utils/ConvertDates";
 import ArtistBanner from "~/components/artistBanner";
 import WrapperLayout from "~/components/wrapperLayout";
@@ -59,13 +58,14 @@ const PlaylistDetail = () => {
   }
 
   const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
+    console.log(song);
     const playlistCanPlay = [];
-    if (song.streamingStatus === 1 && song.isWorldWide) {
+    if (song.streamingStatus === 1) {
       dispatch(setAudioSrc(""));
       dispatch(setCurrentTime(0));
       dispatch(setPlaylistId(idPlaylist));
       for (let songItem of currentPlayList) {
-        if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+        if (songItem.streamingStatus === 1) {
           playlistCanPlay.push(songItem);
         }
       }
@@ -93,7 +93,7 @@ const PlaylistDetail = () => {
     } else {
       Swal.fire({
         icon: "error",
-        text: "Playlist chưa được hỗ trợ!",
+        text: "Bài hát chưa được hỗ trợ",
       });
     }
   };
@@ -102,8 +102,13 @@ const PlaylistDetail = () => {
     let songCanPlay = [];
     let randomIndex;
     for (let songItem of playlist) {
-      if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+      if (songItem.streamingStatus === 1) {
         songCanPlay.push(songItem);
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: "Bài hát chưa được hỗ trợ",
+        });
       }
     }
     if (songCanPlay.length === 0) {
@@ -297,11 +302,11 @@ const PlaylistDetail = () => {
                               onClick={() =>
                                 handleGetSongPlaylist(
                                   item,
-                                  song.items,
-                                  dataAlbum.encodeId
+                                  song?.items,
+                                  dataAlbum?.encodeId
                                 )
                               }
-                              key={item.encodeId}
+                              key={item?.encodeId}
                               item={item}
                             />
                           );

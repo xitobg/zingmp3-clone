@@ -11,7 +11,6 @@ import Loading from "~/components/loading/Loading";
 const VideoMV = () => {
   const dispatch = useDispatch();
   const { showVideoMV, idMv } = useSelector((state) => state.videoMv);
-  console.log(showVideoMV, idMv);
   const [dataVideoMV, setDataVideoMV] = useState([]);
   const handleCloseVideo = () => {
     dispatch(setShowVideoMV(false));

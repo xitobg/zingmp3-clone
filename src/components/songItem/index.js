@@ -16,196 +16,6 @@ import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
 import viplabel from "~/assets/image/vipLabel.svg";
 
-const StyledSong = styled.div`
-  &:hover .icon-play {
-    display: initial;
-  }
-  &.active {
-    background-color: ${(props) => props.theme.alphaBg};
-  }
-  .play-btn {
-    font-size: 18px !important;
-  }
-  &:hover .play-btn {
-    visibility: visible;
-  }
-  border-bottom: 1px solid ${(props) => props.theme.borderSecondary};
-  border-radius: 5px;
-  width: 100%;
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => props.theme.alphaBg};
-  }
-  &:hover .media-action {
-    visibility: visible;
-  }
-  &:hover .song-thumb::after {
-    visibility: visible;
-  }
-  .song__rank-number {
-    width: 60px;
-    min-width: 38px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: rgba(74, 144, 226, 0);
-    opacity: 1;
-    margin-right: 5px;
-    font-size: 32px;
-    font-weight: 900;
-    line-height: 1;
-    text-align: center;
-    color: rgba(74, 144, 226, 0);
-    font-family: "Roboto", sans-serif;
-    white-space: nowrap;
-    color: rgba(74, 144, 226, 0);
-    -webkit-text-stroke: 1px ${(props) => props.theme.textPrimary};
-
-    &.isTop1 {
-      -webkit-text-stroke: 1px #4a90e2;
-    }
-    &.isTop2 {
-      -webkit-text-stroke: 1px #50e3c2;
-    }
-    &.isTop3 {
-      -webkit-text-stroke: 1px #e35050;
-    }
-  }
-  .icon-dash {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  .song__info {
-    overflow: hidden;
-    flex-wrap: nowrap;
-    display: -webkit-box;
-    word-break: break-word;
-    text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    &-name {
-      text-transform: capitalize;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 14px;
-      color: ${(props) => props.theme.textPrimary};
-      margin-top: 3px;
-      flex-wrap: nowrap;
-      display: -webkit-box;
-      word-break: break-word;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-      line-height: 16px;
-    }
-    .song__search-name {
-      text-transform: capitalize;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 14px;
-      color: ${(props) => props.theme.textPrimary};
-      margin-top: 3px;
-      flex-wrap: nowrap;
-      display: -webkit-box;
-      word-break: break-word;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-      line-height: 16px;
-      &:hover {
-        color: ${(props) => props.theme.linkTextHover};
-      }
-    }
-    &-author {
-      margin-top: 6px;
-      line-height: 1.33;
-      color: ${(props) => props.theme.textSecondary};
-      display: flex;
-      flex-wrap: nowrap;
-      display: -webkit-box;
-      word-break: break-word;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
-      & .artist-name {
-        color: ${(props) => props.theme.textSecondary};
-
-        &:hover {
-          color: ${(props) => props.theme.linkTextHover};
-        }
-      }
-    }
-  }
-  .media-content {
-    flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1;
-    text-align: left;
-    align-self: center;
-    width: 0;
-    font-size: 12px;
-    color: ${(props) => props.theme.textSecondary};
-    &:hover {
-      color: ${(props) => props.theme.linkTextHover};
-      text-decoration: underline;
-    }
-  }
-  .media-right {
-    display: flex;
-    margin-left: 10px;
-    align-items: center;
-    flex-basis: auto;
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-  .hover-item {
-    display: none;
-    word-break: break-word;
-  }
-  &:hover .hover-item {
-    display: flex;
-  }
-  &:hover .media-duration {
-    display: none;
-  }
-
-  .media-duration {
-    word-break: break-word;
-    font-size: 12px;
-    color: ${(props) => props.theme.textSecondary};
-  }
-  .sort-ranking {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  .song-icon-note {
-    color: ${(props) => props.theme.textSecondary};
-    flex-shrink: 0;
-  }
-  ${(props) =>
-    props.playingBar &&
-    css`
-      .media-left {
-        width: 100%;
-        margin-right: 0;
-      }
-      &.active {
-        background-color: ${(props) => props.theme.purplePrimary};
-      }
-      &.active .song__search-name {
-        color: #fff !important;
-      }
-      .artist-name,
-      .song__info-author {
-        color: ${(props) => props.theme.textSecondary} !important;
-      }
-      &.active .artist-name,
-      &.active .song__info-author {
-        color: hsla(0, 0%, 100%, 0.6) !important;
-      }
-    `};
-`;
 const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
   const dispatch = useDispatch();
   const { currentSongId, isPlay } = useSelector((state) => state.audio);
@@ -396,3 +206,193 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
 };
 
 export default SongItem;
+const StyledSong = styled.div`
+  &:hover .icon-play {
+    display: initial;
+  }
+  &.active {
+    background-color: ${(props) => props.theme.alphaBg};
+  }
+  .play-btn {
+    font-size: 18px !important;
+  }
+  &:hover .play-btn {
+    visibility: visible;
+  }
+  border-bottom: 1px solid ${(props) => props.theme.borderSecondary};
+  border-radius: 5px;
+  width: 100%;
+  cursor: pointer;
+  &:hover {
+    background-color: ${(props) => props.theme.alphaBg};
+  }
+  &:hover .media-action {
+    visibility: visible;
+  }
+  &:hover .song-thumb::after {
+    visibility: visible;
+  }
+  .song__rank-number {
+    width: 60px;
+    min-width: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(74, 144, 226, 0);
+    opacity: 1;
+    margin-right: 5px;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1;
+    text-align: center;
+    color: rgba(74, 144, 226, 0);
+    font-family: "Roboto", sans-serif;
+    white-space: nowrap;
+    color: rgba(74, 144, 226, 0);
+    -webkit-text-stroke: 1px ${(props) => props.theme.textPrimary};
+
+    &.isTop1 {
+      -webkit-text-stroke: 1px #4a90e2;
+    }
+    &.isTop2 {
+      -webkit-text-stroke: 1px #50e3c2;
+    }
+    &.isTop3 {
+      -webkit-text-stroke: 1px #e35050;
+    }
+  }
+  .icon-dash {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  .song__info {
+    overflow: hidden;
+    flex-wrap: nowrap;
+    display: -webkit-box;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    &-name {
+      text-transform: capitalize;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 14px;
+      color: ${(props) => props.theme.textPrimary};
+      margin-top: 3px;
+      flex-wrap: nowrap;
+      display: -webkit-box;
+      word-break: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      line-height: 16px;
+    }
+    .song__search-name {
+      text-transform: capitalize;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 14px;
+      color: ${(props) => props.theme.textPrimary};
+      margin-top: 3px;
+      flex-wrap: nowrap;
+      display: -webkit-box;
+      word-break: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      line-height: 16px;
+      &:hover {
+        color: ${(props) => props.theme.linkTextHover};
+      }
+    }
+    &-author {
+      margin-top: 6px;
+      line-height: 1.33;
+      color: ${(props) => props.theme.textSecondary};
+      display: flex;
+      flex-wrap: nowrap;
+      display: -webkit-box;
+      word-break: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      & .artist-name {
+        color: ${(props) => props.theme.textSecondary};
+
+        &:hover {
+          color: ${(props) => props.theme.linkTextHover};
+        }
+      }
+    }
+  }
+  .media-content {
+    flex-basis: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    text-align: left;
+    align-self: center;
+    width: 0;
+    font-size: 12px;
+    color: ${(props) => props.theme.textSecondary};
+    &:hover {
+      color: ${(props) => props.theme.linkTextHover};
+      text-decoration: underline;
+    }
+  }
+  .media-right {
+    display: flex;
+    margin-left: 10px;
+    align-items: center;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  .hover-item {
+    display: none;
+    word-break: break-word;
+  }
+  &:hover .hover-item {
+    display: flex;
+  }
+  &:hover .media-duration {
+    display: none;
+  }
+
+  .media-duration {
+    word-break: break-word;
+    font-size: 12px;
+    color: ${(props) => props.theme.textSecondary};
+  }
+  .sort-ranking {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  .song-icon-note {
+    color: ${(props) => props.theme.textSecondary};
+    flex-shrink: 0;
+  }
+  ${(props) =>
+    props.playingBar &&
+    css`
+      .media-left {
+        width: 100%;
+        margin-right: 0;
+      }
+      &.active {
+        background-color: ${(props) => props.theme.purplePrimary};
+      }
+      &.active .song__search-name {
+        color: #fff !important;
+      }
+      .artist-name,
+      .song__info-author {
+        color: ${(props) => props.theme.textSecondary} !important;
+      }
+      &.active .artist-name,
+      &.active .song__info-author {
+        color: hsla(0, 0%, 100%, 0.6) !important;
+      }
+    `};
+`;

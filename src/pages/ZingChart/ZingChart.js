@@ -23,39 +23,7 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import Swal from "sweetalert2";
-const StyledZingChart = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  & .title {
-    font-size: 40px;
-    font-weight: 800;
-    margin-bottom: 0;
-    line-height: normal;
-  }
-  & .zingchart-btn {
-    background-color: ${(props) => props.theme.purplePrimary};
-  }
-  & .chart-line {
-    width: 100%;
-    height: 1px;
-    border: 1px dashed ${(props) => props.theme.navigationText};
-    opacity: 0.5;
-  }
-  .view-all {
-    display: inline-block;
-    border-radius: 999px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.43;
-    text-align: center;
-    color: ${(props) => props.theme.purplePrimary};
-    background-color: transparent;
-    padding: 8px 25px;
-    border: 1px solid ${(props) => props.theme.purplePrimary};
-    margin: 20px auto 30px;
-  }
-`;
+
 const ZingChart = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
@@ -74,12 +42,12 @@ const ZingChart = () => {
 
   const handlePlaySong = (song, playlist, idPlaylist) => {
     let playlistCanPlay = [];
-    if (song.streamingStatus === 1 && song.isWorldWide) {
+    if (song.streamingStatus === 1) {
       dispatch(setPlaylistId(idPlaylist));
       dispatch(setCurrentTime(0));
       dispatch(setAudioSrc(""));
       for (let songItem of playlist) {
-        if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+        if (songItem.streamingStatus === 1) {
           playlistCanPlay.push(songItem);
         }
       }
@@ -164,3 +132,36 @@ const ZingChart = () => {
 };
 
 export default ZingChart;
+const StyledZingChart = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  & .title {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 0;
+    line-height: normal;
+  }
+  & .zingchart-btn {
+    background-color: ${(props) => props.theme.purplePrimary};
+  }
+  & .chart-line {
+    width: 100%;
+    height: 1px;
+    border: 1px dashed ${(props) => props.theme.navigationText};
+    opacity: 0.5;
+  }
+  .view-all {
+    display: inline-block;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    text-align: center;
+    color: ${(props) => props.theme.purplePrimary};
+    background-color: transparent;
+    padding: 8px 25px;
+    border: 1px solid ${(props) => props.theme.purplePrimary};
+    margin: 20px auto 30px;
+  }
+`;

@@ -13,40 +13,7 @@ import {
   setPlaylistRandom,
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
-const StyledPlaying = styled.div`
-  position: fixed;
-  width: 330px !important;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  width: 100%;
-  z-index: 301;
-  background-color: ${(props) => props.theme.bgPlayingBar};
-  box-shadow: ${(props) => props.theme.boxshadowPlayingBar};
-  height: calc(100vh - 90px);
-  max-height: calc(100vh - 90px);
-  transition: 0.7s ease-in;
-  transform: translateX(100%);
-  &.show {
-    transform: translateX(0);
-  }
-  & .playing-bar-tab {
-    background-color: ${(props) => props.theme.alphaBg};
-    & .tab-bar {
-      color: ${(props) => props.theme.navigationText};
-      border-radius: 15px;
-      &.is-active {
-        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 7%);
-        background-color: ${(props) => props.theme.tabActiveBg};
-      }
-    }
-  }
-  & .clock-btn {
-    background-color: ${(props) => props.theme.alphaBg};
 
-    color: ${(props) => props.theme.navigationText};
-  }
-`;
 const PlayingBar = () => {
   const { showPlayingbar } = useSelector((state) => state.global);
   const dispatch = useDispatch();
@@ -147,7 +114,7 @@ const PlayingBar = () => {
                   );
                 }
               })
-            : playlistSong.map((song, index) => {
+            : playlistSong?.map((song, index) => {
                 if (song.streamingStatus !== 1) {
                   return Swal.fire("Bài hát chưa được hỗ trợ!");
                 } else {
@@ -163,7 +130,7 @@ const PlayingBar = () => {
                           )
                         }
                         playingBar
-                        key={song.encodeId}
+                        key={song?.encodeId}
                         item={song}
                         section="search"
                       />
@@ -178,3 +145,37 @@ const PlayingBar = () => {
 };
 
 export default PlayingBar;
+const StyledPlaying = styled.div`
+  position: fixed;
+  width: 330px !important;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  width: 100%;
+  z-index: 301;
+  background-color: ${(props) => props.theme.bgPlayingBar};
+  box-shadow: ${(props) => props.theme.boxshadowPlayingBar};
+  height: calc(100vh - 90px);
+  max-height: calc(100vh - 90px);
+  transition: 0.7s ease-in;
+  transform: translateX(100%);
+  &.show {
+    transform: translateX(0);
+  }
+  & .playing-bar-tab {
+    background-color: ${(props) => props.theme.alphaBg};
+    & .tab-bar {
+      color: ${(props) => props.theme.navigationText};
+      border-radius: 15px;
+      &.is-active {
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 7%);
+        background-color: ${(props) => props.theme.tabActiveBg};
+      }
+    }
+  }
+  & .clock-btn {
+    background-color: ${(props) => props.theme.alphaBg};
+
+    color: ${(props) => props.theme.navigationText};
+  }
+`;

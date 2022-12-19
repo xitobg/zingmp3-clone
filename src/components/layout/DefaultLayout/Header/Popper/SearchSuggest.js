@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import SongItem from "~/components/songItem";
 import {
   changeIconPlaying,
@@ -15,6 +16,44 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import ConvertNumber from "~/utils/ConvertNumber";
+
+const SearchSuggest = ({ data = [] }) => {
+  const dispatch = useDispatch();
+  const handlePlaySong = (song) => {
+    if (song?.streamingStatus == 1) {
+      dispatch(setAudioSrc(""));
+      dispatch(setPlaylistId(""));
+      dispatch(setPlaylistSong([song]));
+      dispatch(setPlaylistRandom([song]));
+      dispatch(setSongId(song.encodeId));
+      dispatch(setInfoSongPlayer(song));
+      dispatch(changeIconPlaying(true));
+      dispatch(setRepeatSong(true));
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "Bài hát chưa được hỗ trợ",
+      });
+    }
+  };
+  return (
+    data.length > 0 &&
+    data.map((item, index) => {
+      return (
+        <SongItem
+          onClick={() => {
+            handlePlaySong(item);
+          }}
+          section="search"
+          key={index}
+          item={item}
+        />
+      );
+    })
+  );
+};
+
+export default SearchSuggest;
 const StyledSearchSuggest = styled.div`
   &:hover {
     background-color: ${(props) => props.theme.alphaBg};
@@ -42,33 +81,3 @@ const StyledSearchSuggest = styled.div`
     }
   }
 `;
-const SearchSuggest = ({ data = [] }) => {
-  const dispatch = useDispatch();
-  const handlePlaySong = (song) => {
-    dispatch(setAudioSrc(""));
-    dispatch(setPlaylistId(""));
-    dispatch(setPlaylistSong([song]));
-    dispatch(setPlaylistRandom([song]));
-    dispatch(setSongId(song.encodeId));
-    dispatch(setInfoSongPlayer(song));
-    dispatch(changeIconPlaying(true));
-    dispatch(setRepeatSong(true));
-  };
-  return (
-    data.length > 0 &&
-    data.map((item, index) => {
-      return (
-        <SongItem
-          onClick={() => {
-            handlePlaySong(item);
-          }}
-          section="search"
-          key={index}
-          item={item}
-        />
-      );
-    })
-  );
-};
-
-export default SearchSuggest;

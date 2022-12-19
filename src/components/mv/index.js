@@ -1,15 +1,17 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
 import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 
-const MvArtist = ({ data = {} }) => {
+const MvArtist = ({ data = {}, isActive }) => {
   const dispatch = useDispatch();
+  const { isPlay } = useSelector((state) => state.audio);
   const { title, items } = data;
   const handleShowVideoMv = (idMv) => {
+    console.log(123);
     dispatch(setShowVideoMV(true));
     dispatch(changeIconPlaying(false));
     dispatch(setIdMv(idMv));
@@ -27,9 +29,6 @@ const MvArtist = ({ data = {} }) => {
               artist: { thumbnail },
               title: name,
               artists,
-              link,
-              isWorldWide,
-              streamingStatus,
             } = item;
             return (
               <div

@@ -48,12 +48,12 @@ const ArtistDetails = () => {
 
   const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
     const playlistCanPlay = [];
-    if (song.streamingStatus === 1 && song.isWorldWide) {
+    if (song.streamingStatus === 1) {
       dispatch(setAudioSrc(""));
       dispatch(setCurrentTime(0));
       dispatch(setPlaylistId(idPlaylist));
       for (let songItem of currentPlayList) {
-        if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+        if (songItem.streamingStatus === 1) {
           playlistCanPlay.push(songItem);
         }
       }
@@ -81,7 +81,7 @@ const ArtistDetails = () => {
     } else {
       Swal.fire({
         icon: "error",
-        text: "Playlist chưa được hỗ trợ!",
+        text: "Bài hát chưa được hỗ trợ",
       });
     }
   };
@@ -90,7 +90,7 @@ const ArtistDetails = () => {
     let songCanPlay = [];
     let randomIndex;
     for (let songItem of playlist) {
-      if (songItem.streamingStatus === 1 && songItem.isWorldWide) {
+      if (songItem.streamingStatus === 1) {
         songCanPlay.push(songItem);
       }
     }
@@ -155,7 +155,7 @@ const ArtistDetails = () => {
                     id={singerData.playlistId}
                     key={`${title}${index}`}
                     data={{ ...item }}
-                  ></SongSection>
+                  />
                 );
               } else if (sectionType === "playlist") {
                 return (

@@ -31,6 +31,7 @@ const Control = ({ valueVolume = 100 }) => {
     srcAudio,
     playlistSong,
     playlistRandom,
+    currentSongId,
   } = useSelector((state) => state.audio);
   let currentIndex = useSelector((state) => state.audio.currentIndexSong);
   let currentIndexRandom = useSelector(
@@ -261,7 +262,11 @@ const Control = ({ valueVolume = 100 }) => {
         autoPlay={isPlay}
         hidden
         ref={audioRef}
-        src={srcAudio}
+        src={
+          currentSongId
+            ? `http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/320`
+            : ""
+        }
         onEnded={handleOnEnded}
         onTimeUpdate={handleOntimeUpdate}
       ></audio>
