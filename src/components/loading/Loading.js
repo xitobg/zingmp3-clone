@@ -123,7 +123,7 @@ const Loading = ({ className }, ref) => {
           <li className="w-10 h-10 rounded-full loading-dots"></li>
           <li className="w-10 h-10 rounded-full loading-dots"></li>
         </ul> */}
-        <div class="loading flex justify-center w-[100px] gap-2 h-[100px]">
+        <div className="loading flex justify-center w-[100px] gap-2 h-[100px]">
           <span></span>
           <span></span>
           <span></span>

@@ -23,22 +23,21 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import Swal from "sweetalert2";
+export function shuffle(sourceArray) {
+  for (var i = 0; i < sourceArray.length - 1; i++) {
+    var j = i + Math.floor(Math.random() * (sourceArray.length - i));
 
+    var temp = sourceArray[j];
+    sourceArray[j] = sourceArray[i];
+    sourceArray[i] = temp;
+  }
+  return sourceArray;
+}
 const ZingChart = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
   const { isRandom, plalistId } = useSelector((state) => state.audio);
   const [dataZingChart, setDataZingChart] = useState([]);
-  function shuffle(sourceArray) {
-    for (var i = 0; i < sourceArray.length - 1; i++) {
-      var j = i + Math.floor(Math.random() * (sourceArray.length - i));
-
-      var temp = sourceArray[j];
-      sourceArray[j] = sourceArray[i];
-      sourceArray[i] = temp;
-    }
-    return sourceArray;
-  }
 
   const handlePlaySong = (song, playlist, idPlaylist) => {
     let playlistCanPlay = [];
@@ -74,7 +73,10 @@ const ZingChart = () => {
         dispatch(changeIconPlaying(true));
       }
     } else {
-      Swal.fire("Bài hát chưa được hỗ trợ!");
+      Swal.fire({
+        icon: "error",
+        text: "Bài hát chưa được hỗ trợ!",
+      });
     }
   };
 
@@ -124,7 +126,7 @@ const ZingChart = () => {
             <div className="chart-line"></div>
           </div>
           <ChartRanking onClick={handlePlaySong} data={dataZingChart} />
-          {/* <WeekChart data={dataZingChart} /> */}
+          <WeekChart data={dataZingChart?.weekChart} />
         </StyledZingChart>
       )}
     </WrapperLayout>

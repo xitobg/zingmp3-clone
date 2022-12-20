@@ -41,7 +41,7 @@ const VideoMV = () => {
   return (
     <>
       <StyledVideo className={`${showVideoMV ? "show" : ""}`}>
-        <div className="relative w-full h-full px-8 overflow-hidden">
+        <div className="relative w-full h-full px-8 overflow-hidden video-mv-modal">
           <div className="min-h-screen video-container">
             <div className="flex justify-between p-4 video-header">
               <div className="flex items-center gap-x-3">
@@ -70,8 +70,8 @@ const VideoMV = () => {
                 </div>
               </Tippy>
             </div>
-            <div className="relative flex px-3 gap-x-7 video-body">
-              <div className="w-[70%] relative">
+            <div className="relative flex px-3 scrollbar-video gap-x-7 video-body">
+              <div className="w-[70%] video-mv-player relative">
                 <div className="video-player rounded-md h-[500px] overflow-hidden w-full relative">
                   <ReactPlayer
                     width={"100%"}
@@ -86,14 +86,15 @@ const VideoMV = () => {
                   />
                 </div>
               </div>
-              <div className="w-[30%] recommend-container rounded-md bg-[hsla(0,0%,100%,.10196078431372549)] flex  flex-col">
+              <div className="w-[30%]  list-mv-player recommend-container rounded-md bg-[hsla(0,0%,100%,.10196078431372549)] flex  flex-col">
                 <div className="flex items-center justify-between p-5 recommend-header">
                   <h3 className="title">Danh sách phát</h3>
                 </div>
                 <div className="flex flex-col h-[400px] recommend-list has-scroll-bar">
                   {recommends &&
                     recommends.map((item, index) => {
-                      const { encodeId, thumbnail, title, link } = item;
+                      const { encodeId, thumbnail, title, link, artistsNames } =
+                        item;
                       return (
                         <div
                           key={encodeId}
@@ -118,7 +119,7 @@ const VideoMV = () => {
                               {title}
                             </span>
                             <p className="text-xs font-normal cursor-pointer card-subtitle">
-                              Hương Ly
+                              {artistsNames}
                             </p>
                           </div>
                         </div>

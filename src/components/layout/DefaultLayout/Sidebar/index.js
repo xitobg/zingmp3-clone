@@ -7,6 +7,7 @@ import {
   BsMusicNoteList,
   BsFillFilePlayFill,
   BsMusicNoteBeamed,
+  BsUiChecksGrid,
 } from "react-icons/bs";
 import { IoIosRadio } from "react-icons/io";
 import { SiYoutubemusic } from "react-icons/si";
@@ -44,13 +45,14 @@ const Sidebar = () => {
           icon={<BsMusicNoteList className="menu-item__icon" />}
         />
         <MenuItem
-          className=" show-on-mobile"
+          className="show-on-mobile"
           title="Nhạc Mới"
           to="/new-release"
           icon={<BsMusicNoteList className="menu-item__icon" />}
         />
+
         <MenuItem
-          className=" show-on-mobile"
+          className="show-on-mobile"
           title="Top 100"
           to="/top-100"
           icon={<BsMusicNoteList className="menu-item__icon" />}
@@ -76,11 +78,12 @@ const Sidebar = () => {
             to="/new-release"
             icon={<BsMusicNoteBeamed className="menu-item__icon" />}
           />
-          {/* <MenuItem
+          <MenuItem
+            className="hide-on-mobile"
             title="Thể Loại"
-            to="/"
+            to="/hub"
             icon={<BsUiChecksGrid className="menu-item__icon" />}
-          /> */}
+          />
           <MenuItem
             title="Top 100"
             to="/top-100"

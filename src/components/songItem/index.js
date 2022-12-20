@@ -15,10 +15,13 @@ import ConvertDuration from "~/utils/ConvertTime";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
 import viplabel from "~/assets/image/vipLabel.svg";
+import IconLoading from "../Icon/IconLoading";
 
 const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
   const dispatch = useDispatch();
-  const { currentSongId, isPlay } = useSelector((state) => state.audio);
+  const { currentSongId, isPlay, loadingPlay } = useSelector(
+    (state) => state.audio
+  );
   const {
     encodeId,
     thumbnail,
@@ -33,11 +36,13 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
   return (
     <StyledSong
       playingBar={playingBar}
-      className={`song-item ${encodeId === currentSongId ? "active" : ""}`}
+      className={`song-item song-weekchart ${
+        encodeId === currentSongId ? "active" : ""
+      }`}
       onDoubleClick={onClick}
       key={encodeId}
     >
-      <div className="flex rounded-md select-none p-[10px] items-center">
+      <div className="flex rounded-md select-none p-[10px] song-item-content items-center">
         <div className="flex items-center media-left w-2/4 mr-[10px] flex-grow-0 flex-shrink-0">
           {section === "zingchart" || section === "new-release" ? (
             <div className="flex ranking-status mr-[15px] items-center">
@@ -62,9 +67,9 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
               ) : (
                 <div className="flex flex-col sort-ranking items-center  w-[18px] h-[36px]">
                   {rakingStatus > 0 ? (
-                    <TiArrowSortedUp className="text-[#1dc186] text-xs w-[18px] h-[18px]"></TiArrowSortedUp>
+                    <TiArrowSortedUp className="text-[#1dc186] text-xs w-[18px] h-[18px]" />
                   ) : (
-                    <TiArrowSortedDown className="text-[#e35050] text-xs w-[18px] h-[18px]"></TiArrowSortedDown>
+                    <TiArrowSortedDown className="text-[#e35050] text-xs w-[18px] h-[18px]" />
                   )}
                   <span className="text-xs text-center w-[18px] h-[18px] inline-block font-bold text-inherit">
                     {rakingStatus < 0 ? Math.abs(rakingStatus) : rakingStatus}
@@ -87,7 +92,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
               alt=""
             />
             <div className="absolute  media-action  top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 text-[22px] text-white cursor-pointer z-10 ">
-              {isPlay && currentSongId === encodeId ? (
+              {isPlay && currentSongId === encodeId && !loadingPlay ? (
                 <div
                   onClick={() => dispatch(changeIconPlaying(false))}
                   className="w-[18px] h-[18px] absolute top-2/4 -translate-x-2/4 -translate-y-2/4 z-50"
@@ -113,6 +118,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
               ) : (
                 <></>
               )}
+              {currentSongId === encodeId && loadingPlay && <IconLoading />}
             </div>
           </div>
 
@@ -179,11 +185,11 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
             <div className="hover-item">
               <Tippy content="Phát cùng lời bài hát">
                 <Icon>
-                  <GiMicrophone></GiMicrophone>
+                  <GiMicrophone />
                 </Icon>
               </Tippy>
               <Tippy content="Thêm vào thư viện">
-                <Icon>
+                <Icon className="add-to-library">
                   <i className="bi icon-heart bi-heart"></i>
                 </Icon>
               </Tippy>

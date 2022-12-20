@@ -1,8 +1,5 @@
 import { lazy } from "react";
-import VideoMV from "~/pages/Video/VideoMV";
 import NewMusic from "~/pages/newRelease/NewMusic";
-import Top100 from "~/pages/Top100/Top100";
-import CategoryMv from "~/pages/MVCategory/CategoryMv";
 import SignUp from "~/pages/signUp/SignUp";
 import SignIn from "~/pages/signIn/SignIn";
 //Page
@@ -12,7 +9,10 @@ const Home = lazy(() => import("~/pages/Home/Home"));
 const ArtistDetails = lazy(() => import("~/pages/ArtistDetails/ArtistDetails"));
 const ZingChart = lazy(() => import("~/pages/ZingChart/ZingChart"));
 const Follow = lazy(() => import("~/pages/Follow/Follow"));
+const HubPage = lazy(() => import("~/pages/Hub/HubPage"));
 const SongDetail = lazy(() => import("~/pages/songDetail/SongDetail"));
+const CategoryMv = lazy(() => import("~/pages/MVCategory/CategoryMv"));
+const Top100 = lazy(() => import("~/pages/Top100/Top100"));
 const PlaylistDetail = lazy(() =>
   import("~/pages/playlistDetail/PlaylistDetail")
 );
@@ -43,6 +43,10 @@ export const publicRoutes = [
     component: NewMusic,
   },
   {
+    path: "/hub",
+    component: HubPage,
+  },
+  {
     path: "/top-100",
     component: Top100,
   },
@@ -70,11 +74,7 @@ export const publicRoutes = [
     path: "/playlist/:name/:id",
     component: PlaylistDetail,
   },
-  // {
-  //   path: "/video-clip/:name/:id",
-  //   component: VideoMV,
-  //   layout: null,
-  // },
+
   {
     path: "/sign-up",
     component: SignUp,

@@ -92,7 +92,10 @@ const PlayingBar = () => {
           {isRandom
             ? playlistRandom.map((song, index) => {
                 if (song.streamingStatus !== 1) {
-                  return Swal.fire("Bài hát chưa được hỗ trợ!");
+                  return Swal.fire({
+                    icon: "error",
+                    text: "Bài hát chưa được hỗ trợ!",
+                  });
                 } else {
                   return (
                     index >= currentIndexSongRandom && (
@@ -116,7 +119,10 @@ const PlayingBar = () => {
               })
             : playlistSong?.map((song, index) => {
                 if (song.streamingStatus !== 1) {
-                  return Swal.fire("Bài hát chưa được hỗ trợ!");
+                  return Swal.fire({
+                    icon: "error",
+                    text: "Bài hát chưa được hỗ trợ!",
+                  });
                 } else {
                   return (
                     index >= currentIndexSong && (

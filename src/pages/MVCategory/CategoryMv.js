@@ -48,7 +48,7 @@ const CategoryMv = () => {
         <div className="flex items-center list-title-mv gap-x-4">
           <div className="text-2xl font-medium title ">MV</div>
           <div className="line w-[1px] h-6 mx-3"></div>
-          <div className="flex items-center gap-x-10">
+          <div className="flex items-center tab-mv-link gap-x-10">
             <div
               onClick={() => handleChangeTabListMv(0)}
               className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
@@ -76,7 +76,13 @@ const CategoryMv = () => {
           </div>
         </div>
 
-        {loading ? <Loading /> : <MvArtist data={dataListMV} />}
+        {loading ? (
+          <div className="mt-10">
+            <Loading />
+          </div>
+        ) : (
+          <MvArtist data={dataListMV} />
+        )}
       </StyledListMv>
     </WrapperLayout>
   );
@@ -102,5 +108,15 @@ const StyledListMv = styled.div`
   .line {
     background-color: ${(props) => props.theme.textPrimary};
     opacity: 0.6;
+  }
+  @media screen and (max-width: 586px) {
+    .tab-mv-link {
+      width: 100%;
+      justify-content: center;
+    }
+    .line,
+    .title {
+      display: none;
+    }
   }
 `;

@@ -178,10 +178,55 @@ export const GlobalClasses = css`
         display: none;
       }
     }
+    .weekchart-grid {
+      display: flex;
+      flex-direction: column;
+    }
   }
+
   @media screen and (max-width: 1100px) {
     .theme-container-list {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    div.video-body {
+      flex-direction: column;
+      height: 600px;
+      max-height: 100%;
+      .list-mv-player,
+      .video-mv-player {
+        width: 100%;
+      }
+
+      .recommend-list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        display: grid;
+        row-gap: 16px;
+        .recommend-card {
+          flex-direction: column;
+          border-radius: 8px;
+        }
+        .card-mv-image {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+    .scrollbar-video {
+      will-change: scroll-position;
+      scroll-behavior: smooth;
+      overflow: hidden overlay;
+      &::-webkit-scrollbar {
+        width: 4px;
+        display: none;
+      }
+      &:hover::-webkit-scrollbar {
+        width: 4px;
+        display: inline-block;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 12px;
+        background: ${(props) => props.theme.tabActiveBg};
+      }
     }
   }
 
@@ -327,6 +372,14 @@ export const GlobalClasses = css`
     .play-list {
       padding-left: 0px;
       padding-right: 0px;
+    }
+    .video-mv-modal {
+      padding: 16px;
+    }
+    div.video-body {
+      .recommend-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
   }
 
@@ -495,6 +548,14 @@ export const GlobalClasses = css`
         height: 400px;
       }
     }
+    .video-mv-modal {
+      padding: 12px;
+    }
+    div.video-body {
+      .recommend-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   }
 
   @media screen and (max-width: 586px) {
@@ -602,6 +663,11 @@ export const GlobalClasses = css`
     }
   }
   @media screen and (max-width: 460px) {
+    div.video-body {
+      .recommend-list {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+      }
+    }
     .search-result,
     .input-search {
       width: 240px;

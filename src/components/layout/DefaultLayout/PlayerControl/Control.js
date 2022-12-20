@@ -18,6 +18,7 @@ import Progress from "./Progress";
 import IconLoading from "~/components/Icon/IconLoading";
 import { AiOutlineExpand } from "react-icons/ai";
 import { setShowNowPlaying } from "~/redux-toolkit/global/globalSlice";
+import { Slider } from "@mui/material";
 
 const Control = ({ valueVolume = 100 }) => {
   const dispatch = useDispatch();
@@ -245,7 +246,7 @@ const Control = ({ valueVolume = 100 }) => {
             className="hidden show-now-playing-mobile"
             onClick={() => dispatch(setShowNowPlaying(true))}
           >
-            <AiOutlineExpand className="text-lg "></AiOutlineExpand>
+            <AiOutlineExpand className="text-lg " />
           </Icon>
         </div>
       </div>

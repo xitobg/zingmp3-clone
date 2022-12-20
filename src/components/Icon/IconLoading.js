@@ -3,10 +3,10 @@ import React from "react";
 const IconLoading = () => {
   return (
     <svg
-      className="leading-[0px]"
+      className="leading-[0px]  relative"
       width="34px"
       height="34px"
-      fill="#f1f1f1"
+      fill="#fff"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
       style={{ background: "none" }}
