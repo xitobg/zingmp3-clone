@@ -9,24 +9,6 @@ import styled from "styled-components";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import NextArrow from "./buttonMove/NextArrow";
 import PrevArrow from "./buttonMove/PrevArrow";
-const StyledBanner = styled.div`
-  & .slick-slider {
-    &:hover .slick-slide__btn {
-      opacity: 1;
-      visibility: visible;
-    }
-    & .next-btn {
-      right: 0;
-      color: #fff;
-      font-size: 50px;
-    }
-    & .prev-btn {
-      left: 0;
-      color: #fff;
-      font-size: 50px;
-    }
-  }
-`;
 
 const Banner = ({ data }) => {
   const { items } = data;
@@ -91,3 +73,21 @@ const Banner = ({ data }) => {
 };
 
 export default Banner;
+const StyledBanner = styled.div`
+  & .slick-slider {
+    &:hover .slick-slide__btn {
+      opacity: 1;
+      visibility: visible;
+    }
+    & .next-btn {
+      right: 0;
+      color: #fff;
+      font-size: 50px;
+    }
+    & .prev-btn {
+      left: 0;
+      color: #fff;
+      font-size: 50px;
+    }
+  }
+`;

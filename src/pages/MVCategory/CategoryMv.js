@@ -44,42 +44,40 @@ const CategoryMv = () => {
   };
   return (
     <WrapperLayout>
-      {loading && <Loading />}
-      {!loading && (
-        <StyledListMv className="caterogymv-container">
-          <div className="flex items-center list-title-mv gap-x-4">
-            <div className="text-2xl font-medium title ">MV</div>
-            <div className="line w-[1px] h-6 mx-3"></div>
-            <div className="flex items-center gap-x-10">
-              <div
-                onClick={() => handleChangeTabListMv(0)}
-                className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
-                  activeId == 0 ? "active" : ""
-                }`}
-              >
-                VIỆT NAM
-              </div>
-              <div
-                onClick={() => handleChangeTabListMv(1)}
-                className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
-                  activeId == 1 ? "active" : ""
-                }`}
-              >
-                US-UK
-              </div>
-              <div
-                onClick={() => handleChangeTabListMv(2)}
-                className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
-                  activeId == 2 ? "active" : ""
-                }`}
-              >
-                KPOP
-              </div>
+      <StyledListMv className="caterogymv-container">
+        <div className="flex items-center list-title-mv gap-x-4">
+          <div className="text-2xl font-medium title ">MV</div>
+          <div className="line w-[1px] h-6 mx-3"></div>
+          <div className="flex items-center gap-x-10">
+            <div
+              onClick={() => handleChangeTabListMv(0)}
+              className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
+                activeId == 0 ? "active" : ""
+              }`}
+            >
+              VIỆT NAM
+            </div>
+            <div
+              onClick={() => handleChangeTabListMv(1)}
+              className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
+                activeId == 1 ? "active" : ""
+              }`}
+            >
+              US-UK
+            </div>
+            <div
+              onClick={() => handleChangeTabListMv(2)}
+              className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
+                activeId == 2 ? "active" : ""
+              }`}
+            >
+              KPOP
             </div>
           </div>
-          <MvArtist data={dataListMV} />
-        </StyledListMv>
-      )}
+        </div>
+
+        {loading ? <Loading /> : <MvArtist data={dataListMV} />}
+      </StyledListMv>
     </WrapperLayout>
   );
 };

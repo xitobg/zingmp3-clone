@@ -5,35 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import ConvertNumber from "~/utils/ConvertNumber";
-const StyledArtist = styled.div`
-  .artists-slider {
-    overflow: hidden;
-    &::after {
-      background-color: ${(props) => props.theme.darkAlpha50Bg};
-    }
-    &:hover .artists-action,
-    &:hover::after {
-      visibility: visible;
-    }
 
-    &:hover .artists-img {
-      transform: scale(1.1);
-    }
-  }
-  .artists-name {
-    color: ${(props) => props.theme.textPrimary};
-  }
-  .artists-follow {
-    color: ${(props) => props.theme.textSecondary};
-  }
-  .artist-subscribe-btn {
-    margin: 14px auto 20px;
-    font-size: 12px;
-    background-color: ${(props) => props.theme.purplePrimary};
-    text-transform: uppercase;
-    line-height: 12px;
-  }
-`;
 const ArtistBanner = ({ data = {} }) => {
   const { items, title } = data;
   let slickProperty = {
@@ -129,3 +101,32 @@ const ArtistBanner = ({ data = {} }) => {
 };
 
 export default ArtistBanner;
+const StyledArtist = styled.div`
+  .artists-slider {
+    overflow: hidden;
+    &::after {
+      background-color: ${(props) => props.theme.darkAlpha50Bg};
+    }
+    &:hover .artists-action,
+    &:hover::after {
+      visibility: visible;
+    }
+
+    &:hover .artists-img {
+      transform: scale(1.1);
+    }
+  }
+  .artists-name {
+    color: ${(props) => props.theme.textPrimary};
+  }
+  .artists-follow {
+    color: ${(props) => props.theme.textSecondary};
+  }
+  .artist-subscribe-btn {
+    margin: 14px auto 20px;
+    font-size: 12px;
+    background-color: ${(props) => props.theme.purplePrimary};
+    text-transform: uppercase;
+    line-height: 12px;
+  }
+`;

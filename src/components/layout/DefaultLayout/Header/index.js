@@ -90,7 +90,7 @@ const Header = () => {
           isSticky ? "isSticky" : ""
         }`}
       >
-        <Search></Search>
+        <Search />
         <div className="flex gap-x-3">
           <Tippy content="Chủ đề">
             <button

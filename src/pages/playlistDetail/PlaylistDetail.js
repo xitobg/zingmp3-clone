@@ -164,112 +164,116 @@ const PlaylistDetail = () => {
         <StyledAlbum className="wrapper mt-[90px]">
           <div className="pt-5 album-container">
             <div className="album-content">
-              <div className="relative flex-shrink-0 w-[300px]">
-                <div
-                  onClick={() => dispatch(changeIconPlaying(!isPlay))}
-                  className={`relative overflow-hidden rounded-lg  album-card-image ${
-                    isPlay && dataAlbum.encodeId === playlistId ? "playing" : ""
-                  }`}
-                >
-                  <div className="z-thumb w-full h-[300px] cursor-pointer relative overlay">
-                    <div className="thumb-rotate">
-                      <img
-                        className="object-cover w-full transition-all duration-700 rounded-lg "
-                        src={thumbnailM}
-                        alt=""
-                      />
-                    </div>
-                    {isPlay && dataAlbum.encodeId === playlistId && (
-                      <div className="cursor-pointer flex justify-center items-center  text-center border  border-white w-[45px] h-[45px] rounded-full center ">
+              <div className="w-[30%]">
+                <div className=" w-[300px]">
+                  <div
+                    onClick={() => dispatch(changeIconPlaying(!isPlay))}
+                    className={`relative overflow-hidden rounded-lg  album-card-image ${
+                      isPlay && dataAlbum.encodeId === playlistId
+                        ? "playing"
+                        : ""
+                    }`}
+                  >
+                    <div className="z-thumb w-full h-[300px] cursor-pointer relative overlay">
+                      <div className="thumb-rotate">
                         <img
-                          className="w-[18px] h-[18px]"
-                          src={iconPlaying}
+                          className="object-cover w-full transition-all duration-700 rounded-lg "
+                          src={thumbnailM}
                           alt=""
                         />
                       </div>
-                    )}
+                      {isPlay && dataAlbum.encodeId === playlistId && (
+                        <div className="cursor-pointer flex justify-center items-center  text-center border  border-white w-[45px] h-[45px] rounded-full center ">
+                          <img
+                            className="w-[18px] h-[18px]"
+                            src={iconPlaying}
+                            alt=""
+                          />
+                        </div>
+                      )}
 
-                    {!isPlay && (
-                      <div className="cursor-pointer flex justify-center items-center invisible  text-center border  border-white w-[45px] h-[45px] rounded-full center album-action">
-                        <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center mt-3">
-                  <div className="text-center">
-                    <h5 className="album__content-title flex-wrap text-xl font-bold leading-[1.5] overflow-hidden text-ellipsis">
-                      {title}
-                    </h5>
-                    <div className="release">
-                      Cập nhật: {ConvertDates(contentLastUpdate)}
-                    </div>
-                    <div className="artists">
-                      {artists
-                        ?.map((item) => {
-                          const { name, id, link, alias } = item;
-                          return (
-                            <Link
-                              className="artist-name text-inherit"
-                              to={link}
-                              state={{ artistName: alias }}
-                              key={id}
-                            >
-                              {name}
-                            </Link>
-                          );
-                        })
-                        .reduce((prev, curr) => [prev, ", ", curr])}
-                    </div>
-                    <div className="like">
-                      {ConvertNumber(like)} người yêu thích
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-center mt-4 actions">
-                    <div className="flex justify-center">
-                      {isPlay && dataAlbum.encodeId === playlistId ? (
-                        <Button
-                          onClick={handleGetSongPlaylist}
-                          large
-                          leftIcon={<BsFillPauseFill />}
-                        >
-                          TẠM DỪNG
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={handleGetSongPlaylist}
-                          large
-                          leftIcon={<BsFillPlayFill />}
-                        >
-                          TIẾP TỤC PHÁT
-                        </Button>
+                      {!isPlay && (
+                        <div className="cursor-pointer flex justify-center items-center invisible  text-center border  border-white w-[45px] h-[45px] rounded-full center album-action">
+                          <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
+                        </div>
                       )}
                     </div>
-                    <div className="mt-4 ">
+                  </div>
+                  <div className="flex flex-col justify-center mt-3">
+                    <div className="text-center">
+                      <h5 className="album__content-title flex-wrap text-xl font-bold leading-[1.5] overflow-hidden text-ellipsis">
+                        {title}
+                      </h5>
+                      <div className="release">
+                        Cập nhật: {ConvertDates(contentLastUpdate)}
+                      </div>
+                      <div className="artists">
+                        {artists
+                          ?.map((item) => {
+                            const { name, id, link, alias } = item;
+                            return (
+                              <Link
+                                className="artist-name text-inherit"
+                                to={link}
+                                state={{ artistName: alias }}
+                                key={id}
+                              >
+                                {name}
+                              </Link>
+                            );
+                          })
+                          .reduce((prev, curr) => [prev, ", ", curr])}
+                      </div>
+                      <div className="like">
+                        {ConvertNumber(like)} người yêu thích
+                      </div>
+                    </div>
+                    <div className="flex flex-col justify-center mt-4 actions">
                       <div className="flex justify-center">
-                        <Tippy content="Xóa khỏi thư viện">
-                          <Icon className="add-library ">
-                            {<BsFillHeartFill className="text-inherit " />}
-                          </Icon>
-                        </Tippy>
-                        <Tippy content="Khác">
-                          <Icon className="add-library dot-btn ">
-                            {<BsThreeDots className="text-inherit " />}
-                          </Icon>
-                        </Tippy>
+                        {isPlay && dataAlbum.encodeId === playlistId ? (
+                          <Button
+                            onClick={handleGetSongPlaylist}
+                            large
+                            leftIcon={<BsFillPauseFill />}
+                          >
+                            TẠM DỪNG
+                          </Button>
+                        ) : (
+                          <Button
+                            onClick={handleGetSongPlaylist}
+                            large
+                            leftIcon={<BsFillPlayFill />}
+                          >
+                            TIẾP TỤC PHÁT
+                          </Button>
+                        )}
+                      </div>
+                      <div className="mt-4 ">
+                        <div className="flex justify-center">
+                          <Tippy content="Xóa khỏi thư viện">
+                            <Icon className="add-library ">
+                              {<BsFillHeartFill className="text-inherit " />}
+                            </Icon>
+                          </Tippy>
+                          <Tippy content="Khác">
+                            <Icon className="add-library dot-btn ">
+                              {<BsThreeDots className="text-inherit " />}
+                            </Icon>
+                          </Tippy>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col flex-1 album-right">
+              <div className="album-right">
                 <div className="description text-sm pb-[10px]">
                   {sortDescription !== "" && (
                     <span className="mr-2">Lời tựa</span>
                   )}
                   {sortDescription}
                 </div>
-                <div className="flex flex-col flex-1 album-right">
+                <div className="flex flex-col">
                   <div className="song-list-select mb-[10px]">
                     <div className="flex select-header">
                       <div className="w-2/4 mr-[10px] ">
@@ -337,6 +341,11 @@ const StyledAlbum = styled.div`
   .album-content {
     display: flex;
     column-gap: 28px;
+    position: relative;
+  }
+  .album-right {
+    /* width: calc(100% - 300px); */
+    width: 70%;
   }
   @keyframes animateThumb {
     100% {

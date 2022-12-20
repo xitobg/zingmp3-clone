@@ -49,7 +49,7 @@ const RadioItem = ({ item }) => {
         <div className="relative overflow-hidden border-2 border-red-600 rounded-full sw-full radio-img ">
           <img
             className="object-cover w-full rounded-full image"
-            src={thumbnail}
+            src={thumbnail ? thumbnail : ""}
             alt=""
           />
           <div className="absolute inset-0 invisible w-full h-full rounded-full radio-overlay"></div>
