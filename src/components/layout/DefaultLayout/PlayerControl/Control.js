@@ -191,7 +191,7 @@ const Control = ({ valueVolume = 100 }) => {
     if (audioRef.current?.duration) {
       dispatch(setLoadingPlay(false));
     }
-    setCurrentTime(audioRef.current.currentTime);
+    setCurrentTime(audioRef.current?.currentTime);
   };
   const handleUpdateTime = (currentime) => {
     audioRef.current.currentTime = currentime;

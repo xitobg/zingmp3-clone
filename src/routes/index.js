@@ -10,6 +10,7 @@ const ArtistDetails = lazy(() => import("~/pages/ArtistDetails/ArtistDetails"));
 const ZingChart = lazy(() => import("~/pages/ZingChart/ZingChart"));
 const Follow = lazy(() => import("~/pages/Follow/Follow"));
 const HubPage = lazy(() => import("~/pages/Hub/HubPage"));
+const HubDetail = lazy(() => import("~/pages/hubDetail/HubDetail"));
 const SongDetail = lazy(() => import("~/pages/songDetail/SongDetail"));
 const CategoryMv = lazy(() => import("~/pages/MVCategory/CategoryMv"));
 const Top100 = lazy(() => import("~/pages/Top100/Top100"));
@@ -45,6 +46,10 @@ export const publicRoutes = [
   {
     path: "/hub",
     component: HubPage,
+  },
+  {
+    path: "/hub/:name/:id",
+    component: HubDetail,
   },
   {
     path: "/top-100",
