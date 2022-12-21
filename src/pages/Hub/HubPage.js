@@ -37,14 +37,20 @@ const HubPage = () => {
         <div className="hub-container">
           {dataHubHome?.banners &&
             dataHubHome?.banners.map((banner, index) => {
+              let encodeId = banner?.link?.slice(-13, -5);
               return (
-                <div key={index} className="rounded-md hub-banner">
+                <Link
+                  to={banner?.link}
+                  state={{ hubId: encodeId }}
+                  key={index}
+                  className="rounded-md hub-banner"
+                >
                   <img
                     className="rounded-md"
                     src={banner.cover ? banner.cover : ""}
                     alt=""
                   />
-                </div>
+                </Link>
               );
             })}
           <div className="mt-10">
@@ -57,6 +63,7 @@ const HubPage = () => {
                     <Link
                       to={topic?.link}
                       state={{ hubId: topic?.encodeId }}
+                      key={topic?.link}
                       className="relative overflow-hidden rounded-md toptopic-item"
                     >
                       <img

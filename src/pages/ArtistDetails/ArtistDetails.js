@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import ArtistBanner from "~/components/artistBanner";
 import ArtistBiography from "~/components/artistBiography";
 import Loading from "~/components/loading/Loading";
-import MvArtist from "~/components/mv";
+import MvArtist from "~/components/mv/ListMv";
 import Playlist from "~/components/playlist/Playlist";
 import WrapperLayout from "~/components/wrapperLayout";
 import {
@@ -81,7 +81,7 @@ const ArtistDetails = () => {
     } else {
       Swal.fire({
         icon: "error",
-        text: "Bài hát chưa được hỗ trợ",
+        text: "Bài hát dành cho tài khoản Vip!",
       });
     }
   };

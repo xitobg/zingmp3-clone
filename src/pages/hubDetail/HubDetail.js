@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Loading from "~/components/loading/Loading";
+import ListMv from "~/components/mv/ListMv";
 import Playlist from "~/components/playlist/Playlist";
 import PlaylistItem from "~/components/playlist/PlaylistItem";
+import SongItem from "~/components/songItem";
 import WrapperLayout from "~/components/wrapperLayout";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 
@@ -15,7 +17,6 @@ const HubDetail = () => {
   const { loading } = useSelector((state) => state.global);
   const location = useLocation();
   const { hubId } = location.state;
-  console.log(hubId);
   useEffect(() => {
     async function fetchHubHome() {
       try {
@@ -45,17 +46,19 @@ const HubDetail = () => {
               <img className="rounded-md" src={hubDetailData?.cover} alt="" />
             </div>
           )}
-          <div className="grid grid-cols-5 mt-10 wrapper-playlist gap-x-7">
-            {hubDetailData?.sections &&
-              hubDetailData?.sections[0]?.items?.map((playlistItem, index) => {
-                return (
-                  <PlaylistItem
-                    key={playlistItem.encodeId}
-                    item={playlistItem}
-                  />
-                );
-              })}
-          </div>
+
+          {hubDetailData?.sections
+            ?.filter((section) => section.sectionType == "video")
+            .map((item, index) => {
+              return <ListMv key={`${index}${item.title}`} data={item} />;
+            })}
+          {hubDetailData?.sections
+            ?.filter((section) => section.sectionType == "playlist")
+            .map((playlist, index) => {
+              return (
+                <Playlist data={playlist} key={`${index}${playlist.title}`} />
+              );
+            })}
         </div>
       )}
     </WrapperLayout>

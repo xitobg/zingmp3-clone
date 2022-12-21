@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import WrapperLayout from "~/components/wrapperLayout";
-import MvArtist from "~/components/mv";
+import MvArtist from "~/components/mv/ListMv";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";

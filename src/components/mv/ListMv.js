@@ -6,15 +6,21 @@ import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
 import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 
-const MvArtist = ({ data = {}, isActive }) => {
+const ListMv = ({ data = {}, isActive }) => {
   const dispatch = useDispatch();
   const { isPlay } = useSelector((state) => state.audio);
   const { title, items } = data;
-  const handleShowVideoMv = (idMv) => {
-    console.log(123);
-    dispatch(setShowVideoMV(true));
-    dispatch(changeIconPlaying(false));
-    dispatch(setIdMv(idMv));
+  const handleShowVideoMv = (idMv, streamingStatus) => {
+    if (streamingStatus == 1) {
+      dispatch(setShowVideoMV(true));
+      dispatch(changeIconPlaying(false));
+      dispatch(setIdMv(idMv));
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "MV dành cho tài khoản Vip!",
+      });
+    }
   };
   return (
     <StyledMv className="container-layout ">
@@ -29,14 +35,20 @@ const MvArtist = ({ data = {}, isActive }) => {
               artist: { thumbnail },
               title: name,
               artists,
+              streamingStatus,
             } = item;
             return (
               <div
                 key={encodeId}
                 className="relative flex flex-col mv-artist-card"
               >
+                {streamingStatus != 1 && (
+                  <span className="absolute font-semibold select-none cursor-pointer z-50 px-[8px] py-[8px] leading-[0px] text-xs text-[#463f3a] bg-yellow-500 rounded-md left-2 top-2">
+                    Vip
+                  </span>
+                )}
                 <div
-                  onClick={() => handleShowVideoMv(encodeId)}
+                  onClick={() => handleShowVideoMv(encodeId, streamingStatus)}
                   className="relative w-full overflow-hidden rounded-md cursor-pointer mv-item-image overlay"
                 >
                   <img
@@ -92,7 +104,7 @@ const MvArtist = ({ data = {}, isActive }) => {
   );
 };
 
-export default MvArtist;
+export default ListMv;
 const StyledMv = styled.div`
   .mv-item-image {
     &:hover img {

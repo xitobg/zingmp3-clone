@@ -16,6 +16,8 @@ import logo from "~/assets/image/logo.svg";
 import MenuItem from "./menu/MenuItem";
 import { LibraryData } from "./library/LibraryData";
 import logoMobile from "~/assets/image/logomain.svg";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   return (
@@ -116,7 +118,10 @@ const Sidebar = () => {
                     src={item.icon}
                     alt=""
                   />
-                  <span className="pl-3 text-[13px] cursor-pointer text-inherit hide-on-mobile-tablet">
+                  <span
+                    onClick={() => toast.error("Tính năng chưa cập nhật!")}
+                    className="pl-3 select-none text-[13px] cursor-pointer text-inherit hide-on-mobile-tablet"
+                  >
                     {item.title}
                   </span>
                 </div>
@@ -126,7 +131,10 @@ const Sidebar = () => {
       </div>
       <div className="w-[240px] hide-on-mobile-tablet cursor-pointer h-[54px] px-7 flex items-center left-0  create-playlist mt-auto">
         <i className="bi create-playlist-icon  text-lg  mr-[10px] bi-plus-lg add-playlist-btn"></i>
-        <span className="text-sm font-semibold create-playlist-title">
+        <span
+          onClick={() => toast.error("Tính năng chưa cập nhật!")}
+          className="text-sm font-semibold create-playlist-title"
+        >
           Tạo playlist mới
         </span>
       </div>

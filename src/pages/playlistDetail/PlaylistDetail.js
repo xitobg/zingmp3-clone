@@ -93,7 +93,7 @@ const PlaylistDetail = () => {
     } else {
       Swal.fire({
         icon: "error",
-        text: "Bài hát chưa được hỗ trợ",
+        text: "Bài hát dành cho tài khoản Vip!",
       });
     }
   };
@@ -107,7 +107,7 @@ const PlaylistDetail = () => {
       } else {
         Swal.fire({
           icon: "error",
-          text: "Bài hát chưa được hỗ trợ",
+          text: "Bài hát dành cho tài khoản Vip!",
         });
       }
     }
@@ -164,7 +164,7 @@ const PlaylistDetail = () => {
         <StyledAlbum className="wrapper mt-[90px]">
           <div className="pt-5 album-container">
             <div className="album-content">
-              <div className="w-[30%]">
+              <div className="w-[30%] album-left">
                 <div className=" w-[300px]">
                   <div
                     onClick={() => dispatch(changeIconPlaying(!isPlay))}

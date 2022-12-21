@@ -18,51 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useClickOutSide from "~/hooks/useClickOutSide";
 import Swal from "sweetalert2";
-const StyledHeader = styled.div`
-  z-index: 300;
-  color: ${(props) => props.theme.textColor};
-  &.isSticky {
-    box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
-    background-color: ${(props) => props.theme.layoutBg};
-  }
 
-  .btn-theme {
-    background-color: ${(props) => props.theme.alphaBg};
-  }
-  @keyframes animation {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  .btn-seting {
-    animation: animation 2.5s linear infinite;
-    color: ${(props) => props.theme.settingIconText};
-  }
-  .upload-btn {
-    color: ${(props) => props.theme.settingIconText};
-  }
-  & .menu-list {
-    top: 50px;
-    right: 0;
-    background-color: ${(props) => props.theme.primaryBg};
-    padding: 10px 0;
-    border-radius: 8px;
-    position: absolute;
-    box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
-    width: 240px;
-    & .setting-line {
-      background-color: ${(props) => props.theme.navigationText};
-      opacity: 0.4;
-    }
-    & .header-player-setting {
-      color: ${(props) => props.theme.navigationText};
-      &:hover {
-        background-color: ${(props) => props.theme.alphaBg};
-        color: ${(props) => props.theme.linkTextHover};
-      }
-    }
-  }
-`;
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -193,3 +149,48 @@ const Header = () => {
 };
 
 export default Header;
+const StyledHeader = styled.div`
+  z-index: 300;
+  color: ${(props) => props.theme.textColor};
+  &.isSticky {
+    box-shadow: 0 3px 5px rgb(0 0 0 / 10%);
+    background-color: ${(props) => props.theme.layoutBg};
+  }
+
+  .btn-theme {
+    background-color: ${(props) => props.theme.alphaBg};
+  }
+  @keyframes animation {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .btn-seting {
+    animation: animation 2.5s linear infinite;
+    color: ${(props) => props.theme.settingIconText};
+  }
+  .upload-btn {
+    color: ${(props) => props.theme.settingIconText};
+  }
+  & .menu-list {
+    top: 50px;
+    right: 0;
+    background-color: ${(props) => props.theme.primaryBg};
+    padding: 10px 0;
+    border-radius: 8px;
+    position: absolute;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+    width: 240px;
+    & .setting-line {
+      background-color: ${(props) => props.theme.navigationText};
+      opacity: 0.4;
+    }
+    & .header-player-setting {
+      color: ${(props) => props.theme.navigationText};
+      &:hover {
+        background-color: ${(props) => props.theme.alphaBg};
+        color: ${(props) => props.theme.linkTextHover};
+      }
+    }
+  }
+`;

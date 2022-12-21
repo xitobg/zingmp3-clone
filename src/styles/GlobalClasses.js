@@ -182,6 +182,20 @@ export const GlobalClasses = css`
       display: flex;
       flex-direction: column;
     }
+    div.album-content {
+      flex-direction: column;
+      align-items: center;
+    }
+    div.album-container {
+      .album-left,
+      .album-right {
+        width: 100%;
+      }
+      .album-left {
+        display: flex;
+        justify-content: center;
+      }
+    }
   }
 
   @media screen and (max-width: 1100px) {
@@ -295,10 +309,6 @@ export const GlobalClasses = css`
       }
     }
     .album-container {
-      .album-content {
-        flex-direction: column;
-        align-items: center;
-      }
       .album-right {
         width: 100%;
       }

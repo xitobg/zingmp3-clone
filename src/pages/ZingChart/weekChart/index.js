@@ -57,7 +57,7 @@ const WeekChart = ({ data = {} }) => {
     } else {
       Swal.fire({
         icon: "error",
-        text: "Bài hát chưa được hỗ trợ!",
+        text: "Bài hát dành cho tài khoản Vip!",
       });
     }
   };

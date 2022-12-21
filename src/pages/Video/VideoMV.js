@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
 import { Link } from "react-router-dom";
 import Loading from "~/components/loading/Loading";
+import Swal from "sweetalert2";
 
 const VideoMV = () => {
   const dispatch = useDispatch();
@@ -34,10 +35,18 @@ const VideoMV = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idMv]);
-  const handleChooseVideo = (id) => {
-    dispatch(setIdMv(id));
+  const handleChooseVideo = (id, streamingStatus) => {
+    if (streamingStatus == 1) {
+      dispatch(setIdMv(id));
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "MV dành cho tài khoản Vip!",
+      });
+    }
   };
   const { streaming, recommends, artist, title } = dataVideoMV;
+  console.log(dataVideoMV);
   return (
     <>
       <StyledVideo className={`${showVideoMV ? "show" : ""}`}>
@@ -93,17 +102,30 @@ const VideoMV = () => {
                 <div className="flex flex-col h-[400px] recommend-list has-scroll-bar">
                   {recommends &&
                     recommends.map((item, index) => {
-                      const { encodeId, thumbnail, title, link, artistsNames } =
-                        item;
+                      const {
+                        encodeId,
+                        thumbnail,
+                        title,
+                        link,
+                        artistsNames,
+                        streamingStatus,
+                      } = item;
                       return (
                         <div
                           key={encodeId}
                           className="recommend-card relative gap-3 flex py-[6px] hover:bg-[hsla(0,0%,100%,.05)] px-5"
                         >
                           <div
-                            onClick={() => handleChooseVideo(encodeId)}
+                            onClick={() =>
+                              handleChooseVideo(encodeId, streamingStatus)
+                            }
                             className="z-50 card-mv-image relative cursor-pointer overflow-hidden w-[120px] h-[64px] rounded-md"
                           >
+                            {streamingStatus != 1 && (
+                              <span className="absolute font-semibold select-none cursor-pointer z-50 px-[8px] py-[8px] leading-[0px] text-xs text-[#463f3a] bg-yellow-500 rounded-md left-1 top-1">
+                                Vip
+                              </span>
+                            )}
                             <div className="relative card-mv-img">
                               <img
                                 className="w-full rounded-md"
