@@ -7,6 +7,7 @@ import awardsImg from "~/assets/image/awardsUrl.svg";
 import ConvertNumber from "~/utils/ConvertNumber";
 import ModalBiography from "~/components/modalBiography";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 const StyledSingerBiography = styled.div`
   background-color: ${(props) => props.theme.darkAlpha80};
   .song-thumb {
@@ -24,6 +25,8 @@ const StyledSingerBiography = styled.div`
 `;
 const ArtistBiography = ({ data = {}, onClick = () => {} }) => {
   const [showModalBiography, setShowModalBiography] = useState(false);
+  const dispatch = useDispatch();
+  const { isRadom } = useSelector((state) => state.audio);
   const {
     name,
     thumbnail,
@@ -63,7 +66,9 @@ const ArtistBiography = ({ data = {}, onClick = () => {} }) => {
                     onClick(
                       sections[0]?.items[0],
                       sections[0]?.items,
-                      playlistId
+                      playlistId,
+                      isRadom,
+                      dispatch
                     )
                   }
                   large

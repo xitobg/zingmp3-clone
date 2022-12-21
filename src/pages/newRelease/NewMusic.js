@@ -7,81 +7,12 @@ import styled from "styled-components";
 import { useState } from "react";
 import SongItem from "~/components/songItem";
 import Loading from "~/components/loading/Loading";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-  setCurrentIndexSong,
-  setCurrentIndexSongRandom,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistRandom,
-  setPlaylistSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
-import Swal from "sweetalert2";
-
+import handlePlaySong from "~/functions/HandlePlay";
 const NewMusic = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
   const { isRandom, playlistId } = useSelector((state) => state.audio);
   const [dataNewRelease, setDataNewRelease] = useState([]);
-  function shuffle(array) {
-    let currentIndex = array.length,
-      randomIndex;
-    // While there remain elements to shuffle.
-    while (currentIndex !== 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-    return array;
-  }
-  const handlePlaySong = (song, playlist, id) => {
-    dispatch(setAudioSrc(""));
-    dispatch(setPlaylistId(id));
-    let playlistCanPlay = [];
-    if (song.streamingStatus === 1) {
-      for (let songItem of playlist) {
-        if (songItem.streamingStatus === 1) {
-          playlistCanPlay.push(songItem);
-        }
-      }
-      if (isRandom) {
-        dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-        dispatch(setSongId(song.encodeId));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(
-            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-          )
-        );
-        dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(
-            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        text: "Bài hát dành cho tài khoản Vip!",
-      });
-    }
-  };
   useEffect(() => {
     dispatch(setLoading(true));
     request
@@ -113,7 +44,13 @@ const NewMusic = () => {
               {playlistId !== dataNewRelease?.sectionId ? (
                 <button
                   onClick={() =>
-                    handlePlaySong(items[0], items, dataNewRelease?.sectionId)
+                    handlePlaySong(
+                      items[0],
+                      items,
+                      dataNewRelease?.sectionId,
+                      isRandom,
+                      dispatch
+                    )
                   }
                   className="flex items-center justify-center w-10 h-10 rounded-full new-release-btn"
                 >
@@ -135,7 +72,13 @@ const NewMusic = () => {
                       item={item}
                       section="new-release"
                       onClick={() =>
-                        handlePlaySong(item, items, dataNewRelease?.sectionId)
+                        handlePlaySong(
+                          item,
+                          items,
+                          dataNewRelease?.sectionId,
+                          isRandom,
+                          dispatch
+                        )
                       }
                     />
                   );

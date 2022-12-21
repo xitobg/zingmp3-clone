@@ -109,6 +109,7 @@ const Progress = ({ currentTime, songDuration, onChangeTime }) => {
   const handleChangeProgress = (e) => {
     if (songDuration) setProgressValue(e.target.value);
   };
+
   const handleChangeTime = (e) => {
     setIsSeeking(false);
     const currentTime = (e.target.value * songDuration) / 100;

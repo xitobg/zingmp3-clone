@@ -1,66 +1,12 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Swal from "sweetalert2";
-import Button from "~/components/button";
 import SongItem from "~/components/songItem";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-  setCurrentIndexSong,
-  setCurrentTime,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistRandom,
-  setPlaylistSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
-import { shuffle } from "../ZingChart";
+import handlePlaySong from "~/functions/HandlePlay";
 const WeekChart = ({ data = {} }) => {
   const dispatch = useDispatch();
   const { isRandom } = useSelector((state) => state.audio);
   const dataWeekChart = Object.entries(data ? data : {});
-  const handlePlaySong = (song, playlist, idPlaylist) => {
-    const playlistCanPlay = [];
-    if (song.streamingStatus === 1) {
-      dispatch(setPlaylistId(idPlaylist));
-      dispatch(setCurrentTime(0));
-      dispatch(setAudioSrc(""));
-      for (let songItem of playlist) {
-        if (songItem.streamingStatus === 1) {
-          playlistCanPlay.push(songItem);
-        }
-      }
-      if (isRandom) {
-        dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-        dispatch(setSongId(song.encodeId));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(
-            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(
-            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        text: "Bài hát dành cho tài khoản Vip!",
-      });
-    }
-  };
   return (
     <StyledWeekChart>
       <h3 className="title">Bảng Xếp Hạng Tuần</h3>
@@ -88,7 +34,9 @@ const WeekChart = ({ data = {} }) => {
                             handlePlaySong(
                               song,
                               weekChart[1]?.items,
-                              weekChart[1]?.items?.playlistId
+                              weekChart[1]?.items?.playlistId,
+                              isRandom,
+                              dispatch
                             )
                           }
                           item={song}

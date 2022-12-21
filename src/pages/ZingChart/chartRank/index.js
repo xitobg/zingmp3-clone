@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SongItem from "~/components/songItem";
 import {
   changeIconPlaying,
@@ -13,6 +13,7 @@ import {
 
 const ChartRanking = ({ data = [], onClick }) => {
   const dispatch = useDispatch();
+  const { isRandom } = useSelector((state) => state.audio);
   const [songList, setSongList] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -36,7 +37,15 @@ const ChartRanking = ({ data = [], onClick }) => {
             index={index}
             item={item}
             section="zingchart"
-            onClick={() => onClick(item, songList, data.RTChart.sectionId)}
+            onClick={() =>
+              onClick(
+                item,
+                songList,
+                data.RTChart.sectionId,
+                isRandom,
+                dispatch
+              )
+            }
           />
         ))}
 

@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import {
   changeIconPlaying,
   setAudioSrc,
@@ -17,14 +19,21 @@ const NewRelease = ({ data = {} }) => {
   const dispatch = useDispatch();
   const { items, title } = data;
   const handlePlaySong = (song) => {
-    dispatch(setRepeatSong(true));
-    dispatch(setAudioSrc(""));
-    dispatch(setPlaylistId(""));
-    dispatch(setPlaylistSong([song]));
-    dispatch(setPlaylistRandom([song]));
-    dispatch(setSongId(song.encodeId));
-    dispatch(setInfoSongPlayer(song));
-    dispatch(changeIconPlaying(true));
+    if (song?.streamingStatus == 1) {
+      dispatch(setRepeatSong(true));
+      dispatch(setAudioSrc(""));
+      dispatch(setPlaylistId(""));
+      dispatch(setPlaylistSong([song]));
+      dispatch(setPlaylistRandom([song]));
+      dispatch(setSongId(song.encodeId));
+      dispatch(setInfoSongPlayer(song));
+      dispatch(changeIconPlaying(true));
+    } else {
+      Swal.fire({
+        icon: "error",
+        text: "Bài hát dành cho tài khoản Vip!",
+      });
+    }
   };
   return (
     <StyledNewRelease className="container-layout">
@@ -42,12 +51,13 @@ const NewRelease = ({ data = {} }) => {
           } = item;
           return (
             <div
-              onClick={() => handlePlaySong(item)}
-              to={link}
               key={encodeId}
               className="flex new__release-item cursor-pointer rounded-[4px] p-[15px] "
             >
-              <div className="mr-[10px]  relative after:absolute  new__release-img after:content-[''] after:inset-0 after:w-full after:h-full after:invisible  w-[120px] h-[120px] rounded-[5px] overflow-hidden flex-shrink-0 cursor-pointer">
+              <div
+                onClick={() => handlePlaySong(item)}
+                className="mr-[10px]  relative after:absolute  new__release-img after:content-[''] after:inset-0 after:w-full after:h-full after:invisible  w-[120px] h-[120px] rounded-[5px] overflow-hidden flex-shrink-0 cursor-pointer"
+              >
                 <img
                   className="w-full transition-all duration-700 artists-img object-cover rounded-[5px]"
                   src={thumbnail}
@@ -57,7 +67,10 @@ const NewRelease = ({ data = {} }) => {
                   <i className="text-3xl bi bi-play-fill"></i>
                 </div>
               </div>
-              <div className="flex flex-col justify-between flex-grow">
+              <NavLink
+                to={`/new-release`}
+                className="flex flex-col justify-between flex-grow"
+              >
                 <div className="flex flex-col">
                   <h5 className="new-release-name text-ellipsis capitalize text-[16px] font-bold  leading-[1.38] cursor-pointer">
                     {title}
@@ -74,7 +87,7 @@ const NewRelease = ({ data = {} }) => {
                     {ConvertDates(releasedAt || releaseDate)}
                   </span>
                 </div>
-              </div>
+              </NavLink>
             </div>
           );
         })}

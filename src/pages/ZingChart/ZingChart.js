@@ -23,62 +23,14 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import Swal from "sweetalert2";
-export function shuffle(sourceArray) {
-  for (var i = 0; i < sourceArray.length - 1; i++) {
-    var j = i + Math.floor(Math.random() * (sourceArray.length - i));
+import handlePlaySong from "~/functions/HandlePlay";
 
-    var temp = sourceArray[j];
-    sourceArray[j] = sourceArray[i];
-    sourceArray[i] = temp;
-  }
-  return sourceArray;
-}
+// eslint-disable-next-line react-hooks/rules-of-hooks
 const ZingChart = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
   const { isRandom, plalistId } = useSelector((state) => state.audio);
   const [dataZingChart, setDataZingChart] = useState([]);
-
-  const handlePlaySong = (song, playlist, idPlaylist) => {
-    let playlistCanPlay = [];
-    if (song.streamingStatus === 1) {
-      dispatch(setPlaylistId(idPlaylist));
-      dispatch(setCurrentTime(0));
-      dispatch(setAudioSrc(""));
-      for (let songItem of playlist) {
-        if (songItem.streamingStatus === 1) {
-          playlistCanPlay.push(songItem);
-        }
-      }
-      if (isRandom) {
-        dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-        dispatch(setSongId(song.encodeId));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(
-            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(
-            playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        text: "Bài hát dành cho tài khoản Vip!",
-      });
-    }
-  };
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -110,7 +62,9 @@ const ZingChart = () => {
                   handlePlaySong(
                     dataZingChart?.RTChart?.items[0],
                     dataZingChart?.RTChart?.items,
-                    dataZingChart?.RTChart?.sectionId
+                    dataZingChart?.RTChart?.sectionId,
+                    isRandom,
+                    dispatch
                   )
                 }
                 className="flex items-center justify-center w-10 h-10 rounded-full zingchart-btn"

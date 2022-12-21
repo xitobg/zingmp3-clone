@@ -9,6 +9,8 @@ import Loading from "~/components/loading/Loading";
 import MvArtist from "~/components/mv/ListMv";
 import Playlist from "~/components/playlist/Playlist";
 import WrapperLayout from "~/components/wrapperLayout";
+import handlePlaySong from "~/functions/HandlePlay";
+import { shuffle } from "~/functions/ShuffleArr";
 import {
   changeIconPlaying,
   setAudioSrc,
@@ -35,56 +37,46 @@ const ArtistDetails = () => {
   const getCurrentIdexSong = (currentPlaylist, song) => {
     return currentPlaylist.indexOf(song);
   };
-  //Tạo ra array mới đã random từ array playlist
-  function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * i); // no +1 here!
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
 
-  const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
-    const playlistCanPlay = [];
-    if (song.streamingStatus === 1) {
-      dispatch(setAudioSrc(""));
-      dispatch(setCurrentTime(0));
-      dispatch(setPlaylistId(idPlaylist));
-      for (let songItem of currentPlayList) {
-        if (songItem.streamingStatus === 1) {
-          playlistCanPlay.push(songItem);
-        }
-      }
-      if (isRandom) {
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-        );
-        // dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        // dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(
-          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        text: "Bài hát dành cho tài khoản Vip!",
-      });
-    }
-  };
+  // const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
+  //   const playlistCanPlay = [];
+  //   if (song.streamingStatus === 1) {
+  //     dispatch(setAudioSrc(""));
+  //     dispatch(setCurrentTime(0));
+  //     dispatch(setPlaylistId(idPlaylist));
+  //     for (let songItem of currentPlayList) {
+  //       if (songItem.streamingStatus === 1) {
+  //         playlistCanPlay.push(songItem);
+  //       }
+  //     }
+  //     if (isRandom) {
+  //       dispatch(setSongId(song.encodeId));
+  //       dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
+  //       dispatch(setInfoSongPlayer(song));
+  //       dispatch(setPlaylistSong(playlistCanPlay));
+  //       dispatch(
+  //         setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
+  //       );
+  //       // dispatch(setCurrentIndexSongRandom(-1));
+  //       dispatch(changeIconPlaying(true));
+  //     } else {
+  //       dispatch(setSongId(song.encodeId));
+  //       dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
+  //       dispatch(setInfoSongPlayer(song));
+  //       dispatch(setPlaylistSong(playlistCanPlay));
+  //       // dispatch(setCurrentIndexSongRandom(-1));
+  //       dispatch(
+  //         setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
+  //       );
+  //       dispatch(changeIconPlaying(true));
+  //     }
+  //   } else {
+  //     Swal.fire({
+  //       icon: "error",
+  //       text: "Bài hát dành cho tài khoản Vip!",
+  //     });
+  //   }
+  // };
   //play random moi khi vao useEffect
   const handlePlayRandomSong = (playlist, idPlaylist) => {
     let songCanPlay = [];
@@ -143,15 +135,15 @@ const ArtistDetails = () => {
         {!loading && (
           <StyledArtistDetails className="artist-detail-layout">
             <ArtistBiography
-              onClick={handleGetSongPlaylist}
+              onClick={handlePlaySong}
               data={{ ...singerData }}
-            ></ArtistBiography>
+            />
             {sections?.map((item, index) => {
               const { sectionType, title } = item;
               if (sectionType === "song") {
                 return (
                   <SongSection
-                    onClick={handleGetSongPlaylist}
+                    onClick={handlePlaySong}
                     id={singerData.playlistId}
                     key={`${title}${index}`}
                     data={{ ...item }}

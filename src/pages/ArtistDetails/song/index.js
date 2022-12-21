@@ -118,6 +118,8 @@ const StyledSectionSong = styled.div`
   }
 `;
 const SongSection = ({ data = {}, onClick = () => {}, id }) => {
+  const dispatch = useDispatch();
+  const { isRandom } = useSelector((state) => state.audio);
   const { items, title } = data;
 
   return (
@@ -132,7 +134,7 @@ const SongSection = ({ data = {}, onClick = () => {}, id }) => {
             items?.map((item, index) => {
               return (
                 <SongItem
-                  onClick={() => onClick(item, items, id)}
+                  onClick={() => onClick(item, items, id, isRandom, dispatch)}
                   key={item.encodeId}
                   item={item}
                 />
