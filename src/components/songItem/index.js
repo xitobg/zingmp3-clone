@@ -1,5 +1,5 @@
 import Tippy from "@tippyjs/react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { GiMicrophone } from "react-icons/gi";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
 import viplabel from "~/assets/image/vipLabel.svg";
 import IconLoading from "../Icon/IconLoading";
+import scrollIntoView from "~/utils/ScrollIntoView";
 
 const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
   const dispatch = useDispatch();

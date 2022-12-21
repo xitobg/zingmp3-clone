@@ -8,7 +8,6 @@ const StyledRadio = styled.div`
 `;
 const RadioList = ({ data = {} }) => {
   const { items } = data;
-  // console.log("radio:", items);
 
   return (
     <StyledRadio>

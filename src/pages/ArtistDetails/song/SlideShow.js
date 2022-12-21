@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 const SlideShow = ({ data = [], onClick }) => {
   // eslint-disable-next-line no-unused-vars
   const [slideData, setSlideData] = useState(data);
-  // console.log("slideshow:", slideData);
   const [slideFirst, setSlideFirst] = useState(0);
   const [slideSecond, setSlideSecond] = useState(1);
   const [slideThird, setSlideThird] = useState(2);

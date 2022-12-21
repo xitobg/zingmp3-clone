@@ -51,7 +51,7 @@ const CategoryMv = () => {
           <div className="flex items-center tab-mv-link gap-x-10">
             <div
               onClick={() => handleChangeTabListMv(0)}
-              className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
+              className={`py-4 select-none text-sm uppercase cursor-pointer  tabmv-link ${
                 activeId == 0 ? "active" : ""
               }`}
             >
@@ -59,7 +59,7 @@ const CategoryMv = () => {
             </div>
             <div
               onClick={() => handleChangeTabListMv(1)}
-              className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
+              className={`py-4 select-none text-sm uppercase cursor-pointer  tabmv-link ${
                 activeId == 1 ? "active" : ""
               }`}
             >
@@ -67,7 +67,7 @@ const CategoryMv = () => {
             </div>
             <div
               onClick={() => handleChangeTabListMv(2)}
-              className={`py-4 text-sm uppercase cursor-pointer  tabmv-link ${
+              className={`py-4 select-none text-sm uppercase cursor-pointer  tabmv-link ${
                 activeId == 2 ? "active" : ""
               }`}
             >

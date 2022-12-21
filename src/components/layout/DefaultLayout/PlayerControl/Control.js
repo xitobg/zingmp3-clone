@@ -19,11 +19,13 @@ import IconLoading from "~/components/Icon/IconLoading";
 import { AiOutlineExpand } from "react-icons/ai";
 import { setShowNowPlaying } from "~/redux-toolkit/global/globalSlice";
 import { Slider } from "@mui/material";
+import scrollIntoView from "~/utils/ScrollIntoView";
 
 const Control = ({ valueVolume = 100 }) => {
   const dispatch = useDispatch();
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
+  let songActive = document.querySelector(".song-item.active");
   const {
     isPlay,
     loadingPlay,
@@ -53,6 +55,9 @@ const Control = ({ valueVolume = 100 }) => {
   };
   //
   const handleNextSong = () => {
+    if (songActive) {
+      scrollIntoView(songActive);
+    }
     dispatch(setAudioSrc(""));
     dispatch(setLoadingPlay(true));
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi next
@@ -85,6 +90,9 @@ const Control = ({ valueVolume = 100 }) => {
   };
 
   const handlePrevSong = () => {
+    if (songActive) {
+      scrollIntoView(songActive);
+    }
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi prev
     dispatch(setAudioSrc(""));
     dispatch(setLoadingPlay(true));
@@ -201,10 +209,15 @@ const Control = ({ valueVolume = 100 }) => {
     if (srcAudio !== "") {
       isPlay ? audioRef.current?.play() : audioRef.current?.pause();
     }
+
     audioRef.current.volume = valueVolume / 100;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [srcAudio, isPlay, valueVolume]);
-
+  useEffect(() => {
+    if (songActive) {
+      scrollIntoView(songActive);
+    }
+  }, []);
   return (
     <div className="player-control w-[40%] flex flex-col">
       <div className="flex items-center justify-center control-btn-list">

@@ -25,7 +25,6 @@ const Header = () => {
   const { show, setShow, nodeRef } = useClickOutSide();
   const { isSticky } = useSelector((state) => state.global);
   const { userInfo, setUserInfo } = useAuth();
-  // console.log("user info:", userInfo);
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {

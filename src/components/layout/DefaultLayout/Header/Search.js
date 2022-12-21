@@ -33,7 +33,6 @@ const Search = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         const {
           data: { songs = [], artists = [] },
         } = res.data;
