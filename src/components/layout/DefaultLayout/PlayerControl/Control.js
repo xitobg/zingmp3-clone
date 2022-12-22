@@ -18,7 +18,6 @@ import Progress from "./Progress";
 import IconLoading from "~/components/Icon/IconLoading";
 import { AiOutlineExpand } from "react-icons/ai";
 import { setShowNowPlaying } from "~/redux-toolkit/global/globalSlice";
-import { Slider } from "@mui/material";
 import scrollIntoView from "~/utils/ScrollIntoView";
 
 const Control = ({ valueVolume = 100 }) => {

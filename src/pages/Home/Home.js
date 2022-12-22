@@ -24,7 +24,6 @@ const initialState = {
   event: {},
 };
 const GET_HOME = "GET_HOME";
-
 const reducer = (state, action) => {
   switch (action.type) {
     case GET_HOME:
@@ -71,6 +70,7 @@ const Home = () => {
       .then((res) => {
         if (res.data && res.data.data) {
           const { items } = res.data.data;
+          console.log(items);
           dispatchAction(setHomeData(items));
           dispatch(setLoading(false));
         }

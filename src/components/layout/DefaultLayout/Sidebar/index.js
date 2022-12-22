@@ -18,24 +18,28 @@ import { LibraryData } from "./library/LibraryData";
 import logoMobile from "~/assets/image/logomain.svg";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
-
+import { ImHeadphones } from "react-icons/im";
 const Sidebar = () => {
   return (
     <StyledSidebar className=" pt-5 side-bar relative top-0 left-0  flex flex-col w-[240px]">
-      <div className="zingmp3-brand  w-[240px] h-[70px] flex items-center px-7">
-        <div className="w-[120px] hide-on-mobile-tablet  h-10 relative">
-          <img className="object-cover w-full" src={logo} alt="" />
+      <div className="zingmp3-brand  w-[240px] py-4 flex items-center px-7">
+        <div className="relative flex items-center w-full hide-on-mobile-tablet">
+          <div className="relative">
+            <ImHeadphones className="text-3xl leading-[0px] logo-mp3" />
+          </div>
+          <div className="flex items-center">
+            <span className="text-4xl  font-semibold text-[#3a86ff]">V</span>
+            <span className="text-4xl font-semibold logo-mp3-text">P</span>
+            <span className="inline-block ml-2 text-2xl text-white select-none">
+              mp3
+            </span>
+          </div>
         </div>
         <div className="hidden w-10 logo-mobile">
           <img src={logoMobile} alt="" />
         </div>
       </div>
       <div className="mb-4 sidebar-navbar-list  relative after:absolute after:content=['']">
-        {/* <MenuItem
-          title="Cá Nhân"
-          to="/profile"
-          icon={<BiHomeAlt className="menu-item__icon" />}
-        /> */}
         <MenuItem
           title="Trang Chủ"
           to="/"
@@ -150,6 +154,18 @@ const StyledSidebar = styled.div`
   flex-direction: column;
   position: relative;
   z-index: 302;
+  .logo-mp3 {
+    color: ${(props) => props.theme.purplePrimary};
+  }
+  .logo-mp3-text {
+    display: inline-block;
+    background: linear-gradient(45deg, #6831e3, #f528cb);
+    font-weight: 600;
+    letter-spacing: -2px;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-family: "Poppins", sans-serif;
+  }
   .sidebar-navbar-list::after {
     top: calc(100% + 15px);
     height: 1px;

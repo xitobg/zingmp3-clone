@@ -12,7 +12,6 @@ import {
 } from "~/redux-toolkit/audio/audioSlice";
 import { shuffle } from "./ShuffleArr";
 function handlePlaySong(song, playlist, idPlaylist, isRandom, dispatch) {
-  console.log(song);
   let playlistCanPlay = [];
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));

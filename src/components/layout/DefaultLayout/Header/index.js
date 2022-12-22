@@ -64,8 +64,11 @@ const Header = () => {
             </button>
           </Tippy>
           <Tippy content="Cài đặt">
-            <button className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-setting btn-theme ">
-              <IoSettingsOutline className="cursor-pointer btn-seting"></IoSettingsOutline>
+            <button
+              onClick={() => toast.warning("Tính năng chưa được cập nhật!")}
+              className="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer btn-setting btn-theme "
+            >
+              <IoSettingsOutline className="cursor-pointer btn-seting" />
             </button>
           </Tippy>
           {!userInfo ? (
