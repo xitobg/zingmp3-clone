@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ArtistBanner from "~/components/artistBanner";
 import Banner from "~/components/banner";
 import Chart from "~/components/chart";
@@ -14,10 +14,56 @@ import request from "~/services/request";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";
+import { useReducer } from "react";
+const initialState = {
+  banner: {},
+  playList: [],
+  liveStream: {},
+  newRelease: {},
+  artistSpotlight: {},
+  event: {},
+};
+const GET_HOME = "GET_HOME";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case GET_HOME:
+      return {
+        ...state,
+        banner:
+          action.homeData?.find((item) => item.sectionType == "banner")
+            ?.items || {},
+        playList:
+          action.homeData?.filter((item) => item.sectionType == "playlist") ||
+          [],
+        liveStream:
+          action.homeData?.find((item) => item.sectionType == "livestream") ||
+          {},
+        newRelease:
+          action.homeData?.find(
+            (item) => item.sectionType == "newReleaseChart"
+          ) || {},
+        artistSpotlight:
+          action.homeData?.find(
+            (item) => item.sectionType == "artistSpotlight"
+          ) || {},
+        event:
+          action.homeData?.find((item) => item.sectionType == "event") || {},
+      };
+    default:
+      return state;
+  }
+};
+const setHomeData = (homeData) => {
+  return {
+    type: GET_HOME,
+    homeData,
+  };
+};
 const Home = () => {
+  const [state, dispatchAction] = useReducer(reducer, initialState);
   const { loading } = useSelector((state) => state.global);
   const dispatch = useDispatch();
-  const [dataHome, setDataHome] = useState([]);
   useEffect(() => {
     dispatch(setLoading(true));
     request
@@ -25,7 +71,7 @@ const Home = () => {
       .then((res) => {
         if (res.data && res.data.data) {
           const { items } = res.data.data;
-          setDataHome(items);
+          dispatchAction(setHomeData(items));
           dispatch(setLoading(false));
         }
       })
@@ -37,56 +83,32 @@ const Home = () => {
       "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const { banner, playList, newRelease, artistSpotlight, liveStream, event } =
+    state;
 
   return (
     <WrapperLayout>
       {loading && <Loading />}
-      {dataHome.length > 0 &&
-        dataHome.map((item, index) => {
-          const { sectionType, sectionId } = item;
-          if (sectionType === "banner") {
-            return <Banner key={`${index}${sectionId}`} data={{ ...item }} />;
-          } else if (sectionType === "playlist") {
-            return (
+      {!loading && (
+        <div className="home-layout">
+          <Banner data={banner} />
+          {playList &&
+            playList.length > 0 &&
+            playList.map((item, index) => (
               <Playlist
                 page="home"
-                key={`${index}${sectionId}`}
-                data={{ ...item }}
+                data={item}
+                key={`${index}${item.sectionId}`}
               />
-            );
-          } else if (sectionType === "livestream") {
-            return (
-              <RadioList key={`${index}${sectionId}`} data={{ ...item }} />
-            );
-          } else if (sectionType === "RTChart") {
-            return <Chart key={`${index}${sectionId}`} data={{ ...item }} />;
-          } else if (sectionType === "weekChart") {
-            return (
-              <WeekChart key={`${index}${sectionId}`} data={{ ...item }} />
-            );
-          } else if (sectionType === "artistSpotlight") {
-            return (
-              <ArtistBanner key={`${index}${sectionId}`} data={{ ...item }} />
-            );
-          } else if (sectionType === "event") {
-            return (
-              <Fragment key={`${index}${sectionId}`}>
-                <Event data={{ ...item }} />
-                <Partner />
-              </Fragment>
-            );
-          } else if (sectionType === "newReleaseChart") {
-            return (
-              <NewRelease key={`${index}${sectionId}`} data={{ ...item }} />
-            );
-          } else if (sectionType === "mix") {
-            return (
-              <Fragment key={`${index}${sectionId}`}>
-                <Mix data={{ ...item }} />
-              </Fragment>
-            );
-          }
-        })}
+            ))}
+          <RadioList data={liveStream} />
+          <ArtistBanner data={artistSpotlight} />
+
+          <NewRelease data={newRelease} />
+          <Event data={event} />
+          <Partner />
+        </div>
+      )}
     </WrapperLayout>
   );
 };

@@ -31,7 +31,7 @@ const Event = ({ data = {} }) => {
     <StyledEvent className="container-layout event-container">
       <h3>Sự Kiện</h3>
       <div className="grid grid-cols-3 event-list gap-x-7">
-        {items.slice(0, 3).map((item) => {
+        {items?.slice(0, 3).map((item) => {
           const { encodeId, coverH, label, title, followers } = item;
           return (
             <div key={encodeId} className="relative flex flex-col event-item ">

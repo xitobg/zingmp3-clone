@@ -42,7 +42,7 @@ const RadioItem = ({ item }) => {
   } = item;
   return (
     <StyledRadioItem
-      onClick={() => toast("Tính năng chưa được cập nhật!")}
+      onClick={() => toast.warning("Tính năng chưa được cập nhật!")}
       className="radio-item"
     >
       <div className="relative w-full bg-transparent cursor-pointer radio-top ">

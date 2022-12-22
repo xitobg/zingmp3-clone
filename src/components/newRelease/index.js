@@ -39,58 +39,60 @@ const NewRelease = ({ data = {} }) => {
     <StyledNewRelease className="container-layout">
       <h3>{title}</h3>
       <div className="grid new-release-container grid-cols-3 py-[5px] gap-x-7">
-        {items.slice(0, 3).map((item, index) => {
-          const {
-            title,
-            artistsNames,
-            thumbnail,
-            encodeId,
-            releaseDate,
-            releasedAt,
-            link,
-          } = item;
-          return (
-            <div
-              key={encodeId}
-              className="flex new__release-item cursor-pointer rounded-[4px] p-[15px] "
-            >
+        {items &&
+          items.length > 0 &&
+          items.slice(0, 3).map((item, index) => {
+            const {
+              title,
+              artistsNames,
+              thumbnail,
+              encodeId,
+              releaseDate,
+              releasedAt,
+              link,
+            } = item;
+            return (
               <div
-                onClick={() => handlePlaySong(item)}
-                className="mr-[10px]  relative after:absolute  new__release-img after:content-[''] after:inset-0 after:w-full after:h-full after:invisible  w-[120px] h-[120px] rounded-[5px] overflow-hidden flex-shrink-0 cursor-pointer"
+                key={encodeId}
+                className="flex new__release-item cursor-pointer rounded-[4px] p-[15px] "
               >
-                <img
-                  className="w-full transition-all duration-700 artists-img object-cover rounded-[5px]"
-                  src={thumbnail}
-                  alt=""
-                />
-                <div className="absolute z-10 invisible    flex  artists-action justify-center items-center border border-white top-2/4 w-[45px] rounded-full h-[45px] left-2/4 -translate-x-2/4 -translate-y-2/4 text-white">
-                  <i className="text-3xl bi bi-play-fill"></i>
+                <div
+                  onClick={() => handlePlaySong(item)}
+                  className="mr-[10px]  relative after:absolute  new__release-img after:content-[''] after:inset-0 after:w-full after:h-full after:invisible  w-[120px] h-[120px] rounded-[5px] overflow-hidden flex-shrink-0 cursor-pointer"
+                >
+                  <img
+                    className="w-full transition-all duration-700 artists-img object-cover rounded-[5px]"
+                    src={thumbnail}
+                    alt=""
+                  />
+                  <div className="absolute z-10 invisible    flex  artists-action justify-center items-center border border-white top-2/4 w-[45px] rounded-full h-[45px] left-2/4 -translate-x-2/4 -translate-y-2/4 text-white">
+                    <i className="text-3xl bi bi-play-fill"></i>
+                  </div>
                 </div>
+                <NavLink
+                  to={`/new-release`}
+                  className="flex flex-col justify-between flex-grow"
+                >
+                  <div className="flex flex-col">
+                    <h5 className="new-release-name text-ellipsis capitalize text-[16px] font-bold  leading-[1.38] cursor-pointer">
+                      {title}
+                    </h5>
+                    <span className="inline-block mt-1 text-xs capitalize whitespace-normal new-release-author">
+                      {artistsNames}
+                    </span>
+                  </div>
+                  <div className="relative flex justify-between">
+                    <h5 className="opacity-40 new-release-rank text-[40px] leading-[1] text-transparent  cursor-pointer capitalize">
+                      #{index + 1}
+                    </h5>
+                    <span className="absolute bottom-0 right-0 text-base capitalize cursor-pointer new-release-date ">
+                      {ConvertDates(releasedAt || releaseDate)}
+                    </span>
+                  </div>
+                </NavLink>
               </div>
-              <NavLink
-                to={`/new-release`}
-                className="flex flex-col justify-between flex-grow"
-              >
-                <div className="flex flex-col">
-                  <h5 className="new-release-name text-ellipsis capitalize text-[16px] font-bold  leading-[1.38] cursor-pointer">
-                    {title}
-                  </h5>
-                  <span className="inline-block mt-1 text-xs capitalize whitespace-normal new-release-author">
-                    {artistsNames}
-                  </span>
-                </div>
-                <div className="relative flex justify-between">
-                  <h5 className="opacity-40 new-release-rank text-[40px] leading-[1] text-transparent  cursor-pointer capitalize">
-                    #{index + 1}
-                  </h5>
-                  <span className="absolute bottom-0 right-0 text-base capitalize cursor-pointer new-release-date ">
-                    {ConvertDates(releasedAt || releaseDate)}
-                  </span>
-                </div>
-              </NavLink>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </StyledNewRelease>
   );

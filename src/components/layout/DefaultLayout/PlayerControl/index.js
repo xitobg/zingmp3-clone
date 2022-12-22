@@ -40,8 +40,6 @@ const PlayerControl = () => {
     if (currentSongId !== null && currentSongId !== "") {
       request.get(`song/${currentSongId}`).then(async (res) => {
         if (res.data && res.data.data) {
-          console.log(res.data);
-
           dispatch(setAudioSrc(res.data.data[128]));
         }
       });

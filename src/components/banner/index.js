@@ -10,8 +10,7 @@ import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import NextArrow from "./buttonMove/NextArrow";
 import PrevArrow from "./buttonMove/PrevArrow";
 
-const Banner = ({ data }) => {
-  const { items } = data;
+const Banner = ({ data = [] }) => {
   let slickProperty = {
     dots: false,
     infinite: true,
@@ -61,11 +60,13 @@ const Banner = ({ data }) => {
     <StyledBanner className="container-layout">
       <div className="relative w-full ">
         <Slider {...slickProperty}>
-          {items
-            .filter((item) => item.type === 1 || item.type === 4)
-            .map((item, index) => (
-              <BannerItem key={item.encodeId} item={item} />
-            ))}
+          {data &&
+            data.length > 0 &&
+            data
+              .filter((item) => item.type === 1 || item.type === 4)
+              .map((item, index) => (
+                <BannerItem key={item.encodeId} item={item} />
+              ))}
         </Slider>
       </div>
     </StyledBanner>

@@ -1,16 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistRandom,
-  setPlaylistSong,
-  setRepeatSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
-import request from "~/services/request";
 
 const BannerItem = ({ item }) => {
   return item.type === 4 ? (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Tippy from "@tippyjs/react";
@@ -23,7 +23,7 @@ const VideoMV = () => {
         const response = await axios.get(
           `https://api-zingmp3-alpha.vercel.app/api/video?id=${idMv}`
         );
-        console.log("data mv:", response.data.data);
+        // console.log("data mv:", response.data.data);
         if (response.data && response.data.data) {
           setDataVideoMV(response.data.data);
         }
@@ -46,7 +46,6 @@ const VideoMV = () => {
     }
   };
   const { streaming, recommends, artist, title } = dataVideoMV;
-  console.log(dataVideoMV);
   return (
     <>
       <StyledVideo className={`${showVideoMV ? "show" : ""}`}>
@@ -157,7 +156,7 @@ const VideoMV = () => {
   );
 };
 
-export default VideoMV;
+export default memo(VideoMV);
 const StyledVideo = styled.div`
   position: fixed;
   top: 100%;
