@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { BACKGROUND_PLAYER } from "./constaints/background";
+import { memo } from "react";
 const NowPlaying = () => {
   const { showNowPlaying } = useSelector((state) => state.global);
   const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
-
+  console.log(infoSongPlayer);
   const backgrounds = Object.values(BACKGROUND_PLAYER);
-  console.log(backgrounds);
   // const [color, setColor] = useState(0);
   // useEffect(() => {
   //   setInterval(() => {
@@ -61,10 +61,10 @@ const NowPlaying = () => {
             </div>
           )}
         </div>
-        <h3 className="mt-4 mb-3 text-3xl font-semibold text-white whitespace-nowrap now-playing-title">
-          {infoSongPlayer.title}
+        <h3 className="z-50 mt-4 mb-3 text-3xl font-semibold text-white select-none whitespace-nowrap now-playing-title">
+          {infoSongPlayer?.title}
         </h3>
-        <span className="text-sm font-medium text-white opacity-70 now-playing-name whitespace-nowrap">
+        <span className="text-sm font-medium text-white select-none opacity-70 now-playing-name whitespace-nowrap">
           {infoSongPlayer.artistsNames}
         </span>
       </div>

@@ -4,27 +4,12 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import * as request from "~/services/request";
 import { useDispatch, useSelector } from "react-redux";
-import { setListSong, setLoading } from "~/redux-toolkit/global/globalSlice";
+import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import { useState } from "react";
-import SongItem from "~/components/songItem";
 import ChartRanking from "./chartRank";
 import Loading from "~/components/loading/Loading";
 import WeekChart from "./weekChart";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-  setCurrentIndexSong,
-  setCurrentIndexSongRandom,
-  setCurrentTime,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistRandom,
-  setPlaylistSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
-import Swal from "sweetalert2";
 import handlePlaySong from "~/functions/HandlePlay";
-
 // eslint-disable-next-line react-hooks/rules-of-hooks
 const ZingChart = () => {
   const dispatch = useDispatch();

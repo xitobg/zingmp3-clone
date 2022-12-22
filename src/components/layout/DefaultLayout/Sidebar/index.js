@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { BiHomeAlt } from "react-icons/bi";
 import {
   BsVinyl,
   BsStar,
@@ -16,13 +15,12 @@ import logo from "~/assets/image/logo.svg";
 import MenuItem from "./menu/MenuItem";
 import { LibraryData } from "./library/LibraryData";
 import logoMobile from "~/assets/image/logomain.svg";
-import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { ImHeadphones } from "react-icons/im";
 const Sidebar = () => {
   return (
     <StyledSidebar className=" pt-5 side-bar relative top-0 left-0  flex flex-col w-[240px]">
-      <div className="zingmp3-brand  w-[240px]  flex items-center px-7">
+      <div className="zingmp3-brand pb-[10px]  w-full  flex items-center px-7">
         <div className="relative flex items-center w-full hide-on-mobile-tablet">
           <div className="relative">
             <ImHeadphones className="text-3xl leading-[0px] logo-mp3" />
@@ -45,7 +43,7 @@ const Sidebar = () => {
       </div>
       <div className="mb-4 sidebar-navbar-list  relative after:absolute after:content=['']">
         <MenuItem
-          title="Trang Chủ"
+          title="Khám Phá"
           to="/"
           icon={<BsVinyl className="menu-item__icon" />}
         />
