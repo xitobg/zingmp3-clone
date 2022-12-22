@@ -2,6 +2,77 @@ import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { useEffect } from "react";
+import { BACKGROUND_PLAYER } from "./constaints/background";
+const NowPlaying = () => {
+  const { showNowPlaying } = useSelector((state) => state.global);
+  const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
+
+  const backgrounds = Object.values(BACKGROUND_PLAYER);
+  console.log(backgrounds);
+  // const [color, setColor] = useState(0);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setColor(() => Math.floor(Math.random() * colors.length));
+  //   }, 1000);
+  //   console.log(color);
+
+  // }, []);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevState) => prevState + 1);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+  const background = useMemo(() => {
+    return backgrounds[index % backgrounds.length];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
+  return (
+    <StyledPlaying
+      className={`bottom-0 left-0 right-0  flex flex-col items-center justify-center w-full h-full p-3 ${
+        showNowPlaying ? "open" : ""
+      } `}
+    >
+      <div className="absolute inset-0 h-full">
+        <img
+          className="w-full h-screen transition-all duration-500 bg-player-main"
+          src={`${background}`}
+          alt=""
+        />
+      </div>
+      <div className="flex flex-col items-center flex-1 now-playing-content">
+        <div className="relative now-playing-thumb">
+          <img
+            className="object-cover w-full"
+            src={infoSongPlayer.thumbnailM}
+            alt=""
+          />
+          {isPlay && (
+            <div className="absolute  bottom-[-14px] left-[14px] w-10 h-10 now-playing-icon">
+              <div className="music-waves">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
+        </div>
+        <h3 className="mt-4 mb-3 text-3xl font-semibold text-white whitespace-nowrap now-playing-title">
+          {infoSongPlayer.title}
+        </h3>
+        <span className="text-sm font-medium text-white opacity-70 now-playing-name whitespace-nowrap">
+          {infoSongPlayer.artistsNames}
+        </span>
+      </div>
+    </StyledPlaying>
+  );
+};
+
+export default NowPlaying;
 const StyledPlaying = styled.div`
   position: fixed;
   background-size: 1920px auto;
@@ -89,80 +160,7 @@ const StyledPlaying = styled.div`
       height: 8px;
     }
   }
+  .bg-player-main {
+    object-position: center center;
+  }
 `;
-const NowPlaying = () => {
-  const { showNowPlaying } = useSelector((state) => state.global);
-  const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
-  const colors = [
-    "#219ebc",
-    "#e63946",
-    "#3a0ca3",
-    "#ff006e",
-    "#f66b97",
-    "#3f37c9",
-    "#ff99c8",
-    "#8ac926",
-    "#9b5de5",
-    "#ffe5ec",
-    "#ff70a6",
-    "#00b4d8",
-  ];
-
-  // const [color, setColor] = useState(0);
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     setColor(() => Math.floor(Math.random() * colors.length));
-  //   }, 1000);
-  //   console.log(color);
-
-  // }, []);
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prevState) => prevState + 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-  const color = useMemo(() => {
-    return colors[index % colors.length];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
-  return (
-    <StyledPlaying
-      style={{ backgroundColor: color }}
-      className={`bottom-0 left-0 right-0 flex flex-col items-center justify-center w-full h-full p-3 ${
-        showNowPlaying ? "open" : ""
-      } `}
-    >
-      <div className="flex flex-col items-center flex-1 now-playing-content">
-        <div className="relative now-playing-thumb">
-          <img
-            className="object-cover w-full"
-            src={infoSongPlayer.thumbnailM}
-            alt=""
-          />
-          {isPlay && (
-            <div className="absolute  bottom-[-14px] left-[14px] w-10 h-10 now-playing-icon">
-              <div className="music-waves">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )}
-        </div>
-        <h3 className="mt-4 mb-3 text-3xl font-semibold text-white whitespace-nowrap now-playing-title">
-          {infoSongPlayer.title}
-        </h3>
-        <span className="text-sm font-medium text-white opacity-70 now-playing-name whitespace-nowrap">
-          {infoSongPlayer.artistsNames}
-        </span>
-      </div>
-    </StyledPlaying>
-  );
-};
-
-export default NowPlaying;
