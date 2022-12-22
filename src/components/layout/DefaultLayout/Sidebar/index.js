@@ -22,14 +22,18 @@ import { ImHeadphones } from "react-icons/im";
 const Sidebar = () => {
   return (
     <StyledSidebar className=" pt-5 side-bar relative top-0 left-0  flex flex-col w-[240px]">
-      <div className="zingmp3-brand  w-[240px] py-4 flex items-center px-7">
+      <div className="zingmp3-brand  w-[240px]  flex items-center px-7">
         <div className="relative flex items-center w-full hide-on-mobile-tablet">
           <div className="relative">
             <ImHeadphones className="text-3xl leading-[0px] logo-mp3" />
           </div>
           <div className="flex items-center">
-            <span className="text-4xl  font-semibold text-[#3a86ff]">V</span>
-            <span className="text-4xl font-semibold logo-mp3-text">P</span>
+            <span className="text-4xl select-none  font-semibold text-[#3a86ff]">
+              V
+            </span>
+            <span className="text-4xl font-semibold select-none logo-mp3-text">
+              P
+            </span>
             <span className="inline-block ml-2 text-2xl text-white select-none">
               mp3
             </span>
