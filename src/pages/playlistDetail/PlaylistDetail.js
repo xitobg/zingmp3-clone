@@ -335,7 +335,7 @@ const PlaylistDetail = () => {
   );
 };
 
-export default memo(PlaylistDetail);
+export default PlaylistDetail;
 const StyledAlbum = styled.div`
   .album-content {
     display: flex;

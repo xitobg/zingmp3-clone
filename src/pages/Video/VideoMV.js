@@ -91,22 +91,20 @@ const VideoMV = () => {
               </Tippy>
             </div>
             <div className="relative flex px-3 scrollbar-video gap-x-7 video-body">
-              <div className="w-[70%] video-mv-player relative">
-                <div className="video-player rounded-md h-[500px] overflow-hidden w-full relative">
-                  <ReactPlayer
-                    width={"100%"}
-                    height={"100%"}
-                    loop={true}
-                    controls
-                    url={
-                      showVideoMV
-                        ? streaming?.mp4["720p"] || streaming?.hls["720p"]
-                        : ""
-                    }
-                  />
-                </div>
+              <div className=" video-mv-player flex-shrink-0 rounded-md  overflow-hidden relative">
+                <ReactPlayer
+                  width={"100%"}
+                  height={"100%"}
+                  loop={true}
+                  controls={true}
+                  url={
+                    showVideoMV
+                      ? streaming?.mp4["720p"] || streaming?.hls["720p"]
+                      : ""
+                  }
+                />
               </div>
-              <div className="w-[30%]  list-mv-player recommend-container rounded-md bg-[hsla(0,0%,100%,.10196078431372549)] flex  flex-col">
+              <div className="w-[350px]  pb-4  list-mv-player recommend-container rounded-md bg-[hsla(0,0%,100%,.10196078431372549)] flex  flex-col">
                 <div className="flex items-center justify-between p-5 recommend-header">
                   <h3 className="title">Danh sách phát</h3>
                 </div>
@@ -168,7 +166,7 @@ const VideoMV = () => {
   );
 };
 
-export default memo(VideoMV);
+export default VideoMV;
 const StyledVideo = styled.div`
   position: fixed;
   top: 100%;
@@ -181,6 +179,9 @@ const StyledVideo = styled.div`
     top: 0;
   }
   background-color: #1e1e1e;
+  .video-mv-player {
+    width: calc(100% - 350px);
+  }
   & .artist-name {
     cursor: pointer;
     color: ${(props) => props.theme.textSecondary};

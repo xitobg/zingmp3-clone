@@ -575,6 +575,9 @@ export const GlobalClasses = css`
       .recommend-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+      .video-mv-player {
+        height: 320px;
+      }
     }
   }
 
@@ -644,8 +647,15 @@ export const GlobalClasses = css`
       .recommend-container {
         margin-top: 18px;
         .recommend-card {
-          flex-direction: column;
           border-radius: 8px;
+          flex-direction: row;
+        }
+        .recommend-list {
+          display: flex;
+          flex-direction: column;
+        }
+        .card-mv-image {
+          width: 120px;
         }
       }
     }
@@ -693,6 +703,13 @@ export const GlobalClasses = css`
     div.media-left {
       margin-right: 0;
       width: 100%;
+    }
+    div.video-body {
+      padding: 0;
+
+      .video-mv-player {
+        height: 300px;
+      }
     }
   }
   @media screen and (max-width: 460px) {
