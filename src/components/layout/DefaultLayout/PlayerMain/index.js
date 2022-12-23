@@ -71,7 +71,7 @@ const NowPlaying = () => {
   );
 };
 
-export default memo(NowPlaying);
+export default NowPlaying;
 const StyledPlaying = styled.div`
   position: fixed;
   background-size: 1920px auto;

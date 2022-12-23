@@ -42,10 +42,11 @@ const VideoMV = () => {
     }
   };
   const { streaming, recommends, artist, title, thumbnailM } = dataVideoMV;
-  console.log(dataVideoMV);
   return (
     <>
-      <StyledVideo className={`modal-mv ${showVideoMV ? "show" : ""}`}>
+      <StyledVideo
+        className={`modal-mv overflow-hidden ${showVideoMV ? "show" : ""}`}
+      >
         <div
           style={{
             backgroundImage: `url(${thumbnailM})`,

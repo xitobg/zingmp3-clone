@@ -659,6 +659,9 @@ export const GlobalClasses = css`
         }
       }
     }
+    .weekchart-layout .weekchart-heading {
+      font-size: 24px;
+    }
   }
   @media screen and (max-width: 530px) {
     .search-result,
@@ -666,20 +669,39 @@ export const GlobalClasses = css`
       width: 300px;
     }
     div.song-item {
-      .media-right {
-        display: none;
-      }
       .song__rank-number {
         text-align: right;
         font-weight: 400;
         font-size: 18px;
         width: 0;
+        margin: 0;
       }
       .ranking-status {
         margin-right: 8px;
+        flex-direction: column;
+        max-width: 95px;
       }
       .sort-ranking {
-        margin-left: 8px;
+        margin-left: 0;
+      }
+      .song__info-author,
+      .song__info-name > span {
+        display: -webkit-box;
+        word-break: break-word;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        white-space: initial;
+      }
+      .media-left {
+        flex: 1;
+      }
+      .media-right {
+        flex: initial !important;
+      }
+      .media-duration {
+        justify-content: flex-end;
       }
     }
     .show-now-playing {
@@ -738,9 +760,6 @@ export const GlobalClasses = css`
       .playlist-item {
         scroll-snap-align: start;
 
-        .card-content-subtitle {
-          display: none;
-        }
         .card-title {
           font-size: 16px;
           color: #fff;
@@ -748,6 +767,17 @@ export const GlobalClasses = css`
           white-space: wrap;
           text-transform: capitalize;
         }
+      }
+      .card-content-subtitle {
+        display: -webkit-box;
+        word-break: break-word;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        white-space: initial;
+        font-size: 11px;
+        line-height: 18px;
       }
     }
     .sign-up-container {
@@ -774,5 +804,21 @@ export const GlobalClasses = css`
   }
   .hub-home-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  div.wrapper-playlist {
+    column-gap: 12px;
+    grid-auto-columns: 35%;
+  }
+
+  .wrapper-playlist .playlist-item .card-title {
+    display: -webkit-box;
+    word-break: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    white-space: initial;
+    font-size: 12px;
+    line-height: 18px;
   }
 `;

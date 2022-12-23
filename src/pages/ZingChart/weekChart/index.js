@@ -8,8 +8,8 @@ const WeekChart = ({ data = {} }) => {
   const { isRandom } = useSelector((state) => state.audio);
   const dataWeekChart = Object.entries(data ? data : {});
   return (
-    <StyledWeekChart>
-      <h3 className="title">Bảng Xếp Hạng Tuần</h3>
+    <StyledWeekChart className="weekchart-layout">
+      <h3 className="title weekchart-heading">Bảng Xếp Hạng Tuần</h3>
       <div className="grid grid-cols-3 mt-10 gap-y-4 weekchart-grid gap-x-7">
         {dataWeekChart &&
           dataWeekChart?.map((weekChart, index) => {
