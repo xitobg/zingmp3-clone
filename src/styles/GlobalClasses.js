@@ -547,6 +547,9 @@ export const GlobalClasses = css`
     .navbar__menu-mobile {
       display: flex;
     }
+    .hub-container {
+      padding-top: 70px;
+    }
   }
   @media screen and (max-width: 650px) {
     .new-release-container {
@@ -628,6 +631,9 @@ export const GlobalClasses = css`
     }
     .mv-artist-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .hub-home-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   @media screen and (max-width: 530px) {
@@ -734,5 +740,8 @@ export const GlobalClasses = css`
         scroll-snap-align: start;
       }
     }
+  }
+  .hub-home-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 `;

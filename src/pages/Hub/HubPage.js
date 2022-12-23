@@ -55,7 +55,7 @@ const HubPage = () => {
             })}
           <div className="mt-10">
             <h3 className="title">Tâm Trạng Và Hoạt Động</h3>
-            <div className="grid grid-cols-4 gap-x-7 gap-y-4">
+            <div className="grid grid-cols-4 hub-home-grid gap-x-7 gap-y-4">
               {dataHubHome?.topTopic &&
                 dataHubHome?.topTopic?.length > 0 &&
                 dataHubHome?.topTopic.map((topic, index) => {
@@ -76,7 +76,7 @@ const HubPage = () => {
                 })}
             </div>
           </div>
-          <div className="grid grid-cols-4 mt-10 hub-nation-list gap-x-7">
+          <div className="grid grid-cols-4 mt-10 hub-home-grid gap-y-4 hub-nation-list gap-x-7">
             {dataHubHome?.nations &&
               dataHubHome?.nations?.length > 0 &&
               dataHubHome?.nations.map((nation, index) => {
