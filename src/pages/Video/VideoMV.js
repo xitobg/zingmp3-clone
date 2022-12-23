@@ -30,9 +30,7 @@ const VideoMV = () => {
       }
     }
     fetch();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [idMv]);
+  }, [dataVideoMV, idMv]);
   const handleChooseVideo = (id, streamingStatus) => {
     if (streamingStatus == 1) {
       dispatch(setIdMv(id));
@@ -51,30 +49,35 @@ const VideoMV = () => {
           <div className="min-h-screen video-container">
             <div className="flex justify-between p-4 video-header">
               <div className="flex items-center gap-x-3">
-                <Link
-                  onClick={handleCloseVideo}
-                  to={artist?.link}
-                  state={{ artistName: artist?.alias }}
-                  className="w-10 h-10 rounded-full video-avatar"
-                >
-                  <img
-                    className="rounded-full"
-                    src={artist?.thumbnail}
-                    alt=""
-                  />
-                </Link>
-                <div className="flex flex-col justify-start whitespace-nowrap">
-                  <h3 className="mb-0 text-lg font-semibold text-white">
-                    {title}
-                  </h3>
+                {artist && artist.link && (
                   <Link
                     onClick={handleCloseVideo}
                     to={artist?.link}
                     state={{ artistName: artist?.alias }}
-                    className="text-sm font-medium text-left artist-name"
+                    className="w-10 h-10 rounded-full video-avatar"
                   >
-                    {artist?.name}
+                    <img
+                      className="rounded-full"
+                      src={artist?.thumbnail}
+                      alt=""
+                    />
                   </Link>
+                )}
+
+                <div className="flex flex-col justify-start whitespace-nowrap">
+                  <h3 className="mb-0 text-lg font-semibold text-white">
+                    {title}
+                  </h3>
+                  {artist && artist.link && (
+                    <Link
+                      onClick={handleCloseVideo}
+                      to={artist?.link}
+                      state={{ artistName: artist?.alias }}
+                      className="text-sm font-medium text-left artist-name"
+                    >
+                      {artist?.name}
+                    </Link>
+                  )}
                 </div>
               </div>
               <Tippy content="Đóng">
