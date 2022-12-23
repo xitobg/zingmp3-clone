@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import WrapperLayout from "~/components/wrapperLayout";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import axios from "axios";
 import RadioList from "~/components/radio/RadioList";
+import Loading from "~/components/loading/Loading";
 const Radio = () => {
+  const { loading } = useSelector((state) => state.global);
   const [dataRadio, setDataRadio] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,9 +38,12 @@ const Radio = () => {
   console.log(radioLiveStream);
   return (
     <WrapperLayout>
-      <StyledRadio className="radio-layout">
-        <RadioList data={radioLiveStream && radioLiveStream[0]} />
-      </StyledRadio>
+      {loading && <Loading />}
+      {!loading && (
+        <StyledRadio className="radio-layout">
+          <RadioList data={radioLiveStream && radioLiveStream[0]} />
+        </StyledRadio>
+      )}
     </WrapperLayout>
   );
 };

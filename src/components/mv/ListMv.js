@@ -6,7 +6,7 @@ import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
 import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
 import ConvertDuration from "~/utils/ConvertTime";
 
-const ListMv = ({ data = {}, isActive }) => {
+const ListMv = ({ data = {}, isActive, className = "" }) => {
   const dispatch = useDispatch();
   const { isPlay } = useSelector((state) => state.audio);
   const { title, items } = data;
@@ -23,9 +23,9 @@ const ListMv = ({ data = {}, isActive }) => {
     }
   };
   return (
-    <StyledMv className="container-layout ">
+    <StyledMv className={`container-layout ${className}`}>
       <h3>{title || ""}</h3>
-      <div className="grid grid-cols-3 mv-artist-list gap-y-4 gap-x-7">
+      <div className="grid grid-cols-3 mv-artist-list page-mv gap-y-4 gap-x-7">
         {items &&
           items?.map((item, index) => {
             const {

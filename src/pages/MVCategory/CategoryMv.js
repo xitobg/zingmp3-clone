@@ -81,7 +81,7 @@ const CategoryMv = () => {
             <Loading />
           </div>
         ) : (
-          <MvArtist data={dataListMV} />
+          <MvArtist className="page-mv" data={dataListMV} />
         )}
       </StyledListMv>
     </WrapperLayout>
@@ -109,6 +109,7 @@ const StyledListMv = styled.div`
     background-color: ${(props) => props.theme.textPrimary};
     opacity: 0.6;
   }
+
   @media screen and (max-width: 586px) {
     .tab-mv-link {
       width: 100%;
@@ -117,6 +118,14 @@ const StyledListMv = styled.div`
     .line,
     .title {
       display: none;
+    }
+    .page-mv {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: initial;
+      grid-auto-columns: initial;
+      overflow-x: initial;
+      -ms-overflow-style: initial;
+      scrollbar-width: initial;
     }
   }
 `;

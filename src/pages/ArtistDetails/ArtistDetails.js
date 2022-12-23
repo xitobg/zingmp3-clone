@@ -116,7 +116,7 @@ const ArtistDetails = () => {
           const { sections } = res.data.data;
 
           handlePlayRandomSong(sections[0], res.data.data.playlistId);
-          document.title = `${res.data.data.name} - Zing MP3 Official Account`;
+          document.title = `${res.data.data.name} - VP MP3 Official Account`;
           dispatch(setLoading(false));
         }
       })

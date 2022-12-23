@@ -13,7 +13,6 @@ const WeekChart = ({ data = {} }) => {
       <div className="grid grid-cols-3 mt-10 gap-y-4 weekchart-grid gap-x-7">
         {dataWeekChart &&
           dataWeekChart?.map((weekChart, index) => {
-            console.log(weekChart);
             return (
               <div key={index} className="px-3 py-5 chart-box rounded-xl">
                 <div className="flex pb-3 pl-10 font-semibold box-header gap-x-3">

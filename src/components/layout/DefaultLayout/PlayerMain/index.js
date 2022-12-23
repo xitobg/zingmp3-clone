@@ -7,7 +7,6 @@ import { memo } from "react";
 const NowPlaying = () => {
   const { showNowPlaying } = useSelector((state) => state.global);
   const { infoSongPlayer, isPlay } = useSelector((state) => state.audio);
-  console.log(infoSongPlayer);
   const backgrounds = Object.values(BACKGROUND_PLAYER);
   // const [color, setColor] = useState(0);
   // useEffect(() => {

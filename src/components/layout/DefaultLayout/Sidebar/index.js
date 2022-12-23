@@ -52,27 +52,13 @@ const Sidebar = () => {
           to="/zingchart"
           icon={<BsMusicNoteList className="menu-item__icon" />}
         />
-        <MenuItem
-          className="show-on-mobile"
-          title="Nhạc Mới"
-          to="/new-release"
-          icon={<BsMusicNoteList className="menu-item__icon" />}
-        />
 
         <MenuItem
-          className="show-on-mobile"
-          title="Top 100"
-          to="/top-100"
-          icon={<BsMusicNoteList className="menu-item__icon" />}
-        />
-        <MenuItem
-          className="hide-on-mobile"
           title="Radio"
           to="/radio"
           icon={<IoIosRadio className="menu-item__icon" />}
         />
         <MenuItem
-          className="hide-on-mobile"
           title="Theo Dõi"
           to="/follow"
           icon={<BsFillFilePlayFill className="menu-item__icon " />}
@@ -82,6 +68,7 @@ const Sidebar = () => {
       <div className="sidebar__subnav-inner has-scroll-bar mt-[10px]">
         <div className="mb-4 sidebar-navbar-list relative after:absolute after:content=['']">
           <MenuItem
+            className="hide-on-mobile"
             title="Nhạc Mới"
             to="/new-release"
             icon={<BsMusicNoteBeamed className="menu-item__icon" />}
@@ -93,11 +80,13 @@ const Sidebar = () => {
             icon={<BsUiChecksGrid className="menu-item__icon" />}
           />
           <MenuItem
+            className="hide-on-mobile"
             title="Top 100"
             to="/top-100"
             icon={<BsStar className="menu-item__icon" />}
           />
           <MenuItem
+            className="hide-on-mobile"
             title="MV"
             to="/mv"
             icon={<SiYoutubemusic className="menu-item__icon" />}

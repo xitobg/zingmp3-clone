@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";
 import { useReducer } from "react";
+import NavbarMobile from "~/components/NavbarMobile/NavbarMobile";
 const initialState = {
   banner: {},
   playList: [],
@@ -80,7 +81,7 @@ const Home = () => {
         console.log(err);
       });
     document.title =
-      "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile";
+      "VP Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const { banner, playList, newRelease, artistSpotlight, liveStream, event } =
@@ -92,6 +93,7 @@ const Home = () => {
       {!loading && (
         <div className="home-layout">
           <Banner data={banner} />
+          <NavbarMobile />
           {playList &&
             playList.length > 0 &&
             playList.map((item, index) => (

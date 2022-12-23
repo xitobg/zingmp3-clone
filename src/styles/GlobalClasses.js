@@ -544,6 +544,9 @@ export const GlobalClasses = css`
     div.caterogymv-container {
       margin-top: 80px;
     }
+    .navbar__menu-mobile {
+      display: flex;
+    }
   }
   @media screen and (max-width: 650px) {
     .new-release-container {

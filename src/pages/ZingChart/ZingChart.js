@@ -31,7 +31,7 @@ const ZingChart = () => {
         console.log(err);
       });
     document.title =
-      "Zing Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile ";
+      "VP Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile ";
   }, []);
 
   return (
