@@ -20,7 +20,6 @@ const HubPage = () => {
         );
         if (res.data && res.data.data) {
           setDataHubHome(res.data.data);
-          console.log(res.data.data);
           dispatch(setLoading(false));
         }
       } catch (error) {

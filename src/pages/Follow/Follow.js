@@ -17,7 +17,6 @@ const Follow = () => {
         const response = await axios.get(
           `https://api-zingmp3next.vercel.app/api/newfeeds?id="IWZ9Z08I"`
         );
-        console.log("data follow:", response.data.data);
         if (response.data && response.data.data) {
           setDataFollow(response.data.data);
           dispatch(setLoading(false));

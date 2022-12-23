@@ -21,7 +21,6 @@ const NewMusic = () => {
         if (res.data && res.data.data) {
           const { data } = res.data;
           setDataNewRelease(data);
-          console.log(res.data.data);
           document.title = `#zingchart tuần, #zingchart Zing - Bài Hát`;
           dispatch(setLoading(false));
         }

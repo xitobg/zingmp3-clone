@@ -21,7 +21,6 @@ const Top100 = () => {
         if (res.data && res.data.data) {
           const { data } = res.data;
           setDataTop100(data);
-          console.log(data);
           document.title = `Top 100 | Tuyển tập nhạc hay chọn lọc`;
           dispatch(setLoading(false));
         }

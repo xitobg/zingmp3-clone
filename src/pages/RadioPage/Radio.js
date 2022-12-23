@@ -17,7 +17,6 @@ const Radio = () => {
         const response = await axios.get(
           `https://api-zingmp3next.vercel.app/api/radio`
         );
-        console.log("data radio:", response.data.data);
         if (response.data && response.data.data) {
           setDataRadio(response.data.data);
           dispatch(setLoading(false));
@@ -35,7 +34,6 @@ const Radio = () => {
   const radioLiveStream = items?.filter(
     (item) => item.sectionType == "livestream"
   );
-  console.log(radioLiveStream);
   return (
     <WrapperLayout>
       {loading && <Loading />}

@@ -58,7 +58,6 @@ const PlaylistDetail = () => {
   }
 
   const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
-    console.log(song);
     const playlistCanPlay = [];
     if (song.streamingStatus === 1) {
       dispatch(setAudioSrc(""));
@@ -99,7 +98,6 @@ const PlaylistDetail = () => {
   };
   //play random moi khi vao useEffect
   const handlePlayRandomSong = (playlist, idPlaylist) => {
-    console.log(idPlaylist);
     let songCanPlay = [];
     let randomIndex;
     for (let songItem of playlist) {

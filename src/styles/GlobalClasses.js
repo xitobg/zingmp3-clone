@@ -210,6 +210,9 @@ export const GlobalClasses = css`
       .video-mv-player {
         width: 100%;
       }
+      .recommend-container {
+        margin-top: 18px;
+      }
 
       .recommend-list {
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -568,6 +571,7 @@ export const GlobalClasses = css`
       padding: 12px;
     }
     div.video-body {
+      padding: 0;
       .recommend-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -634,6 +638,16 @@ export const GlobalClasses = css`
     }
     .hub-home-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    div.video-body {
+      padding: 0px;
+      .recommend-container {
+        margin-top: 18px;
+        .recommend-card {
+          flex-direction: column;
+          border-radius: 8px;
+        }
+      }
     }
   }
   @media screen and (max-width: 530px) {

@@ -19,7 +19,6 @@ const CategoryMv = () => {
         const response = await axios.get(
           `https://api-zingmp3-alpha.vercel.app/api/listmv?id=${categoryMvId}&page=1&count=48`
         );
-        console.log("data listMV:", response.data.data);
         if (response.data && response.data.data) {
           setDataListMV(response.data.data);
           dispatch(setLoading(false));

@@ -111,7 +111,6 @@ const ArtistDetails = () => {
       .get(`/artist/${artistName}`)
       .then((res) => {
         if (res.data && res.data.data) {
-          console.log("data artist:", res.data.data);
           setSingerData(res.data.data);
           const { sections } = res.data.data;
 

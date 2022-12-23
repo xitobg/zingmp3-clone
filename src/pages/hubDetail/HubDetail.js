@@ -26,7 +26,6 @@ const HubDetail = () => {
         );
         if (res.data && res.data.data) {
           setHubDetailData(res.data.data);
-          console.log("hub detaildata:", res.data.data);
           dispatch(setLoading(false));
         }
       } catch (error) {

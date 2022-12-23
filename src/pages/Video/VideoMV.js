@@ -5,8 +5,7 @@ import Tippy from "@tippyjs/react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
 import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
-import { Link } from "react-router-dom";
-import Loading from "~/components/loading/Loading";
+import { Link, NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const VideoMV = () => {
@@ -15,7 +14,6 @@ const VideoMV = () => {
   const [dataVideoMV, setDataVideoMV] = useState([]);
   const handleCloseVideo = () => {
     dispatch(setShowVideoMV(false));
-    // navigate(-1);
   };
   useEffect(() => {
     async function fetch() {
@@ -53,20 +51,30 @@ const VideoMV = () => {
           <div className="min-h-screen video-container">
             <div className="flex justify-between p-4 video-header">
               <div className="flex items-center gap-x-3">
-                <div className="w-10 h-10 rounded-full video-avatar">
+                <Link
+                  onClick={handleCloseVideo}
+                  to={artist?.link}
+                  state={{ artistName: artist?.alias }}
+                  className="w-10 h-10 rounded-full video-avatar"
+                >
                   <img
                     className="rounded-full"
                     src={artist?.thumbnail}
                     alt=""
                   />
-                </div>
+                </Link>
                 <div className="flex flex-col justify-start whitespace-nowrap">
                   <h3 className="mb-0 text-lg font-semibold text-white">
                     {title}
                   </h3>
-                  <span className="text-sm font-medium text-left artist-name">
+                  <Link
+                    onClick={handleCloseVideo}
+                    to={artist?.link}
+                    state={{ artistName: artist?.alias }}
+                    className="text-sm font-medium text-left artist-name"
+                  >
                     {artist?.name}
-                  </span>
+                  </Link>
                 </div>
               </div>
               <Tippy content="Đóng">

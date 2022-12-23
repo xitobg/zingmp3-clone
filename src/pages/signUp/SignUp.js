@@ -44,7 +44,6 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
   const handleSignUp = async (values) => {
-    console.log(values);
     if (!isValid) return;
     try {
       await createUserWithEmailAndPassword(auth, values.email, values.password);
