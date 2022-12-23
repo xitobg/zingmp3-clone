@@ -270,7 +270,7 @@ const Control = ({ valueVolume = 100 }) => {
         />
       </div>
       <audio
-        className="hidden"
+        className="hidden audio-element"
         loop={isRepeat}
         autoPlay={isPlay}
         hidden

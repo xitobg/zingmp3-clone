@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
@@ -8,13 +8,16 @@ import ConvertDuration from "~/utils/ConvertTime";
 
 const ListMv = ({ data = {}, isActive, className = "" }) => {
   const dispatch = useDispatch();
-  const { isPlay } = useSelector((state) => state.audio);
   const { title, items } = data;
+  let audioElm = document.querySelector(".audio-element");
   const handleShowVideoMv = (idMv, streamingStatus) => {
     if (streamingStatus == 1) {
       dispatch(setShowVideoMV(true));
       dispatch(changeIconPlaying(false));
       dispatch(setIdMv(idMv));
+      if (audioElm) {
+        audioElm.pause();
+      }
     } else {
       Swal.fire({
         icon: "error",
@@ -22,6 +25,7 @@ const ListMv = ({ data = {}, isActive, className = "" }) => {
       });
     }
   };
+
   return (
     <StyledMv className={`container-layout ${className}`}>
       <h3>{title || ""}</h3>

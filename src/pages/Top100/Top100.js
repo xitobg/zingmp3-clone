@@ -40,10 +40,13 @@ const Top100 = () => {
           <div className="flex items-center justify-center mt-5 banner-top-100">
             <BannerTop100 />
           </div>
-          {dataTop100.length > 0 &&
-            dataTop100.map((listPlaylist, index) => (
-              <Playlist data={listPlaylist} key={index} />
-            ))}
+          {dataTop100 &&
+            dataTop100.length > 0 &&
+            dataTop100.map((listPlaylist, index) => {
+              return (
+                <Playlist data={listPlaylist} key={`${index}${index.title}`} />
+              );
+            })}
         </StyledTop100>
       )}
     </WrapperLayout>
