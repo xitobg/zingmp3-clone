@@ -41,11 +41,17 @@ const VideoMV = () => {
       });
     }
   };
-  const { streaming, recommends, artist, title } = dataVideoMV;
+  const { streaming, recommends, artist, title, thumbnailM } = dataVideoMV;
   console.log(dataVideoMV);
   return (
     <>
-      <StyledVideo className={`${showVideoMV ? "show" : ""}`}>
+      <StyledVideo className={`modal-mv ${showVideoMV ? "show" : ""}`}>
+        <div
+          style={{
+            backgroundImage: `url(${thumbnailM})`,
+          }}
+          className="bg-blur-modal absolute inset-0 w-full h-full"
+        ></div>
         <div className="relative w-full h-full px-8 overflow-hidden video-mv-modal">
           <div className="min-h-screen video-container">
             <div className="flex justify-between p-4 video-header">
@@ -91,7 +97,7 @@ const VideoMV = () => {
               </Tippy>
             </div>
             <div className="relative flex px-3 scrollbar-video gap-x-7 video-body">
-              <div className=" video-mv-player flex-shrink-0 rounded-md  overflow-hidden relative">
+              <div className="video-mv-player flex-shrink-0 rounded-md  overflow-hidden relative">
                 <ReactPlayer
                   width={"100%"}
                   height={"100%"}
@@ -179,6 +185,15 @@ const StyledVideo = styled.div`
     top: 0;
   }
   background-color: #1e1e1e;
+  .bg-blur-modal {
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
+    background-position-y: 10%;
+    -webkit-filter: blur(50px);
+    -webkit-filter: blur(50px);
+    filter: blur(30px);
+  }
   .video-mv-player {
     width: calc(100% - 350px);
   }
