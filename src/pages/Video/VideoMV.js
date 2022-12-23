@@ -30,7 +30,7 @@ const VideoMV = () => {
       }
     }
     fetch();
-  }, [dataVideoMV, idMv]);
+  }, [idMv]);
   const handleChooseVideo = (id, streamingStatus) => {
     if (streamingStatus == 1) {
       dispatch(setIdMv(id));
@@ -42,6 +42,7 @@ const VideoMV = () => {
     }
   };
   const { streaming, recommends, artist, title } = dataVideoMV;
+  console.log(dataVideoMV);
   return (
     <>
       <StyledVideo className={`${showVideoMV ? "show" : ""}`}>
@@ -96,7 +97,7 @@ const VideoMV = () => {
                     width={"100%"}
                     height={"100%"}
                     loop={true}
-                    controls={true}
+                    controls
                     url={
                       showVideoMV
                         ? streaming?.mp4["720p"] || streaming?.hls["720p"]
