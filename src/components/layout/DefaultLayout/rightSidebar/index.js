@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import SongItem from "~/components/songItem";
+import { shuffle } from "~/functions/ShuffleArr";
 import {
   changeIconPlaying,
   setAudioSrc,
@@ -24,30 +25,12 @@ const PlayingBar = () => {
     currentIndexSongRandom,
     isRandom,
   } = useSelector((state) => state.audio);
-  function shuffle(array) {
-    var currentIndex = array.length,
-      temporaryValue,
-      randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-    return array;
-  }
 
   const handlePlaySong = (playlist, randomPlaylist, song, index) => {
-    let indexSong = playlist.findIndex(
+    let indexSong = playlist?.findIndex(
       (item) => item.encodeId === song.encodeId
     );
-    let randomIndexSong = playlistRandom.findIndex(
+    let randomIndexSong = playlistRandom?.findIndex(
       (item) => item.encodeId === song.encodeId
     );
     dispatch(setCurrentIndexSongRandom(randomIndexSong));
@@ -57,6 +40,7 @@ const PlayingBar = () => {
     dispatch(setAudioSrc(""));
     dispatch(changeIconPlaying(true));
   };
+
   useEffect(() => {
     if (isRandom) {
       dispatch(setPlaylistRandom(shuffle([...playlistRandom])));
@@ -90,7 +74,7 @@ const PlayingBar = () => {
         </div>
         <div className="flex pb-[200px] flex-col max-h-screen has-scroll-bar play-bar-list">
           {isRandom
-            ? playlistRandom.map((song, index) => {
+            ? playlistRandom?.map((song, index) => {
                 if (song.streamingStatus !== 1) {
                   return Swal.fire({
                     icon: "error",
@@ -98,22 +82,20 @@ const PlayingBar = () => {
                   });
                 } else {
                   return (
-                    index >= currentIndexSongRandom && (
-                      <SongItem
-                        onClick={() =>
-                          handlePlaySong(
-                            playlistSong,
-                            playlistRandom,
-                            song,
-                            index
-                          )
-                        }
-                        playingBar
-                        key={song.encodeId}
-                        item={song}
-                        section="search"
-                      />
-                    )
+                    <SongItem
+                      onClick={() =>
+                        handlePlaySong(
+                          playlistSong,
+                          playlistRandom,
+                          song,
+                          index
+                        )
+                      }
+                      playingBar
+                      key={song.encodeId}
+                      item={song}
+                      section="search"
+                    />
                   );
                 }
               })
@@ -125,22 +107,20 @@ const PlayingBar = () => {
                   });
                 } else {
                   return (
-                    index >= currentIndexSong && (
-                      <SongItem
-                        onClick={() =>
-                          handlePlaySong(
-                            playlistSong,
-                            playlistRandom,
-                            song,
-                            index
-                          )
-                        }
-                        playingBar
-                        key={song?.encodeId}
-                        item={song}
-                        section="search"
-                      />
-                    )
+                    <SongItem
+                      onClick={() =>
+                        handlePlaySong(
+                          playlistSong,
+                          playlistRandom,
+                          song,
+                          index
+                        )
+                      }
+                      playingBar
+                      key={song?.encodeId}
+                      item={song}
+                      section="search"
+                    />
                   );
                 }
               })}

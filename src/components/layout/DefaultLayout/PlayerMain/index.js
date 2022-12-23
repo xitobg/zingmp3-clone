@@ -46,7 +46,7 @@ const NowPlaying = () => {
         <div className="relative now-playing-thumb">
           <img
             className="object-cover w-full"
-            src={infoSongPlayer.thumbnailM}
+            src={infoSongPlayer?.thumbnailM}
             alt=""
           />
           {isPlay && (
@@ -61,7 +61,7 @@ const NowPlaying = () => {
             </div>
           )}
         </div>
-        <h3 className="z-50 mt-4 mb-3 text-3xl font-semibold text-white select-none whitespace-nowrap now-playing-title">
+        <h3 className="z-50 mt-4 mb-3 text-3xl font-semibold text-white capitalize select-none whitespace-nowrap now-playing-title">
           {infoSongPlayer?.title}
         </h3>
         <span className="text-sm font-medium text-white select-none opacity-70 now-playing-name whitespace-nowrap">
@@ -72,7 +72,7 @@ const NowPlaying = () => {
   );
 };
 
-export default NowPlaying;
+export default memo(NowPlaying);
 const StyledPlaying = styled.div`
   position: fixed;
   background-size: 1920px auto;
