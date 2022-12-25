@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
@@ -83,17 +84,20 @@ const ListMv = ({ data = {}, isActive, className = "" }) => {
                       {name}
                     </span>
                     <div className="mt-[3px] mv-author w-full whitespace-nowrap overflow-hidden  text-ellipsis">
-                      {artists.length > 0 &&
+                      {artists &&
+                        artists.length > 0 &&
                         artists
                           .map((item) => {
                             const { name, id } = item;
                             return (
-                              <span
+                              <Link
+                                to={item?.link}
+                                state={{ artistName: item?.alias }}
                                 key={id}
-                                className="inline-block max-w-full text-xs cursor-pointer text-inherit "
+                                className="inline-block hover:underline max-w-full text-xs cursor-pointer text-inherit "
                               >
                                 {name}
-                              </span>
+                              </Link>
                             );
                           })
                           .reduce((prev, curr) => [prev, ", ", curr])}
