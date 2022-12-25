@@ -16,6 +16,7 @@ import { Slider, Stack } from "@mui/material";
 import { AiOutlineCompress, AiOutlineExpand } from "react-icons/ai";
 import NowPlaying from "../PlayerMain";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlayerControl = () => {
   const dispatch = useDispatch();
@@ -71,12 +72,20 @@ const PlayerControl = () => {
             <div className="flex items-center justify-end player-icon">
               <div className="flex ">
                 <Tippy content="Thêm vào thư viện">
-                  <Icon>
+                  <Icon
+                    onClick={() =>
+                      toast.warning("Tính năng chưa được cập nhật!")
+                    }
+                  >
                     <i className="bi icon-heart bi-heart"></i>
                   </Icon>
                 </Tippy>
                 <Tippy content="Xem thêm">
-                  <Icon>
+                  <Icon
+                    onClick={() =>
+                      toast.warning("Tính năng chưa được cập nhật!")
+                    }
+                  >
                     <i className="bi bi-three-dots"></i>
                   </Icon>
                 </Tippy>
@@ -99,7 +108,10 @@ const PlayerControl = () => {
               )}
             </Tippy>
             <Tippy content="Chế độ cửa sổ">
-              <Icon className="player-restore hide-on-mobile-tablet">
+              <Icon
+                onClick={() => toast.warning("Tính năng chưa được cập nhật!")}
+                className="player-restore hide-on-mobile-tablet"
+              >
                 <VscChromeRestore className="text-lg"></VscChromeRestore>
               </Icon>
             </Tippy>

@@ -17,11 +17,15 @@ import { LibraryData } from "./library/LibraryData";
 import logoMobile from "~/assets/image/logomain.svg";
 import { toast } from "react-toastify";
 import { ImHeadphones } from "react-icons/im";
+import { NavLink } from "react-router-dom";
 const Sidebar = () => {
   return (
     <StyledSidebar className=" pt-5 side-bar relative top-0 left-0  flex flex-col w-[240px]">
       <div className="zingmp3-brand pb-[10px]  w-full  flex items-center px-7">
-        <div className="relative flex items-center w-full hide-on-mobile-tablet">
+        <NavLink
+          to={`/`}
+          className="relative cursor-pointer flex items-center w-full hide-on-mobile-tablet"
+        >
           <div className="relative">
             <ImHeadphones className="text-3xl leading-[0px] logo-mp3" />
           </div>
@@ -36,7 +40,7 @@ const Sidebar = () => {
               mp3
             </span>
           </div>
-        </div>
+        </NavLink>
         <div className="hidden w-10 logo-mobile">
           <img src={logoMobile} alt="" />
         </div>
