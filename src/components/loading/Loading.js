@@ -58,11 +58,12 @@ const StyledLoading = styled.div`
   .loading {
     --speed-of-animation: 0.9s;
     --gap: 6px;
-    --first-color: #4c86f9;
-    --second-color: #49a84c;
-    --third-color: #f6bb02;
-    --fourth-color: #f6bb02;
+    --first-color: #ff006e;
+    --second-color: #00f5d4;
+    --third-color: #f77f00;
+    --fourth-color: #70e000;
     --fifth-color: #2196f3;
+    --six-color: #e71d36;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -72,8 +73,8 @@ const StyledLoading = styled.div`
   }
 
   .loading span {
-    width: 4px;
-    height: 50px;
+    width: 6px;
+    height: 80px;
     background: var(--first-color);
     animation: scale var(--speed-of-animation) ease-in-out infinite;
   }
@@ -95,6 +96,10 @@ const StyledLoading = styled.div`
 
   .loading span:nth-child(5) {
     background: var(--fifth-color);
+    animation-delay: -0.5s;
+  }
+  .loading span:nth-child(6) {
+    background: var(--six-color);
     animation-delay: -0.5s;
   }
 
@@ -124,6 +129,7 @@ const Loading = ({ className }, ref) => {
           <li className="w-10 h-10 rounded-full loading-dots"></li>
         </ul> */}
         <div className="loading flex justify-center w-[100px] gap-2 h-[100px]">
+          <span></span>
           <span></span>
           <span></span>
           <span></span>

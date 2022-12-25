@@ -18,7 +18,14 @@ import viplabel from "~/assets/image/vipLabel.svg";
 import IconLoading from "../Icon/IconLoading";
 import scrollIntoView from "~/utils/ScrollIntoView";
 
-const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
+const SongItem = ({
+  item,
+  index,
+  onClick,
+  section = "",
+  playingBar,
+  className = "",
+}) => {
   const dispatch = useDispatch();
   const { currentSongId, isPlay, loadingPlay } = useSelector(
     (state) => state.audio
@@ -37,7 +44,7 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
   return (
     <StyledSong
       playingBar={playingBar}
-      className={`song-item song-weekchart ${
+      className={`song-item  song-weekchart ${className} ${
         encodeId === currentSongId ? "active" : ""
       }`}
       onDoubleClick={onClick}
@@ -214,6 +221,8 @@ const SongItem = ({ item, index, onClick, section = "", playingBar }) => {
 
 export default SongItem;
 const StyledSong = styled.div`
+  position: relative;
+  z-index: 50;
   &:hover .icon-play {
     display: initial;
   }

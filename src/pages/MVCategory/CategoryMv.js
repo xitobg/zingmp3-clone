@@ -76,7 +76,7 @@ const CategoryMv = () => {
         </div>
 
         {loading ? (
-          <div className="mt-10">
+          <div className="mt-20">
             <Loading />
           </div>
         ) : (

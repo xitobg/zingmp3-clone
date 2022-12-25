@@ -144,6 +144,7 @@ export const GlobalClasses = css`
       );
     }
   }
+
   //RESPONSIVE
   @media screen and (max-width: 1220px) {
     .new-release-container {
@@ -801,24 +802,24 @@ export const GlobalClasses = css`
         scroll-snap-align: start;
       }
     }
-  }
-  .hub-home-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  div.wrapper-playlist {
-    column-gap: 12px;
-    grid-auto-columns: 35%;
-  }
+    .hub-home-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    div.wrapper-playlist {
+      column-gap: 12px;
+      grid-auto-columns: 35%;
+    }
 
-  .wrapper-playlist .playlist-item .card-title {
-    display: -webkit-box;
-    word-break: break-word;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    white-space: initial;
-    font-size: 12px;
-    line-height: 18px;
+    .wrapper-playlist .playlist-item .card-title {
+      display: -webkit-box;
+      word-break: break-word;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      white-space: initial;
+      font-size: 12px;
+      line-height: 18px;
+    }
   }
 `;

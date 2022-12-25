@@ -11,26 +11,22 @@ const ChartRanking = ({ data = [], onClick }) => {
   useEffect(() => {
     if (data && data.RTChart) {
       const { items } = data.RTChart;
-      if (showAll) {
-        setSongList(items);
-      } else {
-        setSongList(items.slice(0, 10));
-      }
+      setSongList(items);
     }
   }, [data, showAll]);
 
   return (
     <div className="chart__ranking-container mt-7">
-      {songList?.length > 0 &&
-        songList.map((item, index) => (
+      {showAll &&
+        songList?.map((song, index) => (
           <SongItem
-            key={item.encodeId}
+            key={song.encodeId}
             index={index}
-            item={item}
+            item={song}
             section="zingchart"
             onClick={() =>
               onClick(
-                item,
+                song,
                 songList,
                 data.RTChart.sectionId,
                 isRandom,
@@ -39,7 +35,26 @@ const ChartRanking = ({ data = [], onClick }) => {
             }
           />
         ))}
-
+      {!showAll &&
+        songList
+          ?.slice(0, 10)
+          .map((song, index) => (
+            <SongItem
+              key={song.encodeId}
+              index={index}
+              item={song}
+              section="zingchart"
+              onClick={() =>
+                onClick(
+                  song,
+                  songList,
+                  data.RTChart.sectionId,
+                  isRandom,
+                  dispatch
+                )
+              }
+            />
+          ))}
       {!showAll && (
         <div className="w-full text-center">
           <button onClick={() => setShowAll(true)} className="view-all">

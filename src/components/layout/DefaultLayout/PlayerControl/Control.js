@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Icon from "~/components/Icon";
 import Tippy from "@tippyjs/react";
@@ -30,7 +30,6 @@ const Control = ({ valueVolume = 100 }) => {
     loadingPlay,
     isRepeat,
     isRandom,
-    srcAudio,
     playlistSong,
     playlistRandom,
     currentSongId,
@@ -57,7 +56,6 @@ const Control = ({ valueVolume = 100 }) => {
     if (songActive) {
       scrollIntoView(songActive);
     }
-    dispatch(setAudioSrc(""));
     dispatch(setLoadingPlay(true));
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi next
     if (
@@ -93,7 +91,6 @@ const Control = ({ valueVolume = 100 }) => {
       scrollIntoView(songActive);
     }
     //Do array push vào khác với array render ra ui nên k check đúng được đk khi prev
-    dispatch(setAudioSrc(""));
     dispatch(setLoadingPlay(true));
     if (isRandom) {
       if (currentIndexRandom <= 0) {
@@ -144,53 +141,6 @@ const Control = ({ valueVolume = 100 }) => {
       }
     }
   };
-  const handleOnEnded = () => {
-    if (!isRepeat) {
-      dispatch(setAudioSrc(""));
-      dispatch(changeIconPlaying(false));
-      if (isRandom) {
-        if (currentIndexRandom === playlistRandom.length - 1) {
-          dispatch(setCurrentIndexSongRandom(0));
-          dispatch(setInfoSongPlayer(playlistRandom[0]));
-          dispatch(setSongId(playlistRandom[0].encodeId));
-          dispatch(
-            setCurrentIndexSong(
-              playlistSong.findIndex(
-                (song) => song.encodeId === playlistRandom[0].encodeId
-              )
-            )
-          );
-          dispatch(changeIconPlaying(true));
-        } else {
-          dispatch(setCurrentIndexSongRandom((currentIndexRandom += 1)));
-          dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
-          dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
-          dispatch(
-            setCurrentIndexSong(
-              playlistSong.findIndex(
-                (song) =>
-                  song.encodeId === playlistRandom[currentIndexRandom].encodeId
-              )
-            )
-          );
-
-          dispatch(changeIconPlaying(true));
-        }
-      } else {
-        if (currentIndex === playlistSong.length - 1) {
-          dispatch(setCurrentIndexSong(0));
-          dispatch(setInfoSongPlayer(playlistSong[0]));
-          dispatch(setSongId(playlistSong[0].encodeId));
-          dispatch(changeIconPlaying(true));
-        } else {
-          dispatch(setCurrentIndexSong((currentIndex += 1)));
-          dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
-          dispatch(setSongId(playlistSong[currentIndex].encodeId));
-          dispatch(changeIconPlaying(true));
-        }
-      }
-    }
-  };
 
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
@@ -205,18 +155,14 @@ const Control = ({ valueVolume = 100 }) => {
     return currentime;
   };
   useEffect(() => {
-    if (srcAudio !== "") {
-      isPlay ? audioRef.current?.play() : audioRef.current?.pause();
-    }
-
     audioRef.current.volume = valueVolume / 100;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [srcAudio, isPlay, valueVolume]);
+  }, [valueVolume]);
   useEffect(() => {
     if (songActive) {
       scrollIntoView(songActive);
     }
-  }, []);
+  }, [songActive]);
+
   return (
     <div className="player-control w-[40%] flex flex-col">
       <div className="flex items-center justify-center control-btn-list">
@@ -280,7 +226,7 @@ const Control = ({ valueVolume = 100 }) => {
             ? `http://api.mp3.zing.vn/api/streaming/audio/${currentSongId}/320`
             : ""
         }
-        onEnded={handleOnEnded}
+        onEnded={handleNextSong}
         onTimeUpdate={handleOntimeUpdate}
       ></audio>
     </div>

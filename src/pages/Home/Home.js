@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import ArtistBanner from "~/components/artistBanner";
 import Banner from "~/components/banner";
-import Chart from "~/components/chart";
-import Event from "~/components/event";
+import Event from "~/components/chart/Chart2";
 import NewRelease from "~/components/newRelease";
 import Playlist from "~/components/playlist/Playlist";
 import RadioList from "~/components/radio/RadioList";
-import WeekChart from "~/components/weekChart";
-import Mix from "~/components/mix";
 import Partner from "~/components/partner";
 import WrapperLayout from "~/components/wrapperLayout";
 import request from "~/services/request";
@@ -16,6 +13,7 @@ import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";
 import { useReducer } from "react";
 import NavbarMobile from "~/components/NavbarMobile/NavbarMobile";
+import RTChartHome from "~/components/RTChart/RTChartHome";
 const initialState = {
   banner: {},
   playList: [],
@@ -23,6 +21,7 @@ const initialState = {
   newRelease: {},
   artistSpotlight: {},
   event: {},
+  RTChart: {},
 };
 const GET_HOME = "GET_HOME";
 const reducer = (state, action) => {
@@ -49,6 +48,8 @@ const reducer = (state, action) => {
           ) || {},
         event:
           action.homeData?.find((item) => item.sectionType == "event") || {},
+        RTChart:
+          action.homeData?.find((item) => item.sectionType == "RTChart") || {},
       };
     default:
       return state;
@@ -71,6 +72,7 @@ const Home = () => {
       .then((res) => {
         if (res.data && res.data.data) {
           const { items } = res.data.data;
+          console.log(items);
           // console.log(items);
           dispatchAction(setHomeData(items));
           dispatch(setLoading(false));
@@ -84,8 +86,15 @@ const Home = () => {
       "VP Mp3 | Nghe tải nhạc chất lượng cao trên desktop, mobile";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { banner, playList, newRelease, artistSpotlight, liveStream, event } =
-    state;
+  const {
+    banner,
+    playList,
+    newRelease,
+    artistSpotlight,
+    liveStream,
+    event,
+    RTChart,
+  } = state;
 
   return (
     <WrapperLayout>
@@ -105,7 +114,7 @@ const Home = () => {
             ))}
           <RadioList data={liveStream} />
           <ArtistBanner data={artistSpotlight} />
-
+          {/* <RTChartHome data={RTChart} /> */}
           <NewRelease data={newRelease} />
           <Event data={event} />
           <Partner />

@@ -7,23 +7,18 @@ import { BsFillHeartFill } from "react-icons/bs";
 import Tippy from "@tippyjs/react";
 import ConvertNumber from "~/utils/ConvertNumber";
 import ConvertDates from "~/utils/ConvertDates";
-import ArtistBanner from "~/components/artistBanner";
 import WrapperLayout from "~/components/wrapperLayout";
 import request from "~/services/request";
 import { Link, useLocation } from "react-router-dom";
-import ConvertTotalDuration from "~/utils/ConvertTotalDuration";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { BiSortAlt2 } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeIconPlaying,
-  setAudioSrc,
   setCurrentIndexSong,
-  setCurrentIndexSongRandom,
   setCurrentTime,
   setInfoSongPlayer,
   setPlaylistId,
-  setPlaylistRandom,
   setPlaylistSong,
   setRandomSong,
   setSongId,
@@ -31,71 +26,17 @@ import {
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";
 import SongItem from "~/components/songItem";
-import { toast } from "react-toastify";
 import Swal from "sweetalert2";
+import handlePlaySong from "~/functions/HandlePlay";
 
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { isPlay, isRandom, playlistId, currentIndexSong } = useSelector(
-    (state) => state.audio
-  );
+  const { isPlay, playlistId, isRandom } = useSelector((state) => state.audio);
   const { loading } = useSelector((state) => state.global);
   const [dataAlbum, setDataAlbum] = useState([]);
   const { id } = location.state;
-  const getCurrentIdexSong = (currentPlaylist, song) => {
-    return currentPlaylist.indexOf(song);
-  };
-  //Tạo ra array mới đã random từ array playlist
-  function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * i); // no +1 here!
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
 
-  const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
-    const playlistCanPlay = [];
-    if (song.streamingStatus === 1) {
-      dispatch(setAudioSrc(""));
-      dispatch(setCurrentTime(0));
-      dispatch(setPlaylistId(idPlaylist));
-      for (let songItem of currentPlayList) {
-        if (songItem.streamingStatus === 1) {
-          playlistCanPlay.push(songItem);
-        }
-      }
-      if (isRandom) {
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        dispatch(
-          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-        );
-        // dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setSongId(song.encodeId));
-        dispatch(setPlaylistRandom(shuffleArray([...playlistCanPlay])));
-        dispatch(setInfoSongPlayer(song));
-        dispatch(setPlaylistSong(playlistCanPlay));
-        // dispatch(setCurrentIndexSongRandom(-1));
-        dispatch(
-          setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    } else {
-      Swal.fire({
-        icon: "error",
-        text: "Bài hát dành cho tài khoản Vip!",
-      });
-    }
-  };
   //play random moi khi vao useEffect
   const handlePlayRandomSong = (playlist, idPlaylist) => {
     let songCanPlay = [];
@@ -117,7 +58,6 @@ const PlaylistDetail = () => {
       });
     } else {
       dispatch(setPlaylistId(idPlaylist));
-      dispatch(setAudioSrc(""));
       dispatch(setCurrentTime(0));
       randomIndex = Math.floor(Math.random() * songCanPlay.length - 1) + 1;
       dispatch(setSongId(songCanPlay[randomIndex].encodeId));
@@ -166,7 +106,6 @@ const PlaylistDetail = () => {
               <div className="w-[30%] album-left">
                 <div className=" w-[300px]">
                   <div
-                    onClick={() => dispatch(changeIconPlaying(!isPlay))}
                     className={`relative overflow-hidden rounded-lg  album-card-image ${
                       isPlay && dataAlbum.encodeId === playlistId
                         ? "playing"
@@ -191,10 +130,12 @@ const PlaylistDetail = () => {
                         </div>
                       )}
 
-                      {!isPlay && (
+                      {!isPlay || dataAlbum.encodeId !== playlistId ? (
                         <div className="cursor-pointer flex justify-center items-center invisible  text-center border  border-white w-[45px] h-[45px] rounded-full center album-action">
                           <i className=" text-[30px] leading-[45px]   bi bi-play-fill text-white"></i>
                         </div>
+                      ) : (
+                        <></>
                       )}
                     </div>
                   </div>
@@ -231,7 +172,12 @@ const PlaylistDetail = () => {
                       <div className="flex justify-center">
                         {isPlay && dataAlbum.encodeId === playlistId ? (
                           <Button
-                            onClick={handleGetSongPlaylist}
+                            onClick={() =>
+                              Swal.fire({
+                                icon: "error",
+                                text: "Bài hát dành cho tài khoản Vip!",
+                              })
+                            }
                             large
                             leftIcon={<BsFillPauseFill />}
                           >
@@ -239,7 +185,12 @@ const PlaylistDetail = () => {
                           </Button>
                         ) : (
                           <Button
-                            onClick={handleGetSongPlaylist}
+                            onClick={() =>
+                              Swal.fire({
+                                icon: "error",
+                                text: "Bài hát dành cho tài khoản Vip!",
+                              })
+                            }
                             large
                             leftIcon={<BsFillPlayFill />}
                           >
@@ -303,10 +254,12 @@ const PlaylistDetail = () => {
                             <SongItem
                               section="playlist"
                               onClick={() =>
-                                handleGetSongPlaylist(
+                                handlePlaySong(
                                   item,
                                   song?.items,
-                                  dataAlbum?.encodeId
+                                  dataAlbum?.encodeId,
+                                  isRandom,
+                                  dispatch
                                 )
                               }
                               key={item?.encodeId}

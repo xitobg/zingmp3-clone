@@ -43,133 +43,131 @@ const VideoMV = () => {
   };
   const { streaming, recommends, artist, title, thumbnailM } = dataVideoMV;
   return (
-    <>
-      <StyledVideo
-        className={`modal-mv overflow-hidden ${showVideoMV ? "show" : ""}`}
-      >
-        <div
-          style={{
-            backgroundImage: `url(${thumbnailM})`,
-          }}
-          className="bg-blur-modal absolute inset-0 w-full h-full"
-        ></div>
-        <div className="relative w-full h-full px-8 overflow-hidden video-mv-modal">
-          <div className="min-h-screen video-container">
-            <div className="flex justify-between p-4 video-header">
-              <div className="flex items-center gap-x-3">
+    <StyledVideo
+      className={`modal-mv overflow-hidden ${showVideoMV ? "show" : ""}`}
+    >
+      <div
+        style={{
+          backgroundImage: `url(${thumbnailM})`,
+        }}
+        className="absolute inset-0 w-full h-full bg-blur-modal"
+      ></div>
+      <div className="relative w-full h-full px-8 overflow-hidden video-mv-modal">
+        <div className="min-h-screen video-container">
+          <div className="flex justify-between p-4 video-header">
+            <div className="flex items-center gap-x-3">
+              {artist && artist.link && (
+                <Link
+                  onClick={handleCloseVideo}
+                  to={artist?.link}
+                  state={{ artistName: artist?.alias }}
+                  className="w-10 h-10 rounded-full video-avatar"
+                >
+                  <img
+                    className="rounded-full"
+                    src={artist?.thumbnail}
+                    alt=""
+                  />
+                </Link>
+              )}
+
+              <div className="flex flex-col justify-start whitespace-nowrap">
+                <h3 className="mb-0 text-lg font-semibold text-white">
+                  {title}
+                </h3>
                 {artist && artist.link && (
                   <Link
                     onClick={handleCloseVideo}
                     to={artist?.link}
                     state={{ artistName: artist?.alias }}
-                    className="w-10 h-10 rounded-full video-avatar"
+                    className="text-sm font-medium text-left artist-name"
                   >
-                    <img
-                      className="rounded-full"
-                      src={artist?.thumbnail}
-                      alt=""
-                    />
+                    {artist?.name}
                   </Link>
                 )}
-
-                <div className="flex flex-col justify-start whitespace-nowrap">
-                  <h3 className="mb-0 text-lg font-semibold text-white">
-                    {title}
-                  </h3>
-                  {artist && artist.link && (
-                    <Link
-                      onClick={handleCloseVideo}
-                      to={artist?.link}
-                      state={{ artistName: artist?.alias }}
-                      className="text-sm font-medium text-left artist-name"
-                    >
-                      {artist?.name}
-                    </Link>
-                  )}
-                </div>
               </div>
-              <Tippy content="Đóng">
-                <div
-                  onClick={handleCloseVideo}
-                  className="close-video cursor-pointer flex justify-center items-center  w-10 h-10 rounded-full bg-[hsla(0,0%,100%,.1)] shadow-[0_2px_4px_0_rgb(133 105 208 / 11%)]"
-                >
-                  <i className="text-lg leading-[0px]  text-white bi bi-x-lg"></i>
-                </div>
-              </Tippy>
             </div>
-            <div className="relative flex px-3 scrollbar-video gap-x-7 video-body">
-              <div className="video-mv-player flex-shrink-0 rounded-md  overflow-hidden relative">
-                <ReactPlayer
-                  width={"100%"}
-                  height={"100%"}
-                  loop={true}
-                  controls={true}
-                  url={
-                    showVideoMV
-                      ? streaming?.mp4["720p"] || streaming?.hls["720p"]
-                      : ""
-                  }
-                />
+            <Tippy content="Đóng">
+              <div
+                onClick={handleCloseVideo}
+                className="close-video cursor-pointer flex justify-center items-center  w-10 h-10 rounded-full bg-[hsla(0,0%,100%,.1)] shadow-[0_2px_4px_0_rgb(133 105 208 / 11%)]"
+              >
+                <i className="text-lg leading-[0px]  text-white bi bi-x-lg"></i>
               </div>
-              <div className="w-[350px]  pb-4  list-mv-player recommend-container rounded-md bg-[hsla(0,0%,100%,.10196078431372549)] flex  flex-col">
-                <div className="flex items-center justify-between p-5 recommend-header">
-                  <h3 className="title">Danh sách phát</h3>
-                </div>
-                <div className="flex flex-col h-[400px] recommend-list has-scroll-bar">
-                  {recommends &&
-                    recommends.map((item, index) => {
-                      const {
-                        encodeId,
-                        thumbnail,
-                        title,
-                        link,
-                        artistsNames,
-                        streamingStatus,
-                      } = item;
-                      return (
+            </Tippy>
+          </div>
+          <div className="relative flex px-3 scrollbar-video gap-x-7 video-body">
+            <div className="relative flex-shrink-0 overflow-hidden rounded-md video-mv-player">
+              <ReactPlayer
+                width={"100%"}
+                height={"100%"}
+                loop={true}
+                controls={true}
+                url={
+                  showVideoMV
+                    ? streaming?.mp4["720p"] || streaming?.hls["720p"]
+                    : ""
+                }
+              />
+            </div>
+            <div className="w-[350px]  pb-4  list-mv-player recommend-container rounded-md bg-[hsla(0,0%,100%,.10196078431372549)] flex  flex-col">
+              <div className="flex items-center justify-between p-5 recommend-header">
+                <h3 className="title">Danh sách phát</h3>
+              </div>
+              <div className="flex flex-col h-[400px] recommend-list has-scroll-bar">
+                {recommends &&
+                  recommends.map((item, index) => {
+                    const {
+                      encodeId,
+                      thumbnail,
+                      title,
+                      link,
+                      artistsNames,
+                      streamingStatus,
+                    } = item;
+                    return (
+                      <div
+                        key={encodeId}
+                        className="recommend-card relative gap-3 flex py-[6px] hover:bg-[hsla(0,0%,100%,.05)] px-5"
+                      >
                         <div
-                          key={encodeId}
-                          className="recommend-card relative gap-3 flex py-[6px] hover:bg-[hsla(0,0%,100%,.05)] px-5"
+                          onClick={() =>
+                            handleChooseVideo(encodeId, streamingStatus)
+                          }
+                          className="z-50 card-mv-image relative cursor-pointer overflow-hidden w-[120px] h-[64px] rounded-md"
                         >
-                          <div
-                            onClick={() =>
-                              handleChooseVideo(encodeId, streamingStatus)
-                            }
-                            className="z-50 card-mv-image relative cursor-pointer overflow-hidden w-[120px] h-[64px] rounded-md"
-                          >
-                            {streamingStatus != 1 && (
-                              <span className="absolute font-semibold select-none cursor-pointer z-50 px-[8px] py-[8px] leading-[0px] text-xs text-[#463f3a] bg-yellow-500 rounded-md left-1 top-1">
-                                Vip
-                              </span>
-                            )}
-                            <div className="relative card-mv-img">
-                              <img
-                                className="w-full rounded-md"
-                                src={thumbnail}
-                                alt=""
-                              />
-                            </div>
-                            <i className="absolute z-50 invisible text-3xl text-white card-mv-action bi top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 bi-play-fill"></i>
-                            <div className="absolute invisible inset-0 w-full h-full rounded-md card-overlay bg-[rgba(0,0,0,0.5)]"></div>
-                          </div>
-                          <div className="flex flex-col justify-center flex-1 flex-grow select-none gap-y-1 ">
-                            <span className="text-white card-title whitespace-nowrap">
-                              {title}
+                          {streamingStatus != 1 && (
+                            <span className="absolute font-semibold select-none cursor-pointer z-50 px-[8px] py-[8px] leading-[0px] text-xs text-[#463f3a] bg-yellow-500 rounded-md left-1 top-1">
+                              Vip
                             </span>
-                            <p className="text-xs font-normal cursor-pointer card-subtitle">
-                              {artistsNames}
-                            </p>
+                          )}
+                          <div className="relative card-mv-img">
+                            <img
+                              className="w-full rounded-md"
+                              src={thumbnail}
+                              alt=""
+                            />
                           </div>
+                          <i className="absolute z-50 invisible text-3xl text-white card-mv-action bi top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 bi-play-fill"></i>
+                          <div className="absolute invisible inset-0 w-full h-full rounded-md card-overlay bg-[rgba(0,0,0,0.5)]"></div>
                         </div>
-                      );
-                    })}
-                </div>
+                        <div className="flex flex-col justify-center flex-1 flex-grow select-none gap-y-1 ">
+                          <span className="text-white card-title whitespace-nowrap">
+                            {title}
+                          </span>
+                          <p className="text-xs font-normal cursor-pointer card-subtitle">
+                            {artistsNames}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
         </div>
-      </StyledVideo>
-    </>
+      </div>
+    </StyledVideo>
   );
 };
 

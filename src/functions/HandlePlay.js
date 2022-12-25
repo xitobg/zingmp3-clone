@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
 import {
   changeIconPlaying,
-  setAudioSrc,
   setCurrentIndexSong,
+  setCurrentIndexSongRandom,
   setCurrentTime,
   setInfoSongPlayer,
   setPlaylistId,
@@ -16,19 +16,18 @@ function handlePlaySong(song, playlist, idPlaylist, isRandom, dispatch) {
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));
     dispatch(setCurrentTime(0));
-    dispatch(setAudioSrc(""));
     for (let songItem of playlist) {
       if (songItem.streamingStatus === 1) {
         playlistCanPlay.push(songItem);
       }
     }
     if (isRandom) {
-      dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-      dispatch(setSongId(song.encodeId));
       dispatch(setInfoSongPlayer(song));
+      dispatch(setSongId(song.encodeId));
+      dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
       dispatch(setPlaylistSong(playlistCanPlay));
       dispatch(
-        setCurrentIndexSong(
+        setCurrentIndexSongRandom(
           playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
         )
       );
@@ -37,6 +36,7 @@ function handlePlaySong(song, playlist, idPlaylist, isRandom, dispatch) {
       dispatch(setInfoSongPlayer(song));
       dispatch(setSongId(song.encodeId));
       dispatch(setPlaylistSong(playlistCanPlay));
+
       dispatch(
         setCurrentIndexSong(
           playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
