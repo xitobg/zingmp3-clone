@@ -27,7 +27,8 @@ import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";
 import SongItem from "~/components/songItem";
 import Swal from "sweetalert2";
-import handlePlaySong from "~/functions/HandlePlay";
+import handlePlaySong from "~/functions/HandlePlaySongPlaylist";
+import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
 
 const PlaylistDetail = () => {
   const dispatch = useDispatch();
@@ -78,7 +79,14 @@ const PlaylistDetail = () => {
           const { data } = res.data;
           setDataAlbum(data);
           document.title = data.title;
-          isPlay === false && handlePlayRandomSong(data.song.items, id);
+          // isPlay === false && handlePlayRandomSong(data.song.items, id);
+          handlePlaySongPlaylist(
+            data?.song?.items[0],
+            data?.song?.items,
+            id,
+            isRandom,
+            dispatch
+          );
           dispatch(setLoading(false));
         }
       })
@@ -86,7 +94,7 @@ const PlaylistDetail = () => {
         dispatch(setLoading(false));
         console.log(err);
       });
-  }, [id]);
+  }, [id, isRandom]);
   const {
     title,
     thumbnailM,

@@ -9,7 +9,7 @@ import { useState } from "react";
 import ChartRanking from "./chartRank";
 import Loading from "~/components/loading/Loading";
 import WeekChart from "./weekChart";
-import handlePlaySong from "~/functions/HandlePlay";
+import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
 // eslint-disable-next-line react-hooks/rules-of-hooks
 const ZingChart = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const ZingChart = () => {
             {dataZingChart?.RTChart?.sectionId !== plalistId && (
               <button
                 onClick={() =>
-                  handlePlaySong(
+                  handlePlaySongPlaylist(
                     dataZingChart?.RTChart?.items[0],
                     dataZingChart?.RTChart?.items,
                     dataZingChart?.RTChart?.sectionId,
@@ -64,7 +64,7 @@ const ZingChart = () => {
             <div className="chart-line"></div>
             <div className="chart-line"></div>
           </div>
-          <ChartRanking onClick={handlePlaySong} data={dataZingChart} />
+          <ChartRanking onClick={handlePlaySongPlaylist} data={dataZingChart} />
           <WeekChart data={dataZingChart?.weekChart} />
         </StyledZingChart>
       )}

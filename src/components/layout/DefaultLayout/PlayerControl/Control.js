@@ -10,6 +10,7 @@ import {
   setCurrentIndexSongRandom,
   setInfoSongPlayer,
   setLoadingPlay,
+  setPlaylistSong,
   setRandomSong,
   setRepeatSong,
   setSongId,
@@ -35,9 +36,12 @@ const Control = ({ valueVolume = 100 }) => {
     currentSongId,
   } = useSelector((state) => state.audio);
   let currentIndex = useSelector((state) => state.audio.currentIndexSong);
+
   let currentIndexRandom = useSelector(
     (state) => state.audio.currentIndexSongRandom
   );
+  console.log("current", currentIndex);
+  console.log(playlistSong.length - 1);
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
@@ -57,30 +61,42 @@ const Control = ({ valueVolume = 100 }) => {
       scrollIntoView(songActive);
     }
     dispatch(setLoadingPlay(true));
-    //Do array push vào khác với array render ra ui nên k check đúng được đk khi next
-    if (
-      currentIndex === playlistSong.length - 1 ||
-      currentIndex >= playlistSong.length - 1 ||
-      currentIndexRandom === playlistRandom.length - 1 ||
-      currentIndexRandom >= playlistRandom.length - 1
-    ) {
-      return;
-    } else {
-      if (isRandom) {
-        dispatch(setCurrentIndexSongRandom((currentIndexRandom += 1)));
-        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
-        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+    if (!isRandom) {
+      if (currentIndex >= playlistSong.length - 1) {
+        dispatch(setCurrentIndexSong(0));
+        dispatch(setInfoSongPlayer(playlistSong[0]));
+        dispatch(setSongId(playlistSong[0].encodeId));
         dispatch(
-          setCurrentIndexSong(
-            playlistSong.indexOf(playlistRandom[currentIndexRandom])
-          )
+          setCurrentIndexSongRandom(playlistRandom.indexOf(playlistSong[0]))
         );
-
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setCurrentIndexSong((currentIndex += 1)));
         dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
         dispatch(setSongId(playlistSong[currentIndex].encodeId));
+        dispatch(
+          setCurrentIndexSongRandom(
+            playlistRandom.indexOf(playlistSong[currentIndex])
+          )
+        );
+        dispatch(changeIconPlaying(true));
+      }
+    } else {
+      if (currentIndexRandom >= playlistRandom.length - 1) {
+        dispatch(setCurrentIndexSongRandom(0));
+        dispatch(setInfoSongPlayer(playlistRandom[0]));
+        dispatch(setSongId(playlistRandom[0].encodeId));
+        dispatch(setCurrentIndexSong(playlistSong.indexOf(playlistRandom[0])));
+        dispatch(changeIconPlaying(true));
+      } else {
+        dispatch(setCurrentIndexSongRandom((currentIndexRandom += 1)));
+        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
+        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+        dispatch(
+          setCurrentIndexSong(
+            playlistSong.indexOf(playlistRandom[currentIndex])
+          )
+        );
         dispatch(changeIconPlaying(true));
       }
     }
@@ -90,40 +106,15 @@ const Control = ({ valueVolume = 100 }) => {
     if (songActive) {
       scrollIntoView(songActive);
     }
-    //Do array push vào khác với array render ra ui nên k check đúng được đk khi prev
     dispatch(setLoadingPlay(true));
-    if (isRandom) {
-      if (currentIndexRandom <= 0) {
-        dispatch(setCurrentIndexSongRandom(playlistRandom.length));
-        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
-        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
-        dispatch(
-          setCurrentIndexSong(
-            playlistSong.indexOf(playlistRandom[currentIndexRandom])
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      } else {
-        dispatch(setCurrentIndexSongRandom((currentIndexRandom -= 1)));
-        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
-        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
-        //tìm ra index của playlist dựa vào gt hiện tại trong playlistRandom
-        dispatch(
-          setCurrentIndexSong(
-            playlistSong.indexOf(playlistRandom[currentIndexRandom])
-          )
-        );
-        dispatch(changeIconPlaying(true));
-      }
-    }
-    if (isRandom === false) {
+    if (!isRandom) {
       if (currentIndex <= 0) {
-        dispatch(setCurrentIndexSong(playlistSong.length));
-        dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
-        dispatch(setSongId(playlistSong[currentIndex].encodeId));
+        dispatch(setCurrentIndexSong(playlistSong.length - 1));
+        dispatch(setInfoSongPlayer(playlistSong[playlistSong.length - 1]));
+        dispatch(setSongId(playlistSong[playlistSong.length - 1].encodeId));
         dispatch(
           setCurrentIndexSongRandom(
-            playlistRandom.indexOf(playlistSong[currentIndex])
+            playlistRandom.indexOf(playlistSong[playlistSong.length - 1])
           )
         );
         dispatch(changeIconPlaying(true));
@@ -136,7 +127,28 @@ const Control = ({ valueVolume = 100 }) => {
             playlistRandom.indexOf(playlistSong[currentIndex])
           )
         );
-
+        dispatch(changeIconPlaying(true));
+      }
+    } else {
+      if (currentIndexRandom <= 0) {
+        dispatch(setCurrentIndexSongRandom(playlistRandom.length - 1));
+        dispatch(setInfoSongPlayer(playlistRandom[playlistRandom.length - 1]));
+        dispatch(setSongId(playlistRandom[playlistRandom.length - 1].encodeId));
+        dispatch(
+          setCurrentIndexSong(
+            playlistSong.indexOf(playlistRandom[playlistSong.length - 1])
+          )
+        );
+        dispatch(changeIconPlaying(true));
+      } else {
+        dispatch(setCurrentIndexSongRandom((currentIndexRandom -= 1)));
+        dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
+        dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+        dispatch(
+          setCurrentIndexSong(
+            playlistSong.indexOf(playlistRandom[currentIndexRandom])
+          )
+        );
         dispatch(changeIconPlaying(true));
       }
     }

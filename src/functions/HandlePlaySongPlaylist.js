@@ -11,7 +11,13 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import { shuffle } from "./ShuffleArr";
-function handlePlaySong(song, playlist, idPlaylist, isRandom, dispatch) {
+function handlePlaySongPlaylist(
+  song,
+  playlist,
+  idPlaylist,
+  isRandom,
+  dispatch
+) {
   let playlistCanPlay = [];
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));
@@ -37,11 +43,11 @@ function handlePlaySong(song, playlist, idPlaylist, isRandom, dispatch) {
       dispatch(setSongId(song.encodeId));
       dispatch(setPlaylistSong(playlistCanPlay));
 
-      dispatch(
-        setCurrentIndexSong(
-          playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-        )
-      );
+      // dispatch(
+      //   setCurrentIndexSong(
+      //     playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
+      //   )
+      // );
       dispatch(changeIconPlaying(true));
     }
   } else {
@@ -51,4 +57,4 @@ function handlePlaySong(song, playlist, idPlaylist, isRandom, dispatch) {
     });
   }
 }
-export default handlePlaySong;
+export default handlePlaySongPlaylist;

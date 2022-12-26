@@ -9,7 +9,7 @@ import Loading from "~/components/loading/Loading";
 import MvArtist from "~/components/mv/ListMv";
 import Playlist from "~/components/playlist/Playlist";
 import WrapperLayout from "~/components/wrapperLayout";
-import handlePlaySong from "~/functions/HandlePlay";
+import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
 import { shuffle } from "~/functions/ShuffleArr";
 import {
   changeIconPlaying,
@@ -134,7 +134,7 @@ const ArtistDetails = () => {
         {!loading && (
           <StyledArtistDetails className="artist-detail-layout">
             <ArtistBiography
-              onClick={handlePlaySong}
+              onClick={handlePlaySongPlaylist}
               data={{ ...singerData }}
             />
             {sections?.map((item, index) => {
@@ -142,7 +142,7 @@ const ArtistDetails = () => {
               if (sectionType === "song") {
                 return (
                   <SongSection
-                    onClick={handlePlaySong}
+                    onClick={handlePlaySongPlaylist}
                     id={singerData.playlistId}
                     key={`${title}${index}`}
                     data={{ ...item }}

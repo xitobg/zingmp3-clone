@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import SongItem from "~/components/songItem";
 import Loading from "~/components/loading/Loading";
-import handlePlaySong from "~/functions/HandlePlay";
+import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
 const NewMusic = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.global);
@@ -43,7 +43,7 @@ const NewMusic = () => {
               {playlistId !== dataNewRelease?.sectionId ? (
                 <button
                   onClick={() =>
-                    handlePlaySong(
+                    handlePlaySongPlaylist(
                       items[0],
                       items,
                       dataNewRelease?.sectionId,
@@ -71,7 +71,7 @@ const NewMusic = () => {
                       item={item}
                       section="new-release"
                       onClick={() =>
-                        handlePlaySong(
+                        handlePlaySongPlaylist(
                           item,
                           items,
                           dataNewRelease?.sectionId,

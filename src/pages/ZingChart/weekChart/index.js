@@ -2,7 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import SongItem from "~/components/songItem";
-import handlePlaySong from "~/functions/HandlePlay";
+import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
+
 const WeekChart = ({ data = {} }) => {
   const dispatch = useDispatch();
   const { isRandom } = useSelector((state) => state.audio);
@@ -30,7 +31,7 @@ const WeekChart = ({ data = {} }) => {
                       .map((song, index) => (
                         <SongItem
                           onClick={() =>
-                            handlePlaySong(
+                            handlePlaySongPlaylist(
                               song,
                               weekChart[1]?.items,
                               weekChart[1]?.items?.playlistId,
