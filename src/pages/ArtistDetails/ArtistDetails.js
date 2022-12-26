@@ -10,23 +10,9 @@ import MvArtist from "~/components/mv/ListMv";
 import Playlist from "~/components/playlist/Playlist";
 import WrapperLayout from "~/components/wrapperLayout";
 import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
-import { shuffle } from "~/functions/ShuffleArr";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-  setCurrentIndexSong,
-  setCurrentTime,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistRandom,
-  setPlaylistSong,
-  setRandomSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import request from "~/services/request";
 import SongSection from "./song";
-
 const ArtistDetails = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -34,76 +20,6 @@ const ArtistDetails = () => {
   const { isRandom } = useSelector((state) => state.audio);
   const [singerData, setSingerData] = useState([]);
   const { artistName } = location.state;
-  const getCurrentIdexSong = (currentPlaylist, song) => {
-    return currentPlaylist.indexOf(song);
-  };
-
-  // const handleGetSongPlaylist = (song, currentPlayList, idPlaylist) => {
-  //   const playlistCanPlay = [];
-  //   if (song.streamingStatus === 1) {
-  //     dispatch(setAudioSrc(""));
-  //     dispatch(setCurrentTime(0));
-  //     dispatch(setPlaylistId(idPlaylist));
-  //     for (let songItem of currentPlayList) {
-  //       if (songItem.streamingStatus === 1) {
-  //         playlistCanPlay.push(songItem);
-  //       }
-  //     }
-  //     if (isRandom) {
-  //       dispatch(setSongId(song.encodeId));
-  //       dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-  //       dispatch(setInfoSongPlayer(song));
-  //       dispatch(setPlaylistSong(playlistCanPlay));
-  //       dispatch(
-  //         setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-  //       );
-  //       // dispatch(setCurrentIndexSongRandom(-1));
-  //       dispatch(changeIconPlaying(true));
-  //     } else {
-  //       dispatch(setSongId(song.encodeId));
-  //       dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-  //       dispatch(setInfoSongPlayer(song));
-  //       dispatch(setPlaylistSong(playlistCanPlay));
-  //       // dispatch(setCurrentIndexSongRandom(-1));
-  //       dispatch(
-  //         setCurrentIndexSong(getCurrentIdexSong(playlistCanPlay, song))
-  //       );
-  //       dispatch(changeIconPlaying(true));
-  //     }
-  //   } else {
-  //     Swal.fire({
-  //       icon: "error",
-  //       text: "Bài hát dành cho tài khoản Vip!",
-  //     });
-  //   }
-  // };
-  //play random moi khi vao useEffect
-  const handlePlayRandomSong = (playlist, idPlaylist) => {
-    let songCanPlay = [];
-    let randomIndex;
-    for (let songItem of playlist) {
-      if (songItem.streamingStatus === 1) {
-        songCanPlay.push(songItem);
-      }
-    }
-    if (songCanPlay.length === 0) {
-      Swal.fire({
-        icon: "error",
-        text: "Playlist chưa được hỗ trợ",
-      });
-    } else {
-      dispatch(setPlaylistId(idPlaylist));
-      dispatch(setAudioSrc(""));
-      dispatch(setCurrentTime(0));
-      randomIndex = Math.floor(Math.random() * songCanPlay.length - 1) + 1;
-      dispatch(setSongId(songCanPlay[randomIndex].encodeId));
-      dispatch(setInfoSongPlayer(songCanPlay[randomIndex]));
-      dispatch(setPlaylistSong(songCanPlay));
-      dispatch(setCurrentIndexSong(randomIndex));
-      dispatch(setRandomSong(true));
-      dispatch(changeIconPlaying(true));
-    }
-  };
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -113,8 +29,14 @@ const ArtistDetails = () => {
         if (res.data && res.data.data) {
           setSingerData(res.data.data);
           const { sections } = res.data.data;
-
-          handlePlayRandomSong(sections[0], res.data.data.playlistId);
+          console.log(sections);
+          handlePlaySongPlaylist(
+            sections[0]?.items[0],
+            sections[0]?.items,
+            res.data.data.playlistId,
+            isRandom,
+            dispatch
+          );
           document.title = `${res.data.data.name} - VP MP3 Official Account`;
           dispatch(setLoading(false));
         }

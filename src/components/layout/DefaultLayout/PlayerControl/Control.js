@@ -40,8 +40,9 @@ const Control = ({ valueVolume = 100 }) => {
   let currentIndexRandom = useSelector(
     (state) => state.audio.currentIndexSongRandom
   );
-  console.log("current", currentIndex);
-  console.log(playlistSong.length - 1);
+  console.log("currentIndex", currentIndex);
+  console.log("currentIndexRandom", currentIndexRandom);
+  console.log(playlistRandom.indexOf(playlistRandom[currentIndexRandom]));
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
@@ -55,7 +56,7 @@ const Control = ({ valueVolume = 100 }) => {
       }
     }
   };
-  //
+
   const handleNextSong = () => {
     if (songActive) {
       scrollIntoView(songActive);
@@ -63,40 +64,53 @@ const Control = ({ valueVolume = 100 }) => {
     dispatch(setLoadingPlay(true));
     if (!isRandom) {
       if (currentIndex >= playlistSong.length - 1) {
+        dispatch(setCurrentTime(0));
         dispatch(setCurrentIndexSong(0));
         dispatch(setInfoSongPlayer(playlistSong[0]));
         dispatch(setSongId(playlistSong[0].encodeId));
+        let codeId = playlistSong[0].encodeId;
         dispatch(
-          setCurrentIndexSongRandom(playlistRandom.indexOf(playlistSong[0]))
+          setCurrentIndexSongRandom(
+            playlistRandom.findIndex((item) => item.encodeId === codeId)
+          )
         );
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setCurrentIndexSong((currentIndex += 1)));
         dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
         dispatch(setSongId(playlistSong[currentIndex].encodeId));
+        let codeId = playlistSong[currentIndex].encodeId;
         dispatch(
           setCurrentIndexSongRandom(
-            playlistRandom.indexOf(playlistSong[currentIndex])
+            playlistRandom.findIndex((item) => item.encodeId === codeId)
           )
         );
         dispatch(changeIconPlaying(true));
       }
-    } else {
+    } else if (isRandom) {
       if (currentIndexRandom >= playlistRandom.length - 1) {
         dispatch(setCurrentIndexSongRandom(0));
         dispatch(setInfoSongPlayer(playlistRandom[0]));
-        dispatch(setSongId(playlistRandom[0].encodeId));
-        dispatch(setCurrentIndexSong(playlistSong.indexOf(playlistRandom[0])));
+        dispatch(setSongId(playlistRandom[0]?.encodeId));
+        // dispatch(setCurrentIndexSong(playlistSong.indexOf(playlistRandom[0])));
+        let codeId = playlistRandom[0].encodeId;
+        dispatch(
+          setCurrentIndexSong(
+            playlistSong.findIndex((item) => item.encodeId === codeId)
+          )
+        );
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setCurrentIndexSongRandom((currentIndexRandom += 1)));
         dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
         dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+        let codeId = playlistRandom[currentIndexRandom].encodeId;
         dispatch(
           setCurrentIndexSong(
-            playlistSong.indexOf(playlistRandom[currentIndex])
+            playlistSong.findIndex((item) => item.encodeId === codeId)
           )
         );
+
         dispatch(changeIconPlaying(true));
       }
     }
@@ -129,31 +143,33 @@ const Control = ({ valueVolume = 100 }) => {
         );
         dispatch(changeIconPlaying(true));
       }
-    } else {
+    } else if (isRandom) {
       if (currentIndexRandom <= 0) {
         dispatch(setCurrentIndexSongRandom(playlistRandom.length - 1));
         dispatch(setInfoSongPlayer(playlistRandom[playlistRandom.length - 1]));
         dispatch(setSongId(playlistRandom[playlistRandom.length - 1].encodeId));
+        let codeId = playlistRandom[playlistRandom.length - 1].encodeId;
         dispatch(
           setCurrentIndexSong(
-            playlistSong.indexOf(playlistRandom[playlistSong.length - 1])
+            playlistSong.findIndex((item) => item.encodeId === codeId)
           )
         );
+
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setCurrentIndexSongRandom((currentIndexRandom -= 1)));
         dispatch(setInfoSongPlayer(playlistRandom[currentIndexRandom]));
         dispatch(setSongId(playlistRandom[currentIndexRandom].encodeId));
+        let codeId = playlistRandom[currentIndexRandom].encodeId;
         dispatch(
           setCurrentIndexSong(
-            playlistSong.indexOf(playlistRandom[currentIndexRandom])
+            playlistSong.findIndex((item) => item.encodeId === codeId)
           )
         );
         dispatch(changeIconPlaying(true));
       }
     }
   };
-
   const handleRandomSong = () => dispatch(setRandomSong(!isRandom));
   const handleRepeatSong = () => dispatch(setRepeatSong(!isRepeat));
   const handleOntimeUpdate = () => {
@@ -166,6 +182,7 @@ const Control = ({ valueVolume = 100 }) => {
     audioRef.current.currentTime = currentime;
     return currentime;
   };
+
   useEffect(() => {
     audioRef.current.volume = valueVolume / 100;
   }, [valueVolume]);

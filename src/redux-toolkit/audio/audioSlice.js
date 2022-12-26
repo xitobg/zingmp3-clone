@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
-import Swal from "sweetalert2";
 import logozingmp3 from "~/assets/image/logo.jpeg";
 export const audioSlice = createSlice({
   name: "audio",
@@ -22,8 +20,9 @@ export const audioSlice = createSlice({
     playlistSong: JSON.parse(localStorage.getItem("PLAYLIST_SONG")) || [],
     playlistRandom:
       JSON.parse(localStorage.getItem("PLAYLIST_SONG_RANDOM")) || [],
-    currentIndexSong: 0,
-    currentIndexSongRandom: 0,
+    currentIndexSong: JSON.parse(localStorage.getItem("CURRENT_INDEX")) || 0,
+    currentIndexSongRandom:
+      JSON.parse(localStorage.getItem("CURRENT_INDEX_RANDOM")) || 0,
     loadingPlay: false,
   },
   reducers: {
@@ -38,6 +37,14 @@ export const audioSlice = createSlice({
     },
     setCurrentIndexSongRandom: (state, action) => {
       state.currentIndexSongRandom = action.payload;
+      localStorage.setItem(
+        "CURRENT_INDEX_RANDOM",
+        JSON.stringify(action.payload)
+      );
+    },
+    setCurrentIndexSong: (state, action) => {
+      state.currentIndexSong = action.payload;
+      localStorage.setItem("CURRENT_INDEX", JSON.stringify(action.payload));
     },
     setMuteVolume: (state, action) => {
       state.isMute = action.payload;
@@ -80,9 +87,6 @@ export const audioSlice = createSlice({
       );
     },
 
-    setCurrentIndexSong: (state, action) => {
-      state.currentIndexSong = action.payload;
-    },
     setLoadingPlay: (state, action) => {
       state.loadingPlay = action.payload;
     },

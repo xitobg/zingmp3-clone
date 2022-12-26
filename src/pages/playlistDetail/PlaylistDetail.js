@@ -13,16 +13,7 @@ import { Link, useLocation } from "react-router-dom";
 import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { BiSortAlt2 } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  changeIconPlaying,
-  setCurrentIndexSong,
-  setCurrentTime,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistSong,
-  setRandomSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
+
 import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import Loading from "~/components/loading/Loading";
 import SongItem from "~/components/songItem";
@@ -37,39 +28,6 @@ const PlaylistDetail = () => {
   const { loading } = useSelector((state) => state.global);
   const [dataAlbum, setDataAlbum] = useState([]);
   const { id } = location.state;
-
-  //play random moi khi vao useEffect
-  const handlePlayRandomSong = (playlist, idPlaylist) => {
-    let songCanPlay = [];
-    let randomIndex;
-    for (let songItem of playlist) {
-      if (songItem.streamingStatus === 1) {
-        songCanPlay.push(songItem);
-      } else {
-        Swal.fire({
-          icon: "error",
-          text: "Bài hát dành cho tài khoản Vip!",
-        });
-      }
-    }
-    if (songCanPlay.length === 0) {
-      Swal.fire({
-        icon: "error",
-        text: "Playlist chưa được hỗ trợ",
-      });
-    } else {
-      dispatch(setPlaylistId(idPlaylist));
-      dispatch(setCurrentTime(0));
-      randomIndex = Math.floor(Math.random() * songCanPlay.length - 1) + 1;
-      dispatch(setSongId(songCanPlay[randomIndex].encodeId));
-      dispatch(setInfoSongPlayer(songCanPlay[randomIndex]));
-      dispatch(setPlaylistSong(songCanPlay));
-      dispatch(setCurrentIndexSong(randomIndex));
-      dispatch(setRandomSong(true));
-      dispatch(changeIconPlaying(true));
-    }
-  };
-
   useEffect(() => {
     dispatch(setLoading(true));
     request
@@ -79,14 +37,15 @@ const PlaylistDetail = () => {
           const { data } = res.data;
           setDataAlbum(data);
           document.title = data.title;
-          // isPlay === false && handlePlayRandomSong(data.song.items, id);
-          handlePlaySongPlaylist(
-            data?.song?.items[0],
-            data?.song?.items,
-            id,
-            isRandom,
-            dispatch
-          );
+          isPlay === false &&
+            handlePlaySongPlaylist(
+              data?.song?.items[0],
+              id,
+              data?.song?.items,
+              isRandom,
+              dispatch
+            );
+
           dispatch(setLoading(false));
         }
       })
@@ -94,7 +53,8 @@ const PlaylistDetail = () => {
         dispatch(setLoading(false));
         console.log(err);
       });
-  }, [id, isRandom]);
+  }, [id]);
+
   const {
     title,
     thumbnailM,

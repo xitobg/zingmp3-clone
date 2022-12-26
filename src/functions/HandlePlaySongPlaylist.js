@@ -19,6 +19,7 @@ function handlePlaySongPlaylist(
   dispatch
 ) {
   let playlistCanPlay = [];
+  console.log(playlistCanPlay);
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));
     dispatch(setCurrentTime(0));
@@ -27,7 +28,18 @@ function handlePlaySongPlaylist(
         playlistCanPlay.push(songItem);
       }
     }
-    if (isRandom) {
+    if (!isRandom) {
+      dispatch(setInfoSongPlayer(song));
+      dispatch(setSongId(song.encodeId));
+      dispatch(setPlaylistSong(playlistCanPlay));
+      dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
+      dispatch(
+        setCurrentIndexSong(
+          playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
+        )
+      );
+      dispatch(changeIconPlaying(true));
+    } else if (isRandom) {
       dispatch(setInfoSongPlayer(song));
       dispatch(setSongId(song.encodeId));
       dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
@@ -37,17 +49,15 @@ function handlePlaySongPlaylist(
           playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
         )
       );
-      dispatch(changeIconPlaying(true));
-    } else {
-      dispatch(setInfoSongPlayer(song));
-      dispatch(setSongId(song.encodeId));
-      dispatch(setPlaylistSong(playlistCanPlay));
-
-      // dispatch(
-      //   setCurrentIndexSong(
-      //     playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
-      //   )
-      // );
+      dispatch(
+        setCurrentIndexSong(
+          shuffle(
+            [...playlistCanPlay].findIndex(
+              (item) => item.encodeId === song.encodeId
+            )
+          )
+        )
+      );
       dispatch(changeIconPlaying(true));
     }
   } else {
