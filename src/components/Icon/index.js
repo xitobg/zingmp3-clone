@@ -1,6 +1,26 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 import { css } from "styled-components";
+
+const Icon = (
+  { children, onClick, className, control, isDisabled, ...props },
+  ref
+) => {
+  return (
+    <StyledIcon
+      className={className}
+      control={control}
+      onClick={onClick}
+      ref={ref}
+      disabled={isDisabled}
+      style={props.style}
+    >
+      {children}
+    </StyledIcon>
+  );
+};
+
+export default forwardRef(Icon);
 const StyledIcon = styled.div`
   border-radius: 100rem;
   font-size: 14px;
@@ -23,18 +43,11 @@ const StyledIcon = styled.div`
       font-size: 18px;
       color: ${(props) => props.theme.textPrimary};
     `};
+  ${(props) =>
+    props.control &&
+    css`
+      &:hover {
+        background-color: transparent;
+      }
+    `};
 `;
-const Icon = ({ children, onClick, className, control }, ref) => {
-  return (
-    <StyledIcon
-      className={className}
-      control={control}
-      onClick={onClick}
-      ref={ref}
-    >
-      {children}
-    </StyledIcon>
-  );
-};
-
-export default forwardRef(Icon);

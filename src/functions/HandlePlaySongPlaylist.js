@@ -18,8 +18,8 @@ function handlePlaySongPlaylist(
   isRandom,
   dispatch
 ) {
+  console.log();
   let playlistCanPlay = [];
-  console.log(playlistCanPlay);
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));
     dispatch(setCurrentTime(0));
@@ -28,11 +28,11 @@ function handlePlaySongPlaylist(
         playlistCanPlay.push(songItem);
       }
     }
+    dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
+    dispatch(setPlaylistSong(playlistCanPlay));
     if (!isRandom) {
       dispatch(setInfoSongPlayer(song));
       dispatch(setSongId(song.encodeId));
-      dispatch(setPlaylistSong(playlistCanPlay));
-      dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
       dispatch(
         setCurrentIndexSong(
           playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)
@@ -42,8 +42,6 @@ function handlePlaySongPlaylist(
     } else if (isRandom) {
       dispatch(setInfoSongPlayer(song));
       dispatch(setSongId(song.encodeId));
-      dispatch(setPlaylistRandom(shuffle([...playlistCanPlay])));
-      dispatch(setPlaylistSong(playlistCanPlay));
       dispatch(
         setCurrentIndexSongRandom(
           playlistCanPlay.findIndex((item) => item.encodeId === song.encodeId)

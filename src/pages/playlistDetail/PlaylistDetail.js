@@ -40,8 +40,8 @@ const PlaylistDetail = () => {
           isPlay === false &&
             handlePlaySongPlaylist(
               data?.song?.items[0],
-              id,
               data?.song?.items,
+              id,
               isRandom,
               dispatch
             );

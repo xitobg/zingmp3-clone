@@ -1,26 +1,40 @@
-import React, { useEffect, useRef, useState } from "react";
-import { GiMicrophone } from "react-icons/gi";
-import Icon from "~/components/Icon";
+import React from "react";
 import SlideShow from "./SlideShow";
 import styled from "styled-components";
-import ConvertDuration from "~/utils/ConvertTime";
-import Tippy from "@tippyjs/react";
-import { Link } from "react-router-dom";
 import SongItem from "~/components/songItem";
-import {
-  changeIconPlaying,
-  setAudioSrc,
-  setCurrentIndexSong,
-  setCurrentTime,
-  setInfoSongPlayer,
-  setPlaylistId,
-  setPlaylistRandom,
-  setPlaylistSong,
-  setRandomSong,
-  setSongId,
-} from "~/redux-toolkit/audio/audioSlice";
+
 import { useDispatch, useSelector } from "react-redux";
-import Swal from "sweetalert2";
+
+const SongSection = ({ data = {}, onClick = () => {}, id }) => {
+  const dispatch = useDispatch();
+  const { isRandom } = useSelector((state) => state.audio);
+  const { items, title } = data;
+
+  return (
+    <StyledSectionSong className="container-layout">
+      <h3>{title}</h3>
+      <div className="flex mb-[25px]">
+        <div className="relative artist-detail-slideshow  pt-[10px] w-[270px] h-[230px] flex items-center">
+          <SlideShow data={items} />
+        </div>
+        <div className="h-[244px] has-scroll-bar play-list pl-5 w-full flex flex-col flex-1">
+          {items?.length > 0 &&
+            items?.map((item, index) => {
+              return (
+                <SongItem
+                  onClick={() => onClick(item, items, id, isRandom, dispatch)}
+                  key={item.encodeId}
+                  item={item}
+                />
+              );
+            })}
+        </div>
+      </div>
+    </StyledSectionSong>
+  );
+};
+
+export default SongSection;
 const StyledSectionSong = styled.div`
   .play-list {
     & .song-item {
@@ -117,33 +131,3 @@ const StyledSectionSong = styled.div`
     }
   }
 `;
-const SongSection = ({ data = {}, onClick = () => {}, id }) => {
-  const dispatch = useDispatch();
-  const { isRandom } = useSelector((state) => state.audio);
-  const { items, title } = data;
-
-  return (
-    <StyledSectionSong className="container-layout">
-      <h3>{title}</h3>
-      <div className="flex mb-[25px]">
-        <div className="relative artist-detail-slideshow  pt-[10px] w-[270px] h-[230px] flex items-center">
-          <SlideShow data={items} />
-        </div>
-        <div className="h-[244px] has-scroll-bar play-list pl-5 w-full flex flex-col flex-1">
-          {items?.length > 0 &&
-            items?.map((item, index) => {
-              return (
-                <SongItem
-                  onClick={() => onClick(item, items, id, isRandom, dispatch)}
-                  key={item.encodeId}
-                  item={item}
-                />
-              );
-            })}
-        </div>
-      </div>
-    </StyledSectionSong>
-  );
-};
-
-export default SongSection;

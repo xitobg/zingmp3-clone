@@ -5,12 +5,10 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import {
   changeIconPlaying,
-  setAudioSrc,
   setCurrentIndexSong,
   setCurrentIndexSongRandom,
   setInfoSongPlayer,
   setLoadingPlay,
-  setPlaylistSong,
   setRandomSong,
   setRepeatSong,
   setSongId,
@@ -40,9 +38,7 @@ const Control = ({ valueVolume = 100 }) => {
   let currentIndexRandom = useSelector(
     (state) => state.audio.currentIndexSongRandom
   );
-  console.log("currentIndex", currentIndex);
-  console.log("currentIndexRandom", currentIndexRandom);
-  console.log(playlistRandom.indexOf(playlistRandom[currentIndexRandom]));
+  // console.log(playlistId);
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
@@ -57,7 +53,7 @@ const Control = ({ valueVolume = 100 }) => {
     }
   };
 
-  const handleNextSong = () => {
+  const handleNextSong = (e) => {
     if (songActive) {
       scrollIntoView(songActive);
     }
@@ -182,7 +178,16 @@ const Control = ({ valueVolume = 100 }) => {
     audioRef.current.currentTime = currentime;
     return currentime;
   };
-
+  //disable button when playlist.length = 1
+  const isDisable = useMemo(() => {
+    return playlistSong.length === 1;
+  }, [playlistSong.length]);
+  const disableStyleBtn = useMemo(() => {
+    return {
+      opacity: isDisable ? 0.5 : 1,
+      cursor: isDisable ? "not-allowed" : "pointer",
+    };
+  });
   useEffect(() => {
     audioRef.current.volume = valueVolume / 100;
   }, [valueVolume]);
@@ -203,7 +208,13 @@ const Control = ({ valueVolume = 100 }) => {
               ></i>
             </Icon>
           </Tippy>
-          <Icon className="prev-btn" onClick={handlePrevSong} control>
+          <Icon
+            isDisabled={isDisable}
+            style={disableStyleBtn}
+            className="prev-btn"
+            onClick={handlePrevSong}
+            control
+          >
             <i className="p-1 bi bi-skip-start-fill"></i>
           </Icon>
           <button
@@ -217,7 +228,12 @@ const Control = ({ valueVolume = 100 }) => {
             )}
             {loadingPlay && <IconLoading />}
           </button>
-          <Icon onClick={handleNextSong} control>
+          <Icon
+            style={disableStyleBtn}
+            isDisabled={isDisable}
+            onClick={handleNextSong}
+            control
+          >
             <i className="p-1 bi bi-skip-end-fill"></i>
           </Icon>
           <Tippy content="Phát lại một bài">

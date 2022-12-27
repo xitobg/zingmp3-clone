@@ -6,11 +6,6 @@ import SuggestItem from "./Popper/SuggestItem";
 import styled from "styled-components";
 import { useDebounce } from "~/hooks";
 import SearchSuggest from "./Popper/SearchSuggest";
-import axios from "axios";
-import { toast } from "react-toastify";
-import Loading from "~/components/loading/Loading";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "~/redux-toolkit/global/globalSlice";
 import request from "~/services/request";
 import LoadingSearch from "~/components/loading/LoadingSearch";
 
