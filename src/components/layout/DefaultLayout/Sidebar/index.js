@@ -178,9 +178,13 @@ const StyledSidebar = styled.div`
     border-color: transparent;
     font-size: 13px;
     color: ${(props) => props.theme.navigationText};
+    transition: 0.4s all;
 
     &:hover {
       opacity: 0.8;
+    }
+    &:not(.active):hover {
+      transform: translateX(4px);
     }
     &.active {
       border-color: ${(props) => props.theme.purplePrimary};
