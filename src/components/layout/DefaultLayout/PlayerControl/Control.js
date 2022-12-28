@@ -24,6 +24,7 @@ const Control = ({ valueVolume = 100 }) => {
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   let songActive = document.querySelector(".song-item.active");
+
   const {
     isPlay,
     loadingPlay,
@@ -38,7 +39,6 @@ const Control = ({ valueVolume = 100 }) => {
   let currentIndexRandom = useSelector(
     (state) => state.audio.currentIndexSongRandom
   );
-  console.log(currentIndex);
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
