@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-const SlideShow = ({ data = [], onClick }) => {
+import handlePlaySongPlaylist from "~/functions/HandlePlaySongPlaylist";
+
+const SlideShow = ({ data = [], onClick, ...props }) => {
+  // console.log(data);
   // eslint-disable-next-line no-unused-vars
   const [slideData, setSlideData] = useState(data);
   const [slideFirst, setSlideFirst] = useState(0);
@@ -27,9 +30,17 @@ const SlideShow = ({ data = [], onClick }) => {
         slideData?.map((slide, index) => {
           return (
             <div
-              onClick={onClick}
+              onClick={() =>
+                handlePlaySongPlaylist(
+                  slide,
+                  slideData,
+                  props?.pId,
+                  props?.isRandom,
+                  props?.dispatch
+                )
+              }
               key={slide.encodeId}
-              className={`song-animated-item ${
+              className={`song-animated-item cursor-pointer ${
                 index === slideFirst
                   ? "first"
                   : index === slideSecond

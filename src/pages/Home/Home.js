@@ -72,7 +72,6 @@ const Home = () => {
       .then((res) => {
         if (res.data && res.data.data) {
           const { items } = res.data.data;
-          console.log(items);
           // console.log(items);
           dispatchAction(setHomeData(items));
           dispatch(setLoading(false));

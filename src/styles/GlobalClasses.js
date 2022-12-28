@@ -104,7 +104,7 @@ export const GlobalClasses = css`
       background: ${(props) => props.theme.tabActiveBg};
     }
   }
-
+  //slide page artist
   .song-animated-item {
     position: absolute;
     cursor: pointer;

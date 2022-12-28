@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import Swal from "sweetalert2";
 import ArtistBanner from "~/components/artistBanner";
 import ArtistBiography from "~/components/artistBiography";
 import Loading from "~/components/loading/Loading";
@@ -29,7 +28,6 @@ const ArtistDetails = () => {
         if (res.data && res.data.data) {
           setSingerData(res.data.data);
           const { sections } = res.data.data;
-          console.log(sections);
           handlePlaySongPlaylist(
             sections[0]?.items[0],
             sections[0]?.items,

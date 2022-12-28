@@ -16,7 +16,7 @@ import iconPlaying from "~/assets/image/iconPlaying.gif";
 import { IoIosMusicalNotes } from "react-icons/io";
 import viplabel from "~/assets/image/vipLabel.svg";
 import IconLoading from "../Icon/IconLoading";
-import scrollIntoView from "~/utils/ScrollIntoView";
+import { toast } from "react-toastify";
 
 const SongItem = ({
   item,
@@ -193,17 +193,31 @@ const SongItem = ({
             <div className="hover-item">
               <Tippy content="Phát cùng lời bài hát">
                 <Icon>
-                  <GiMicrophone />
+                  <GiMicrophone
+                    onClick={() =>
+                      toast.warning("Tính năng chưa được cập nhật!")
+                    }
+                  />
                 </Icon>
               </Tippy>
               <Tippy content="Thêm vào thư viện">
                 <Icon className="add-to-library">
-                  <i className="bi icon-heart bi-heart"></i>
+                  <i
+                    onClick={() =>
+                      toast.warning("Tính năng chưa được cập nhật!")
+                    }
+                    className="bi icon-heart bi-heart"
+                  ></i>
                 </Icon>
               </Tippy>
               <Tippy content="Khác">
                 <Icon>
-                  <i className="bi bi-three-dots"></i>
+                  <i
+                    onClick={() =>
+                      toast.warning("Tính năng chưa được cập nhật!")
+                    }
+                    className="bi bi-three-dots"
+                  ></i>
                 </Icon>
               </Tippy>
             </div>

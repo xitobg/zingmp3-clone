@@ -12,13 +12,12 @@ import {
 } from "~/redux-toolkit/audio/audioSlice";
 import { shuffle } from "./ShuffleArr";
 function handlePlaySongPlaylist(
-  song,
-  playlist,
-  idPlaylist,
+  song = {},
+  playlist = [],
+  idPlaylist = "",
   isRandom,
   dispatch
 ) {
-  console.log();
   let playlistCanPlay = [];
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));

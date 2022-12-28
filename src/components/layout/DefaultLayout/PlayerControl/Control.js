@@ -52,8 +52,20 @@ const Control = ({ valueVolume = 100 }) => {
       }
     }
   };
-
-  const handleNextSong = (e) => {
+  //disable button when playlist.length = 1
+  const isDisable = useMemo(() => {
+    return playlistSong.length <= 1;
+  }, [playlistSong.length]);
+  const disableStyleBtn = useMemo(() => {
+    return {
+      opacity: isDisable ? 0.5 : 1,
+      cursor: isDisable ? "not-allowed" : "pointer",
+    };
+  }, [isDisable]);
+  const handleNextSong = () => {
+    if (isDisable) {
+      return;
+    }
     if (songActive) {
       scrollIntoView(songActive);
     }
@@ -115,6 +127,9 @@ const Control = ({ valueVolume = 100 }) => {
   const handlePrevSong = () => {
     if (songActive) {
       scrollIntoView(songActive);
+    }
+    if (isDisable) {
+      return;
     }
     dispatch(setLoadingPlay(true));
     if (!isRandom) {
@@ -178,16 +193,7 @@ const Control = ({ valueVolume = 100 }) => {
     audioRef.current.currentTime = currentime;
     return currentime;
   };
-  //disable button when playlist.length = 1
-  const isDisable = useMemo(() => {
-    return playlistSong.length === 1;
-  }, [playlistSong.length]);
-  const disableStyleBtn = useMemo(() => {
-    return {
-      opacity: isDisable ? 0.5 : 1,
-      cursor: isDisable ? "not-allowed" : "pointer",
-    };
-  });
+
   useEffect(() => {
     audioRef.current.volume = valueVolume / 100;
   }, [valueVolume]);

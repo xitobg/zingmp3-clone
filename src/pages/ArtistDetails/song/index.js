@@ -4,18 +4,28 @@ import styled from "styled-components";
 import SongItem from "~/components/songItem";
 
 import { useDispatch, useSelector } from "react-redux";
+import LoadingSlideShow from "~/components/loading/LoadingSlideShow";
 
 const SongSection = ({ data = {}, onClick = () => {}, id }) => {
   const dispatch = useDispatch();
-  const { isRandom } = useSelector((state) => state.audio);
+  const { isRandom, loadingPlay } = useSelector((state) => state.audio);
   const { items, title } = data;
-
   return (
     <StyledSectionSong className="container-layout">
       <h3>{title}</h3>
       <div className="flex mb-[25px]">
         <div className="relative artist-detail-slideshow  pt-[10px] w-[270px] h-[230px] flex items-center">
-          <SlideShow data={items} />
+          <SlideShow
+            data={items}
+            pId={id}
+            isRandom={isRandom}
+            dispatch={dispatch}
+          />
+          {loadingPlay && (
+            <div className="loading-play-slide-show absolute z-50 top-2/4 left-[calc(50%+20px)] -translate-x-2/4 -translate-y-2/4">
+              <LoadingSlideShow />
+            </div>
+          )}
         </div>
         <div className="h-[244px] has-scroll-bar play-list pl-5 w-full flex flex-col flex-1">
           {items?.length > 0 &&
