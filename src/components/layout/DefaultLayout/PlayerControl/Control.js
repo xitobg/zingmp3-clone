@@ -38,7 +38,7 @@ const Control = ({ valueVolume = 100 }) => {
   let currentIndexRandom = useSelector(
     (state) => state.audio.currentIndexSongRandom
   );
-  // console.log(playlistId);
+  console.log(currentIndex);
   const handlePlaySong = () => {
     if (isPlay) {
       dispatch(changeIconPlaying(false));
@@ -69,14 +69,12 @@ const Control = ({ valueVolume = 100 }) => {
     if (songActive) {
       scrollIntoView(songActive);
     }
-    dispatch(setLoadingPlay(true));
     if (!isRandom) {
       if (currentIndex >= playlistSong.length - 1) {
-        dispatch(setCurrentTime(0));
         dispatch(setCurrentIndexSong(0));
         dispatch(setInfoSongPlayer(playlistSong[0]));
         dispatch(setSongId(playlistSong[0].encodeId));
-        let codeId = playlistSong[0].encodeId;
+        let codeId = playlistSong[currentIndex].encodeId;
         dispatch(
           setCurrentIndexSongRandom(
             playlistRandom.findIndex((item) => item.encodeId === codeId)
@@ -100,7 +98,6 @@ const Control = ({ valueVolume = 100 }) => {
         dispatch(setCurrentIndexSongRandom(0));
         dispatch(setInfoSongPlayer(playlistRandom[0]));
         dispatch(setSongId(playlistRandom[0]?.encodeId));
-        // dispatch(setCurrentIndexSong(playlistSong.indexOf(playlistRandom[0])));
         let codeId = playlistRandom[0].encodeId;
         dispatch(
           setCurrentIndexSong(
@@ -137,19 +134,22 @@ const Control = ({ valueVolume = 100 }) => {
         dispatch(setCurrentIndexSong(playlistSong.length - 1));
         dispatch(setInfoSongPlayer(playlistSong[playlistSong.length - 1]));
         dispatch(setSongId(playlistSong[playlistSong.length - 1].encodeId));
+        let codeId = playlistSong[playlistSong.length - 1].encodeId;
         dispatch(
           setCurrentIndexSongRandom(
-            playlistRandom.indexOf(playlistSong[playlistSong.length - 1])
+            playlistRandom.findIndex((item) => item.encodeId === codeId)
           )
         );
+
         dispatch(changeIconPlaying(true));
       } else {
         dispatch(setCurrentIndexSong((currentIndex -= 1)));
         dispatch(setInfoSongPlayer(playlistSong[currentIndex]));
         dispatch(setSongId(playlistSong[currentIndex].encodeId));
+        let codeId = playlistSong[currentIndex].encodeId;
         dispatch(
           setCurrentIndexSongRandom(
-            playlistRandom.indexOf(playlistSong[currentIndex])
+            playlistRandom.findIndex((item) => item.encodeId === codeId)
           )
         );
         dispatch(changeIconPlaying(true));

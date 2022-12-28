@@ -21,7 +21,6 @@ function handlePlaySongPlaylist(
   let playlistCanPlay = [];
   if (song.streamingStatus === 1) {
     dispatch(setPlaylistId(idPlaylist));
-    dispatch(setCurrentTime(0));
     for (let songItem of playlist) {
       if (songItem.streamingStatus === 1) {
         playlistCanPlay.push(songItem);
