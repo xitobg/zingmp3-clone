@@ -14,6 +14,7 @@ import InputPasswordToggle from "~/components/input/InputPasswordToggle";
 import logoMp3 from "~/assets/image/logomp3.svg";
 import Swal from "sweetalert2";
 import { useAuth } from "~/contexts/auth-context";
+import getMessage from "~/utils/getMessage";
 
 const schema = yup.object({
   email: yup
@@ -55,10 +56,8 @@ const SignIn = () => {
     if (!isValid) return;
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
-      Swal.fire({
-        icon: "success",
-        text: `Đăng nhập thành công`,
-      });
+      getMessage("success", `Đăng nhập thành công`);
+
       navigate("/");
     } catch (error) {
       console.log(error);

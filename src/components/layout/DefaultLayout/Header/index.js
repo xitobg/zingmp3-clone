@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useClickOutSide from "~/hooks/useClickOutSide";
 import Swal from "sweetalert2";
+import getMessage from "~/utils/getMessage";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -29,10 +30,7 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         setUserInfo(undefined);
-        Swal.fire({
-          icon: "success",
-          text: "Đăng xuất thành công",
-        });
+        getMessage("success", "Đăng xuất thành công");
       })
       .catch((err) => {
         console.log(err);

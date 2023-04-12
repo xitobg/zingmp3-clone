@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { changeIconPlaying } from "~/redux-toolkit/audio/audioSlice";
 import { setIdMv, setShowVideoMV } from "~/redux-toolkit/video/videoMvSlice";
 import ConvertDuration from "~/utils/ConvertTime";
+import getMessage from "~/utils/getMessage";
 
 const ListMv = ({ data = {}, isActive, className = "" }) => {
   const dispatch = useDispatch();
@@ -20,10 +21,7 @@ const ListMv = ({ data = {}, isActive, className = "" }) => {
         audioElm.pause();
       }
     } else {
-      Swal.fire({
-        icon: "error",
-        text: "MV dành cho tài khoản Vip!",
-      });
+      getMessage("error", "MV dành cho tài khoản Vip!");
     }
   };
 

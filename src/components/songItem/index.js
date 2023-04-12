@@ -40,7 +40,7 @@ const SongItem = ({
     duration,
     streamingStatus,
   } = item;
-
+  console.log(item);
   return (
     <StyledSong
       playingBar={playingBar}
@@ -148,13 +148,13 @@ const SongItem = ({
                 )}
               </div>
             ) : (
-              <Link
-                to={item.link}
-                state={{ id: item.encodeId }}
+              <div
+                // to={item}
+                // state={{ id: item.encodeId }}
                 className="song__search-name"
               >
                 {title}
-              </Link>
+              </div>
             )}
             <div className="text-xs song__info-author">
               {artists?.length > 0 &&

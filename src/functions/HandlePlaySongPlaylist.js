@@ -3,7 +3,6 @@ import {
   changeIconPlaying,
   setCurrentIndexSong,
   setCurrentIndexSongRandom,
-  setCurrentTime,
   setInfoSongPlayer,
   setPlaylistId,
   setPlaylistRandom,
@@ -11,6 +10,7 @@ import {
   setSongId,
 } from "~/redux-toolkit/audio/audioSlice";
 import { shuffle } from "./ShuffleArr";
+import getMessage from "~/utils/getMessage";
 function handlePlaySongPlaylist(
   song = {},
   playlist = [],
@@ -57,10 +57,7 @@ function handlePlaySongPlaylist(
       dispatch(changeIconPlaying(true));
     }
   } else {
-    Swal.fire({
-      icon: "error",
-      text: "Bài hát dành cho tài khoản Vip!",
-    });
+    getMessage("error", "Bài hát dành cho tài khoản Vip!");
   }
 }
 export default handlePlaySongPlaylist;
